@@ -1,11 +1,15 @@
 #include"bits/stdc++.h"
 using namespace std;
 
-#define debug if(1)
-#define watch(x) debug {cout << __LINE__ << ": " << (#x) << " is " << (x) << endl ;}
-#define watch_tab(x,n) debug {cout << __LINE__ << ": " << (#x) << " is "; \
-    for(int very_long_index=0;very_long_index<n;very_long_index++){ cout << x[very_long_index] << ", ";}\
-    cout << endl;}
+#ifndef DEBUG
+#define DEBUG 0
+#endif
+
+#if DEBUG==1
+#include"../lib/universal_print.h"
+#else
+#define watch(x)
+#endif
 
 typedef long long ll;
 typedef unsigned long long ull;
@@ -15,4 +19,5 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
+    watch(10);
 }
