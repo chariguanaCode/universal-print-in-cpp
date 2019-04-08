@@ -19,5 +19,8 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    watch(10);
+    int a[1]={0};
+    int*b=new int[10];
+    cout << is_iterable<decltype(a)>::value << endl;
+    cout << is_iterable<decltype(b)>::value << endl;
 }
