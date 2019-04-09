@@ -5,7 +5,7 @@
  *      Nickname:   charodziej
  *
  *  Description:    A library implementing a uniform method of printing variables in C++
- *                  Mainly directed for competetive programming, to greatly speedup debugging
+ *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
  *  Last updated:   09.04.2019
@@ -68,9 +68,17 @@ template <typename T, typename U                                                
  *  The main definition called by the user from the main program
  * ------------------------------------------------------------------------------ */
 #define watch(x)\
-    std::cout << __LINE__ << ": " << #x << " is ";\
-    print_process(x);\
-    std::cout << '\n';
+    print_main(x,__LINE__,#x);
+
+/* ------------------------------------------------------------------------------
+ *  The main function doing all the magic
+ * ------------------------------------------------------------------------------ */
+template <typename T>
+void print_main(T &x, int line, std::string name){
+    std::cout << line << ": " << name << " is ";
+    print_process(x);
+    std::cout << std::endl;
+}
 
 /* ------------------------------------------------------------------------------
  *  Printing of variables compatible with std::cout TODO: probably should check using is_arithmetic
@@ -86,6 +94,7 @@ void print_process(T &x){
  * ------------------------------------------------------------------------------ */
 template <typename T, typename std::enable_if< (std::is_pointer <T>::value),T>::type* =nullptr>
 void print_process(T &x){
+    std::cout << '*';
     print_process(*x);
 }
 
@@ -121,52 +130,68 @@ void print_process(T &x){
         unsigned int rank=std::rank<T>::value;
         array_extent_push(0);
         array_extent_push(1);
+        array_extent_push(2);
+        array_extent_push(3);
+        array_extent_push(4);
+        array_extent_push(5);
 
         array_process(x,sizes);
+
     } else {
         std::cout << "{ ";
         for (int i = 0; i < 4; ++i) indent.push_back(' ');
+
         if(is_iterable<decltype(*begin(x))>::value)
             std::cout << '\n' << indent;
+
         for (auto e : x) {
+
             print_process(e);
+
             if(is_iterable<decltype(*begin(x))>::value) {
                 std::cout << '\n' << indent;
             } else {
                 std::cout << ' ';
             }
         }
-        for (int i = 0; i < 4; ++i) indent.pop_back();
+
         if(is_iterable<decltype(*begin(x))>::value)
             std::cout << "\e[4D";
+
+        for (int i = 0; i < 4; ++i) indent.pop_back();
         std::cout << "}";
     }
 }
 
 /* ------------------------------------------------------------------------------
- *  Recurrently go through all dimensions of an array
+ *  Recursively go through all dimensions of an array
  * ------------------------------------------------------------------------------ */
 template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr>
 void array_process(T &x, std::queue<int> sizes){
-    unsigned int n=sizes.front();
+    int n=sizes.front();
     sizes.pop();
 
     std::cout << "{ ";
     for (int i = 0; i < 4; ++i) indent.push_back(' ');
+
     if(sizes.size()>0)
         std::cout << '\n' << indent;
 
     for (int i = 0; i < n; ++i) {
+
         array_process(x[i],sizes);
+
         if(sizes.size()>0) {
             std::cout << '\n' << indent;
         } else {
             std::cout << ' ';
         }
     }
-    for (int i = 0; i < 4; ++i) indent.pop_back();
+
     if(sizes.size()>0)
         std::cout << "\e[4D";
+
+    for (int i = 0; i < 4; ++i) indent.pop_back();
     std::cout << "}";
 }
 
