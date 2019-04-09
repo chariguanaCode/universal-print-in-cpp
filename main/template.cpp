@@ -31,9 +31,7 @@ int main(){
     int xd=10;
     string ala="ma kota";
     xdxd d;
-    cout << is_iterable<decltype(a)>::value << endl;
-    cout << is_iterable<decltype(b)>::value << endl;
-    cout << is_iterable<decltype(c)>::value << endl;
+    cin >> d.x;
     cout << typeid(a).name() << endl;
     //watch(10);         //nie działa :'(
     watch(a);
