@@ -22,11 +22,14 @@ void print_process(xdxd t){
 }
 
 int main(){
+#if DEBUG==0
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
+#endif
 
-    int a[1]={0};
+    int a[4]={0,2,3,4};
+    int two_d[4][2]={{0,1},{2,3},{4,5},{6,7}};
     int*b=new int[10];
     vector<int> c;
     int xd=10;
@@ -36,9 +39,11 @@ int main(){
     cout << typeid(a).name() << endl;
     //watch(10);         //nie działa :'(
     watch(a);
+    watch(a[0]);
     watch(b);
     watch(c);
     watch(d);
     watch(xd);
+    watch(two_d);
     watch(ala);
 }
