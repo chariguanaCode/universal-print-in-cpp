@@ -112,7 +112,7 @@ void print_process(T&x){
 /* ------------------------------------------------------------------------------
  *  Recurrently go through all dimensions of an array
  * ------------------------------------------------------------------------------ */
-template <typename T, typename std::enable_if<(      is_iterable<T>::value),T>::type* =nullptr>
+template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr>
 void array_process(T &x, std::queue<int> sizes){
     std::cout << "{ ";
     unsigned int n=sizes.front();
