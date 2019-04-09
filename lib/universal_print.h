@@ -79,11 +79,30 @@ void print_process(T &x){
 }
 
 /* ------------------------------------------------------------------------------
- *  Handling of pointers
+ *  Handling pointers
  * ------------------------------------------------------------------------------ */
 template <typename T, typename std::enable_if< (std::is_pointer <T>::value),T>::type* =nullptr>
 void print_process(T&x){
     print_process(*x);
+}
+
+/* ------------------------------------------------------------------------------
+ *  Handling strings ( they are iterable, but shouldn't be shown like arrays )
+ * ------------------------------------------------------------------------------ */
+void print_process(std::string &x){
+    std::cout << "\"" << x << "\" ";
+}
+
+/* ------------------------------------------------------------------------------
+ *  Handling pairs
+ * ------------------------------------------------------------------------------ */
+template <typename T, typename U>
+void print_process(std::pair<T,U> &x){
+    std::cout << "( ";
+    print_process(x.first);
+    std::cout << ", ";
+    print_process(x.second);
+    std::cout << ") ";
 }
 
 /* ------------------------------------------------------------------------------
@@ -112,7 +131,7 @@ void print_process(T&x){
 /* ------------------------------------------------------------------------------
  *  Recurrently go through all dimensions of an array
  * ------------------------------------------------------------------------------ */
-template <typename T, typename std::enable_if<(      is_iterable<T>::value),T>::type* =nullptr>
+template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr>
 void array_process(T &x, std::queue<int> sizes){
     std::cout << "{ ";
     unsigned int n=sizes.front();

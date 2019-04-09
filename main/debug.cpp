@@ -35,8 +35,8 @@ int main(){
     int xd=10;
     string ala="ma kota";
     xdxd d;
-    cin >> d.x;
-    cout << typeid(a).name() << endl;
+    pair<int,string> my_pair=make_pair(29,"testing");
+
     //watch(10);         //nie działa :'(
     watch(a);
     watch(a[0]);
@@ -46,4 +46,5 @@ int main(){
     watch(xd);
     watch(two_d);
     watch(ala);
+    watch(my_pair);
 }
