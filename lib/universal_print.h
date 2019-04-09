@@ -21,6 +21,7 @@
 #include<bits/stdc++.h>
 
 #define debug if(1)
+std::string indent="";
 
 /* ------------------------------------------------------------------------------
  *  Method of determining if a variable is iterable
@@ -57,9 +58,11 @@ template <typename T, typename std::enable_if<!(     is_iterable<T>::value||
 template <typename T, typename std::enable_if< (std::is_pointer <T>::value),T>::type* =nullptr> void print_process(T &x);
 template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr> void print_process(T &x);
 
-#define array_extent_push(i) if(i<rank)sizes.push(std::extent<T,i>::value);
 template <typename T, typename std::enable_if<!(     is_iterable<T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes);
 template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes);
+
+                                                                                                void print_process(std::string    &x);
+template <typename T, typename U                                                              > void print_process(std::pair<T,U> &x);
 
 /* ------------------------------------------------------------------------------
  *  The main definition called by the user from the main program
@@ -75,14 +78,14 @@ template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::
 template <typename T, typename std::enable_if<!(     is_iterable<T>::value||
                                                 std::is_pointer <T>::value),T>::type* =nullptr>
 void print_process(T &x){
-    std::cout << x << " ";
+    std::cout << x;
 }
 
 /* ------------------------------------------------------------------------------
  *  Handling pointers
  * ------------------------------------------------------------------------------ */
 template <typename T, typename std::enable_if< (std::is_pointer <T>::value),T>::type* =nullptr>
-void print_process(T&x){
+void print_process(T &x){
     print_process(*x);
 }
 
@@ -90,7 +93,7 @@ void print_process(T&x){
  *  Handling strings ( they are iterable, but shouldn't be shown like arrays )
  * ------------------------------------------------------------------------------ */
 void print_process(std::string &x){
-    std::cout << "\"" << x << "\" ";
+    std::cout << "\"" << x << "\"";
 }
 
 /* ------------------------------------------------------------------------------
@@ -102,7 +105,7 @@ void print_process(std::pair<T,U> &x){
     print_process(x.first);
     std::cout << ", ";
     print_process(x.second);
-    std::cout << ") ";
+    std::cout << " )";
 }
 
 /* ------------------------------------------------------------------------------
@@ -110,8 +113,9 @@ void print_process(std::pair<T,U> &x){
  *  std::rank returns the number of dimensions of a standard array, allowing us to process
  *  multi dimensional arrays ( only the first level is iterable )
  * ------------------------------------------------------------------------------ */
+#define array_extent_push(i) if(i<rank)sizes.push(std::extent<T,i>::value);
 template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr>
-void print_process(T&x){
+void print_process(T &x){
     if(std::rank<T>::value){
         std::queue<int>sizes;
         unsigned int rank=std::rank<T>::value;
@@ -121,9 +125,20 @@ void print_process(T&x){
         array_process(x,sizes);
     } else {
         std::cout << "{ ";
+        for (int i = 0; i < 4; ++i) indent.push_back(' ');
+        if(is_iterable<decltype(*begin(x))>::value)
+            std::cout << '\n' << indent;
         for (auto e : x) {
             print_process(e);
+            if(is_iterable<decltype(*begin(x))>::value) {
+                std::cout << '\n' << indent;
+            } else {
+                std::cout << ' ';
+            }
         }
+        for (int i = 0; i < 4; ++i) indent.pop_back();
+        if(is_iterable<decltype(*begin(x))>::value)
+            std::cout << "\e[4D";
         std::cout << "}";
     }
 }
@@ -133,13 +148,25 @@ void print_process(T&x){
  * ------------------------------------------------------------------------------ */
 template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr>
 void array_process(T &x, std::queue<int> sizes){
-    std::cout << "{ ";
     unsigned int n=sizes.front();
     sizes.pop();
+
+    std::cout << "{ ";
+    for (int i = 0; i < 4; ++i) indent.push_back(' ');
+    if(sizes.size()>0)
+        std::cout << '\n' << indent;
+
     for (int i = 0; i < n; ++i) {
         array_process(x[i],sizes);
-        if(sizes.size()>0)std::cout << '\n';
+        if(sizes.size()>0) {
+            std::cout << '\n' << indent;
+        } else {
+            std::cout << ' ';
+        }
     }
+    for (int i = 0; i < 4; ++i) indent.pop_back();
+    if(sizes.size()>0)
+        std::cout << "\e[4D";
     std::cout << "}";
 }
 
