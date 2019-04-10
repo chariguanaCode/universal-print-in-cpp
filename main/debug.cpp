@@ -17,15 +17,22 @@ typedef unsigned long long ull;
 
 struct xdxd {int x;};
 
+#if DEBUG==1
 void print_process(xdxd t){
-    cout << t.x << " ";
+    print_process(t.x);
 }
+#endif
 
 int main(){
 #if DEBUG==0
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
+#else
+    cout << colour(250) <<\
+            "/* ------------------------------------------------------------------------------"    << '\n' <<\
+            " *                                 DEBUG MODE                                    "    << '\n' <<\
+            " * ------------------------------------------------------------------------------ */" << '\n' << clear();
 #endif
 
     int a[4]={0,2,3,4};

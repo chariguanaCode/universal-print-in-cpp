@@ -8,7 +8,7 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
- *  Last updated:   09.04.2019
+ *  Last updated:   10.04.2019
  *
  *  universal-print-in-cpp
  *  Universal print in C++
@@ -19,8 +19,16 @@
  * ============================================================================== */
 
 #include<bits/stdc++.h>
+#ifndef _MSC_VER
+#   include <cxxabi.h>
+#endif
 
 #define debug if(1)
+
+#ifndef SHOW_TYPE_NAME
+#define SHOW_TYPE_NAME 1
+#endif
+
 std::string indent="";
 
 /* ------------------------------------------------------------------------------
@@ -49,6 +57,36 @@ namespace detail
 
 template <typename T>
 using is_iterable = decltype(detail::is_iterable_impl<T>(0));
+ 
+/* ------------------------------------------------------------------------------
+ *  Method of determining variables type ( may not be used in the final version )
+ *  thx to Howard Hinnant
+ *  https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c
+ * ------------------------------------------------------------------------------ */
+template <class T>
+std::string type_name() {
+    typedef typename std::remove_reference<T>::type TR;
+    std::unique_ptr<char, void(*)(void*)> own
+           (
+#ifndef _MSC_VER
+                abi::__cxa_demangle(typeid(TR).name(), nullptr,
+                                           nullptr, nullptr),
+#else
+                nullptr,
+#endif
+                std::free
+           );
+    std::string r = own != nullptr ? own.get() : typeid(TR).name();
+    if (std::is_const<TR>::value)
+        r += " const";
+    if (std::is_volatile<TR>::value)
+        r += " volatile";
+    if (std::is_lvalue_reference<T>::value)
+        r += "&";
+    else if (std::is_rvalue_reference<T>::value)
+        r += "&&";
+    return r;
+}
 
 /* ------------------------------------------------------------------------------
  *  Declaration of all the functions to prevent errors related to definition order
@@ -67,6 +105,14 @@ template <typename T                                                            
 template <typename T                                                                            > void print_process(std::queue<T>          &x);
 template <typename T                                                                            > void print_process(std::priority_queue<T> &x);
 
+
+/* ------------------------------------------------------------------------------
+ *  Colours!
+ * ------------------------------------------------------------------------------ */
+#define colour(val) "\033[38;5;"<<val<<"m"
+#define bold()      "\033[1m"
+#define clear()     "\033[0m"
+
 /* ------------------------------------------------------------------------------
  *  The main definition called by the user from the main program
  * ------------------------------------------------------------------------------ */
@@ -78,9 +124,18 @@ template <typename T                                                            
  * ------------------------------------------------------------------------------ */
 template <typename T>
 void print_main(T &x, int line, std::string name){
-    std::cout << line << ": " << name << " is ";
+#if SHOW_TYPE_NAME==1
+    std::cout << colour(220) << line << colour(15) << ": "\
+              << colour(250) << type_name<T>() << " "\
+              << colour( 40) << bold() << name << clear()\
+              << colour( 15) << " = ";
+#else
+    std::cout << colour(220) << line << colour(15) << ": "\
+              << colour( 40) << bold() << name << clear()\
+              << colour( 15) << " = ";
+#endif
     print_process(x);
-    std::cout << std::endl;
+    std::cout << std::endl << clear();
 }
 
 /* ------------------------------------------------------------------------------
@@ -88,7 +143,7 @@ void print_main(T &x, int line, std::string name){
  * ------------------------------------------------------------------------------ */
 template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value),T>::type* =nullptr>
 void print_process(T &x){
-    std::cout << x;
+    std::cout << colour(44) << bold() << x << clear();
 }
 
 /* ------------------------------------------------------------------------------
@@ -96,7 +151,7 @@ void print_process(T &x){
  * ------------------------------------------------------------------------------ */
 template <size_t T>
 void print_process(std::bitset<T> &x){
-    std::cout << x;
+    std::cout << colour(48) << bold() << x << clear();
 }
 
 /* ------------------------------------------------------------------------------
@@ -104,17 +159,18 @@ void print_process(std::bitset<T> &x){
  * ------------------------------------------------------------------------------ */
 template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
 void print_process(T &x){
-    std::cout << '*';
+    std::cout << colour(213) << bold() << '*' << clear();
     if(x!=nullptr)
         print_process(*x);
-    else std::cout << "NULL";
+    else 
+        std::cout << colour(196) << bold() << "NULL" << clear();
 }
 
 /* ------------------------------------------------------------------------------
  *  Handling strings ( they are iterable, but shouldn't be shown like arrays )
  * ------------------------------------------------------------------------------ */
 void print_process(std::string &x){
-    std::cout << "\"" << x << "\"";
+    std::cout << colour(28) << bold() << "\"" << x << "\"" << clear();
 }
 
 /* ------------------------------------------------------------------------------
@@ -122,11 +178,11 @@ void print_process(std::string &x){
  * ------------------------------------------------------------------------------ */
 template <typename T, typename U>
 void print_process(std::pair<T,U> &x){
-    std::cout << "( ";
+    std::cout << colour(31) << "( " << clear();
     print_process(x.first);
     std::cout << ", ";
     print_process(x.second);
-    std::cout << " )";
+    std::cout << colour(31) << " )" << clear();
 }
 
 /* ------------------------------------------------------------------------------
@@ -198,7 +254,7 @@ void print_process(T &x){
         array_process(x,sizes);
 
     } else {
-        std::cout << "{ ";
+        std::cout << colour(31) << "{ " << clear();
         for (int i = 0; i < 4; ++i) indent.push_back(' ');
 
         if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
@@ -216,10 +272,10 @@ void print_process(T &x){
         }
 
         if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
-            std::cout << "\e[4D";
+            std::cout << "\033[4D";
 
         for (int i = 0; i < 4; ++i) indent.pop_back();
-        std::cout << "}";
+        std::cout << colour(31) << "}" << clear();
     }
 }
 
@@ -231,7 +287,7 @@ void array_process(T &x, std::queue<int> sizes){
     int n=sizes.front();
     sizes.pop();
 
-    std::cout << "{ ";
+    std::cout << colour(31) << "{ " << clear();
     for (int i = 0; i < 4; ++i) indent.push_back(' ');
 
     if(sizes.size()>0)
@@ -249,10 +305,10 @@ void array_process(T &x, std::queue<int> sizes){
     }
 
     if(sizes.size()>0)
-        std::cout << "\e[4D";
+        std::cout << "\033[4D";
 
     for (int i = 0; i < 4; ++i) indent.pop_back();
-    std::cout << "}";
+    std::cout << colour(31) << "}" << clear();
 }
 
 /* ------------------------------------------------------------------------------
