@@ -36,6 +36,19 @@ int main(){
     string ala="ma kota";
     xdxd d;
     pair<int,string> my_pair=make_pair(29,"testing");
+    stack<int> my_stack;
+    queue<int> my_queue;
+    deque<int> my_deque;
+    priority_queue<int> my_priority_queue;
+    int* null_pointer=nullptr;
+    bitset<100> my_bitset;
+    for (auto e : a) {
+        my_stack.push(e);
+        my_queue.push(e);
+        my_deque.push_front(e);
+        my_deque.push_back(e);
+        my_priority_queue.push(e);
+    }
 
     //watch(10);         //nie działa :'(
     watch(a);
@@ -47,4 +60,10 @@ int main(){
     watch(two_d);
     watch(ala);
     watch(my_pair);
+    watch(my_stack);
+    watch(my_queue);
+    watch(my_deque);
+    watch(my_priority_queue);
+    watch(null_pointer);
+    watch(my_bitset);
 }

@@ -53,16 +53,19 @@ using is_iterable = decltype(detail::is_iterable_impl<T>(0));
 /* ------------------------------------------------------------------------------
  *  Declaration of all the functions to prevent errors related to definition order
  * ------------------------------------------------------------------------------ */
-template <typename T, typename std::enable_if<!(     is_iterable<T>::value||
-                                                std::is_pointer <T>::value),T>::type* =nullptr> void print_process(T &x);
-template <typename T, typename std::enable_if< (std::is_pointer <T>::value),T>::type* =nullptr> void print_process(T &x);
-template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr> void print_process(T &x);
+template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value),T>::type* =nullptr> void print_process(T &x);
+template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr> void print_process(T &x);
+template <typename T, typename std::enable_if< (     is_iterable  <T>::value),T>::type* =nullptr> void print_process(T &x);
 
-template <typename T, typename std::enable_if<!(     is_iterable<T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes);
-template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes);
+template <typename T, typename std::enable_if<!(     is_iterable  <T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes);
+template <typename T, typename std::enable_if< (     is_iterable  <T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes);
 
-                                                                                                void print_process(std::string    &x);
-template <typename T, typename U                                                              > void print_process(std::pair<T,U> &x);
+                                                                                                  void print_process(std::string            &x);
+template <size_t   T                                                                            > void print_process(std::bitset<T>         &x);
+template <typename T, typename U                                                                > void print_process(std::pair<T,U>         &x);
+template <typename T                                                                            > void print_process(std::stack<T>          &x);
+template <typename T                                                                            > void print_process(std::queue<T>          &x);
+template <typename T                                                                            > void print_process(std::priority_queue<T> &x);
 
 /* ------------------------------------------------------------------------------
  *  The main definition called by the user from the main program
@@ -81,21 +84,30 @@ void print_main(T &x, int line, std::string name){
 }
 
 /* ------------------------------------------------------------------------------
- *  Printing of variables compatible with std::cout TODO: probably should check using is_arithmetic
+ *  Printing variables compatible with std::cout
  * ------------------------------------------------------------------------------ */
-template <typename T, typename std::enable_if<!(     is_iterable<T>::value||
-                                                std::is_pointer <T>::value),T>::type* =nullptr>
+template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value),T>::type* =nullptr>
 void print_process(T &x){
+    std::cout << x;
+}
+
+/* ------------------------------------------------------------------------------
+ *  Printing bitsets ( compatible with std::cout but aren't arithmetic )
+ * ------------------------------------------------------------------------------ */
+template <size_t T>
+void print_process(std::bitset<T> &x){
     std::cout << x;
 }
 
 /* ------------------------------------------------------------------------------
  *  Handling pointers
  * ------------------------------------------------------------------------------ */
-template <typename T, typename std::enable_if< (std::is_pointer <T>::value),T>::type* =nullptr>
+template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
 void print_process(T &x){
     std::cout << '*';
-    print_process(*x);
+    if(x!=nullptr)
+        print_process(*x);
+    else std::cout << "NULL";
 }
 
 /* ------------------------------------------------------------------------------
@@ -118,12 +130,60 @@ void print_process(std::pair<T,U> &x){
 }
 
 /* ------------------------------------------------------------------------------
+ *  Handling stacks
+ * ------------------------------------------------------------------------------ */
+template <typename T>
+void print_process(std::stack<T> &x){
+    std::stack<T>  tmp=x;
+    std::vector<T> result;
+
+    while(!tmp.empty()){
+        result.push_back(tmp.top());
+        tmp.pop();
+    }
+
+    print_process(result);
+}
+
+/* ------------------------------------------------------------------------------
+ *  Handling queues
+ * ------------------------------------------------------------------------------ */
+template <typename T>
+void print_process(std::queue<T> &x){
+    std::queue<T>  tmp=x;
+    std::vector<T> result;
+
+    while(!tmp.empty()){
+        result.push_back(tmp.front());
+        tmp.pop();
+    }
+
+    print_process(result);
+}
+
+/* ------------------------------------------------------------------------------
+ *  Handling priority queues
+ * ------------------------------------------------------------------------------ */
+template <typename T>
+void print_process(std::priority_queue<T> &x){
+    std::priority_queue<T>  tmp=x;
+    std::vector<T> result;
+
+    while(!tmp.empty()){
+        result.push_back(tmp.top());
+        tmp.pop();
+    }
+
+    print_process(result);
+}
+
+/* ------------------------------------------------------------------------------
  *  Iterating over iterable objects
  *  std::rank returns the number of dimensions of a standard array, allowing us to process
  *  multi dimensional arrays ( only the first level is iterable )
  * ------------------------------------------------------------------------------ */
 #define array_extent_push(i) if(i<rank)sizes.push(std::extent<T,i>::value);
-template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr>
+template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
 void print_process(T &x){
     if(std::rank<T>::value){
         std::queue<int>sizes;
@@ -141,21 +201,21 @@ void print_process(T &x){
         std::cout << "{ ";
         for (int i = 0; i < 4; ++i) indent.push_back(' ');
 
-        if(is_iterable<decltype(*begin(x))>::value)
+        if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
             std::cout << '\n' << indent;
 
         for (auto e : x) {
 
             print_process(e);
 
-            if(is_iterable<decltype(*begin(x))>::value) {
+            if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x)) {
                 std::cout << '\n' << indent;
             } else {
                 std::cout << ' ';
             }
         }
 
-        if(is_iterable<decltype(*begin(x))>::value)
+        if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
             std::cout << "\e[4D";
 
         for (int i = 0; i < 4; ++i) indent.pop_back();
@@ -166,7 +226,7 @@ void print_process(T &x){
 /* ------------------------------------------------------------------------------
  *  Recursively go through all dimensions of an array
  * ------------------------------------------------------------------------------ */
-template <typename T, typename std::enable_if< (     is_iterable<T>::value),T>::type* =nullptr>
+template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
 void array_process(T &x, std::queue<int> sizes){
     int n=sizes.front();
     sizes.pop();
@@ -198,7 +258,7 @@ void array_process(T &x, std::queue<int> sizes){
 /* ------------------------------------------------------------------------------
  *  When reached the last dimension of an array, print its contents using previously defined methods
  * ------------------------------------------------------------------------------ */
-template <typename T, typename std::enable_if<!(     is_iterable<T>::value),T>::type* =nullptr>
+template <typename T, typename std::enable_if<!(       is_iterable<T>::value),T>::type* =nullptr>
 void array_process(T &x, std::queue<int> sizes){
     print_process(x);
 }
