@@ -1,14 +1,14 @@
 /* ==============================================================================
- *  
+ *
  *  Contributors:
- *      Name:       Adam Jeliński
- *      Nickname:   charodziej
+ *      Name:       Adam Jeliñski & Kajetan Lewandowski
+ *      Nickname:   charodziej & LegwanXDL
  *
  *  Description:    A library implementing a uniform method of printing variables in C++
  *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
- *  Last updated:   10.04.2019
+ *  Last updated:   11.04.2019
  *
  *  universal-print-in-cpp
  *  Universal print in C++
@@ -20,13 +20,28 @@
 
 #include<bits/stdc++.h>
 #ifndef _MSC_VER
-#   include <cxxabi.h>
+#include <cxxabi.h>
 #endif
 
 #define debug if(1)
 
 #ifndef SHOW_TYPE_NAME
 #define SHOW_TYPE_NAME 1
+#endif
+
+bool ANSIsupport = true;
+
+#if defined _WIN32 || defined _WIN64
+    #include <windows.h>
+     bool functionCaller = []{
+        HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (hOut == INVALID_HANDLE_VALUE){ANSIsupport=0; return 0;}
+        DWORD dwMode = 0;
+        if (!GetConsoleMode(hOut, &dwMode)){ANSIsupport=0; return 0;}
+        dwMode |= 0x0004;
+        if (!SetConsoleMode(hOut, dwMode)){ANSIsupport=0; return 0;}
+        return 1;
+    }();
 #endif
 
 std::string indent="";
@@ -109,9 +124,9 @@ template <typename T                                                            
 /* ------------------------------------------------------------------------------
  *  Colours!
  * ------------------------------------------------------------------------------ */
-#define colour(val) "\033[38;5;"<<val<<"m"
-#define bold()      "\033[1m"
-#define clear()     "\033[0m"
+std::string colour(int val){if(ANSIsupport) return "\033[38;5;"+to_string(val)+"m";return "";}
+std::string bold() {if(ANSIsupport) return "\033[1m";return "";}
+std::string clear(){if(ANSIsupport) return "\033[0m";return "";}
 
 /* ------------------------------------------------------------------------------
  *  The main definition called by the user from the main program
