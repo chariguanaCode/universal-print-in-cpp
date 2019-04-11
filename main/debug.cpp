@@ -57,7 +57,6 @@ int main(){
         my_priority_queue.push(e);
     }
 
-        indent();
     //watch(10);         //nie działa :'(
     watch(a);
     watch(a[0]);
@@ -68,7 +67,7 @@ int main(){
     watch(two_d);
     watch(ala);
     debug {
-        cout << indentation << "Looks like serious debugging is happening here!" << '\n';
+        cout << "Looks like serious debugging is happening here!" << '\n';
     }
     watch(my_pair);
     watch(my_stack);

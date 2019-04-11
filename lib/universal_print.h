@@ -21,7 +21,16 @@
  *
  * ============================================================================== */
 
-#include<bits/stdc++.h>
+#include<iostream>
+#include<queue>
+#include<stack>
+#include<bitset>
+#include<memory>
+
+#ifdef _MSC_VER
+#   include "stdafx.h"
+#endif
+
 #ifndef _MSC_VER
 #   include <cxxabi.h>
 #endif
