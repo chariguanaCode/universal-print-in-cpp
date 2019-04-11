@@ -32,8 +32,6 @@
 #define SHOW_TYPE_NAME 1
 #endif
 
-std::string indent="";
-
 /* ------------------------------------------------------------------------------
  *  Enabling ANSI escape sequences on Windows
  * ------------------------------------------------------------------------------ */
@@ -125,6 +123,18 @@ template <typename T                                                            
 template <typename T                                                                            > void print_process(std::queue<T>          &x);
 template <typename T                                                                            > void print_process(std::priority_queue<T> &x);
 
+
+/* ------------------------------------------------------------------------------
+ *  Indentation management
+ * ------------------------------------------------------------------------------ */
+std::string indentation="";
+void indent(){
+    for (int i = 0; i < 4; ++i) indentation.push_back(' ');
+}
+
+void unindent(){
+    for (int i = 0; i < 4; ++i) indentation.pop_back();
+}
 
 /* ------------------------------------------------------------------------------
  *  Colours!
@@ -287,17 +297,17 @@ void print_process(T &x){
 
     } else {
         std::cout << colour(31) << "{ " << clear();
-        for (int i = 0; i < 4; ++i) indent.push_back(' ');
+        indent();
 
         if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
-            std::cout << '\n' << indent;
+            std::cout << '\n' << indentation;
 
         for (auto e : x) {
 
             print_process(e);
 
             if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x)) {
-                std::cout << '\n' << indent;
+                std::cout << '\n' << indentation;
             } else {
                 std::cout << ' ';
             }
@@ -306,7 +316,7 @@ void print_process(T &x){
         if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
             std::cout << "\033[4D";
 
-        for (int i = 0; i < 4; ++i) indent.pop_back();
+        unindent();
         std::cout << colour(31) << "}" << clear();
     }
 }
@@ -320,17 +330,17 @@ void array_process(T &x, std::queue<int> sizes){
     sizes.pop();
 
     std::cout << colour(31) << "{ " << clear();
-    for (int i = 0; i < 4; ++i) indent.push_back(' ');
+    indent();
 
     if(sizes.size()>0)
-        std::cout << '\n' << indent;
+        std::cout << '\n' << indentation;
 
     for (int i = 0; i < n; ++i) {
 
         array_process(x[i],sizes);
 
         if(sizes.size()>0) {
-            std::cout << '\n' << indent;
+            std::cout << '\n' << indentation;
         } else {
             std::cout << ' ';
         }
@@ -339,7 +349,7 @@ void array_process(T &x, std::queue<int> sizes){
     if(sizes.size()>0)
         std::cout << "\033[4D";
 
-    for (int i = 0; i < 4; ++i) indent.pop_back();
+    unindent();
     std::cout << colour(31) << "}" << clear();
 }
 

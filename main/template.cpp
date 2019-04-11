@@ -10,6 +10,9 @@ using namespace std;
 #else
 #define watch(x)
 #define debug if(0)
+string indentation="";
+void indent(){};
+void unindent(){};
 #endif
 
 typedef long long ll;

@@ -12,6 +12,9 @@ using namespace std;
 #else
 #define watch(x)
 #define debug if(0)
+string indentation="";
+void indent(){};
+void unindent(){};
 #endif
 
 typedef long long ll;
@@ -54,6 +57,7 @@ int main(){
         my_priority_queue.push(e);
     }
 
+        indent();
     //watch(10);         //nie działa :'(
     watch(a);
     watch(a[0]);
@@ -64,7 +68,7 @@ int main(){
     watch(two_d);
     watch(ala);
     debug {
-        cout << "Looks like serious debugging is happening here!" << '\n';
+        cout << indentation << "Looks like serious debugging is happening here!" << '\n';
     }
     watch(my_pair);
     watch(my_stack);
