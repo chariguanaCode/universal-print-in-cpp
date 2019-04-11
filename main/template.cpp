@@ -9,6 +9,7 @@ using namespace std;
 #include"../lib/universal_print.h"
 #else
 #define watch(x)
+#define debug if(0)
 #endif
 
 typedef long long ll;
@@ -27,11 +28,6 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-#else
-    cout << colour(250) <<\
-            "/* ------------------------------------------------------------------------------"    << '\\n' <<\
-            " *                                 DEBUG MODE                                    "    << '\\n' <<\
-            " * ------------------------------------------------------------------------------ */" << '\\n' << clear();
 #endif
 
     int a[4]={0,2,3,4};
@@ -65,6 +61,9 @@ int main(){
     watch(xd);
     watch(two_d);
     watch(ala);
+    debug {
+        cout << "Looks like serious debugging is happening here!" << '\n';
+    }
     watch(my_pair);
     watch(my_stack);
     watch(my_queue);

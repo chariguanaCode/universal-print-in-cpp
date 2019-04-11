@@ -1,8 +1,11 @@
 /* ==============================================================================
  *
  *  Contributors:
- *      Name:       Adam Jeliñski & Kajetan Lewandowski
- *      Nickname:   charodziej & LegwanXDL
+ *      Name:       Adam Jeliński
+ *      Nickname:   charodziej
+ *
+ *      Name:       Kajetan Lewandowski
+ *      Nickname:   LegwanXDL
  *
  *  Description:    A library implementing a uniform method of printing variables in C++
  *                  Mainly intended for competetive programming, to greatly speedup debugging
@@ -20,7 +23,7 @@
 
 #include<bits/stdc++.h>
 #ifndef _MSC_VER
-#include <cxxabi.h>
+#   include <cxxabi.h>
 #endif
 
 #define debug if(1)
@@ -29,30 +32,32 @@
 #define SHOW_TYPE_NAME 1
 #endif
 
+std::string indent="";
+
+/* ------------------------------------------------------------------------------
+ *  Enabling ANSI escape sequences on Windows
+ * ------------------------------------------------------------------------------ */
 bool ANSIsupport = true;
 
 #if defined _WIN32 || defined _WIN64
-    #include <windows.h>
-     bool functionCaller = []{
+#   include <windows.h>
+    ANSIsupport = []{
         HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        if (hOut == INVALID_HANDLE_VALUE){ANSIsupport=0; return 0;}
+        if ( hOut == INVALID_HANDLE_VALUE ) {return 0;}
         DWORD dwMode = 0;
-        if (!GetConsoleMode(hOut, &dwMode)){ANSIsupport=0; return 0;}
+        if (!GetConsoleMode(hOut, &dwMode)) {return 0;}
         dwMode |= 0x0004;
-        if (!SetConsoleMode(hOut, dwMode)){ANSIsupport=0; return 0;}
+        if (!SetConsoleMode(hOut,  dwMode)) {return 0;}
         return 1;
     }();
 #endif
-
-std::string indent="";
 
 /* ------------------------------------------------------------------------------
  *  Method of determining if a variable is iterable
  *  thx to Jarod42
  *  https://stackoverflow.com/questions/13830158/check-if-a-variable-is-iterable
  * ------------------------------------------------------------------------------ */
-namespace detail
-{
+namespace detail {
     using std::begin;
     using std::end;
 
@@ -124,9 +129,21 @@ template <typename T                                                            
 /* ------------------------------------------------------------------------------
  *  Colours!
  * ------------------------------------------------------------------------------ */
-std::string colour(int val){if(ANSIsupport) return "\033[38;5;"+to_string(val)+"m";return "";}
-std::string bold() {if(ANSIsupport) return "\033[1m";return "";}
-std::string clear(){if(ANSIsupport) return "\033[0m";return "";}
+std::string colour(int val){if(ANSIsupport) return "\033[38;5;"+std::to_string(val)+"m";return "";}
+std::string backgr(int val){if(ANSIsupport) return "\033[48;5;"+std::to_string(val)+"m";return "";}
+std::string bold  ()       {if(ANSIsupport) return "\033[1m";                           return "";}
+std::string clear ()       {if(ANSIsupport) return "\033[0m";                           return "";}
+
+/* ------------------------------------------------------------------------------
+ *  Informing the user that debug mode is enabled
+ * ------------------------------------------------------------------------------ */
+    bool print_debug_mode = []{
+        std::cout << colour(250)\
+             << "/* ------------------------------------------------------------------------------"    << '\n'\
+             << " *                                 DEBUG MODE                                    "    << '\n'\
+             << " * ------------------------------------------------------------------------------ */" << '\n' << clear();
+        return 0;
+    }();
 
 /* ------------------------------------------------------------------------------
  *  The main definition called by the user from the main program
@@ -178,7 +195,7 @@ void print_process(T &x){
     if(x!=nullptr)
         print_process(*x);
     else 
-        std::cout << colour(196) << bold() << "NULL" << clear();
+        std::cout << backgr(196) << colour(15) << bold() << "NULL" << clear();
 }
 
 /* ------------------------------------------------------------------------------
