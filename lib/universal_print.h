@@ -27,28 +27,31 @@
 #include<bitset>
 #include<memory>
 
-#ifdef _MSC_VER
-#   include "stdafx.h"
-#endif
-
 #ifndef _MSC_VER
 #   include <cxxabi.h>
 #endif
 
+#ifdef _MSC_VER
+#   pragma message("We have detected that you are using Visual Studio. Please make the world a better place and stop this activity.")
+#endif
+
 #define debug if(1)
 
-#ifndef SHOW_TYPE_NAME
-#define SHOW_TYPE_NAME 1
-#endif
+namespace cupl{
+/* ------------------------------------------------------------------------------
+ *  Management of showing types of variables
+ * ------------------------------------------------------------------------------ */
+bool SHOW_TYPE_NAME = 1;
+void showTypes(bool val){
+    SHOW_TYPE_NAME = val;
+}
 
 /* ------------------------------------------------------------------------------
  *  Enabling ANSI escape sequences on Windows
  * ------------------------------------------------------------------------------ */
-bool ANSIsupport = true;
-
 #if defined _WIN32 || defined _WIN64
 #   include <windows.h>
-    ANSIsupport = []{
+    bool ANSIsupport = []{
         HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
         if ( hOut == INVALID_HANDLE_VALUE ) {return 0;}
         DWORD dwMode = 0;
@@ -57,6 +60,8 @@ bool ANSIsupport = true;
         if (!SetConsoleMode(hOut,  dwMode)) {return 0;}
         return 1;
     }();
+#else 
+    bool ANSIsupport = true;
 #endif
 
 /* ------------------------------------------------------------------------------
@@ -156,35 +161,42 @@ std::string clear ()       {if(ANSIsupport) return "\033[0m";                   
 /* ------------------------------------------------------------------------------
  *  Informing the user that debug mode is enabled
  * ------------------------------------------------------------------------------ */
-    bool print_debug_mode = []{
-        std::cout << colour(250)\
-             << "/* ------------------------------------------------------------------------------"    << '\n'\
-             << " *                                 DEBUG MODE                                    "    << '\n'\
-             << " * ------------------------------------------------------------------------------ */" << '\n' << clear();
-        return 0;
-    }();
+bool print_debug_mode = []{
+#ifdef _MSC_VER
+    std::cout << colour(9)\
+         << "/* ------------------------------------------------------------------------------"    << '\n'\
+         << " *                          COMPILED WITH VISUAL STUDIO                          "    << '\n'\
+         << " *    THIS LIBRARY WORKS BADLY WITH THIS IDE AND YOU SHOULD SWITCH IMMEDIATELY   "    << '\n'\
+         << " * ------------------------------------------------------------------------------ */" << '\n' << '\n' << clear();
+#endif
+    std::cout << colour(250)\
+         << "/* ------------------------------------------------------------------------------"    << '\n'\
+         << " *                                 DEBUG MODE                                    "    << '\n'\
+         << " * ------------------------------------------------------------------------------ */" << '\n' << clear();
+    return 0;
+}();
 
 /* ------------------------------------------------------------------------------
  *  The main definition called by the user from the main program
  * ------------------------------------------------------------------------------ */
 #define watch(x)\
-    print_main(x,__LINE__,#x);
+    cupl::print_main(x,__LINE__,#x);
 
 /* ------------------------------------------------------------------------------
  *  The main function doing all the magic
  * ------------------------------------------------------------------------------ */
 template <typename T>
 void print_main(T &x, int line, std::string name){
-#if SHOW_TYPE_NAME==1
-    std::cout << colour(220) << line << colour(15) << ": "\
-              << colour(250) << type_name<T>() << " "\
-              << colour( 40) << bold() << name << clear()\
-              << colour( 15) << " = ";
-#else
-    std::cout << colour(220) << line << colour(15) << ": "\
-              << colour( 40) << bold() << name << clear()\
-              << colour( 15) << " = ";
-#endif
+    if(SHOW_TYPE_NAME){
+        std::cout << colour(220) << line << colour(15) << ": "\
+                  << colour(250) << type_name<T>() << " "\
+                  << colour( 40) << bold() << name << clear()\
+                  << colour( 15) << " = ";
+    } else {
+        std::cout << colour(220) << line << colour(15) << ": "\
+                  << colour( 40) << bold() << name << clear()\
+                  << colour( 15) << " = ";
+    }
     print_process(x);
     std::cout << std::endl << clear();
 }
@@ -369,4 +381,4 @@ template <typename T, typename std::enable_if<!(       is_iterable<T>::value),T>
 void array_process(T &x, std::queue<int> sizes){
     print_process(x);
 }
-
+}

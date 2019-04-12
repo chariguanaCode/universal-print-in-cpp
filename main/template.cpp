@@ -22,7 +22,7 @@ struct xdxd {int x;};
 
 #if DEBUG==1
 void print_process(xdxd t){
-    print_process(t.x);
+    cupl::print_process(t.x);
 }
 #endif
 
