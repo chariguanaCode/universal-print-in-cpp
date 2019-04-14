@@ -13,7 +13,7 @@
  *  Created:        08.04.2019
  *  Last updated:   14.04.2019
  *
- *  Version: 0.7
+ *  Version: 0.8
  *
  *  universal-print-in-cpp
  *  Universal print in C++
@@ -98,10 +98,20 @@ namespace cupl {
   *                                 Declarations
   * ============================================================================= **/
 
-#define watch(x)  cupl::print_main(x,__LINE__,#x,std::extent<decltype(x),0>::value);
+#define array_extent_push(x,i) if(i<cupl::array_rank)cupl::array_sizes.push(std::extent<decltype(x),i>::value);
+#define watch(x) \
+    cupl::array_rank=std::rank<decltype(x)>::value;\
+    array_extent_push(x,0);\
+    array_extent_push(x,1);\
+    array_extent_push(x,2);\
+    array_extent_push(x,3);\
+    array_extent_push(x,4);\
+    array_extent_push(x,5);\
+    cupl::print_main(x,__LINE__,#x);
 #define debug if(1)
 
 namespace cupl {
+
 
     template <typename T> using is_iterable = decltype(detail::is_iterable_impl<T>(0)); //determines if a variable is iterable
 
@@ -114,6 +124,8 @@ namespace cupl {
     template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr> void print_process(T &x); //for pointers
     template <typename T, typename std::enable_if< (     is_iterable  <T>::value),T>::type* =nullptr> void print_process(T &x); //for iterable structures
 
+    std::queue<int> array_sizes;
+    unsigned   int  array_rank;
     template <typename T, typename std::enable_if<!(     is_iterable  <T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for going thru dimensions
     template <typename T, typename std::enable_if< (     is_iterable  <T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for the last dimension
 
@@ -133,7 +145,9 @@ namespace cupl {
     std::string bold();          //bolds text
     std::string clr();           //remove all text effects
 
-    //template <typename T> void print_main(T &x, int line, std::string name);
+    template <typename T> void print_main(T x, int line, std::string name);
+    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
+    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
 }
 
 /** =============================================================================
@@ -142,10 +156,6 @@ namespace cupl {
 
 namespace cupl {
 
-
-    template<typename T>int is_table(){
-            return std::rank<T>{};
-        }
     /* ------------------------------------------------------------------------------
      *  Management of showing types of variables
      * ------------------------------------------------------------------------------ */
@@ -206,17 +216,25 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  The main function doing all the magic
      * ------------------------------------------------------------------------------ */
-         template <typename T>
-    void print_main(T x, int line, std::string name,int array_extent) {
+    template <typename T>
+    void print_main(T x, int line, std::string name) {
 
-        if(!array_extent)
-        {
+        std::string name_type = type_name<T>();
+        if(!array_sizes.empty()) {
+            size_t pos = name_type.rfind(" (*) ");
+            if(pos!=std::string::npos) {
+                name_type.replace(pos, 5, " ["+std::to_string(array_sizes.front())+"] ");
+            } else {
+                pos = name_type.rfind("*");
+                if(pos!=std::string::npos) name_type.replace(pos, 2, " ["+std::to_string(array_sizes.front())+"]");
+            }
+        }
 
         indentation.clear();
 
         if(SHOW_TYPE_NAME) {
             std::cout << colour(220) << line << colour(15) << ": "\
-                      << colour(250) << type_name<T>() << " "\
+                      << colour(250) << name_type << " "\
                       << colour( 40) << bold() << name << crl()\
                       << colour( 15) << " = ";
         } else {
@@ -224,34 +242,48 @@ namespace cupl {
                       << colour( 40) << bold() << name << crl()\
                       << colour( 15) << " = ";
         }
-        print_process(x);
-        std::cout << std::endl << crl();
-        }
-        else
-        {
-            cout<<"Ddsds";
-        }
-    }
 
-    template<typename T>void print_array(T x,int line, std::string name){
-
-    indentation.clear();
-
-        if(SHOW_TYPE_NAME) {
-            std::cout << colour(220) << line << colour(15) << ": "\
-                      << colour(250) << type_name<T>() << " "\
-                      << colour( 40) << bold() << name << crl()\
-                      << colour( 15) << " === ";
+        if(array_sizes.empty()) {
+            print_process(x);
         } else {
-            std::cout << colour(220) << line << colour(15) << ": "\
-                      << colour( 40) << bold() << name << crl()\
-                      << colour( 15) << " = ";
+            print_array(x,array_sizes);
+            while(!array_sizes.empty())array_sizes.pop();
         }
-        print_process(x);
         std::cout << std::endl << crl();
     }
+    
+    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
+    void print_array(T &x, std::queue<int> sizes) {
+        int n=sizes.front();
+        sizes.pop();
 
+        std::cout << colour(31) << "{ " << crl();
+        indent();
 
+        if(sizes.size()>0)
+            std::cout << '\n' << indentation;
+
+        for (int i = 0; i < n; ++i) {
+            array_process(x[i],sizes);
+
+            if(sizes.size()>0) {
+                std::cout << '\n' << indentation;
+            } else {
+                std::cout << ' ';
+            }
+        }
+
+        if(sizes.size()>0)
+            std::cout << "\033[4D";
+
+        unindent();
+        std::cout << colour(31) << "}" << crl();
+    }
+
+    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr>
+    void print_array(T &x, std::queue<int> sizes) {
+        ;
+    }
     /* ------------------------------------------------------------------------------
      *  Printing variables compatible with std::cout
      * ------------------------------------------------------------------------------ */
@@ -352,21 +384,9 @@ namespace cupl {
      *  std::rank returns the number of dimensions of a standard array,
      *  allowing us to process multi dimensional arrays
      * ------------------------------------------------------------------------------ */
-#define array_extent_push(i) if(i<rank)sizes.push(std::extent<T,i>::value);
     template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
     void print_process(T &x) {
-        if(std::rank<T>::value) {
-            std::queue<int>sizes;
-            unsigned int rank=std::rank<T>::value;
-            array_extent_push(0);
-            array_extent_push(1);
-            array_extent_push(2);
-            array_extent_push(3);
-            array_extent_push(4);
-            array_extent_push(5);
-
-            array_process(x,sizes);
-        } else {
+        if(!std::rank<T>::value) {
             std::cout << colour(31) << "{ " << crl();
             indent();
 

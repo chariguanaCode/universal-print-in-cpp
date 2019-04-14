@@ -83,7 +83,7 @@ To further improve your debugging capabilities this library gives you access to 
 ## TODO
 
 * [ ] examples
-* [ ] support for const
+* [x] support for const
 * [ ] printing binary trees nicely
 * [ ] printing other graphs _nicely_
 * [ ] screenshots
