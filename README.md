@@ -72,9 +72,9 @@ To further improve your debugging capabilities this library gives you access to 
     
 * `cupl::backgr(int val)`:                                Returns the string required to change the background colour to `val` (8 bit colours)
     
-* `cupl::bold(int val)`:                                  Returns the string required to make the text bold
+* `cupl::bold()`:                                         Returns the string required to make the text bold
     
-* `cupl::clear(int val)`:                                 Returns the string required to reset any changes to text appearence
+* `cupl::clr()`:                                          Returns the string required to reset any changes to text appearence
     
 * `cupl::is_iterable(variable)`:                          Returns `true` if your `variable` is iterable and `false` otherwise
 
