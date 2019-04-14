@@ -11,7 +11,7 @@ Very handy when used for competetive programming.
     ```
     or by downloading it from [here](https://gitlab.com/charodziej/universal-print-in-cpp/-/archive/master/universal-print-in-cpp-master.zip)
  2. Make sure that everything works on your platform by compiling at least one of the examples (__TODO__) in your programming environment
- 3. If everything is working properly, copy the `universal_print.h` library to the directory of your project and copy the contents of `template.cpp` to the main file of that project
+ 3. If everything is working properly, include the `universal_print.h` library to your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
 
 ## Usage
 

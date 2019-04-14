@@ -13,7 +13,7 @@
  *  Created:        08.04.2019
  *  Last updated:   13.04.2019
  *
- *  Version: 1.7
+ *  Version: 0.7
  *
  *  universal-print-in-cpp
  *  Universal print in C++
