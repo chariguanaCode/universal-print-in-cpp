@@ -1,3 +1,4 @@
+#include <string>
 #ifndef DEBUG
 //if there is no DEBUG defined it turns DEBUG mode off
 #define DEBUG 0

@@ -11,7 +11,7 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
- *  Last updated:   13.04.2019
+ *  Last updated:   14.04.2019
  *
  *  Version: 0.7
  *
@@ -25,7 +25,7 @@
 
 
 /** =============================================================================
-  *                         Libraries and initialization                        
+  *                         Libraries and initialization
   * ============================================================================= **/
 
 #ifndef _universal_print_h_
@@ -48,7 +48,7 @@
 namespace cupl {
 
     /* ------------------------------------------------------------------------------
-     *                   Enabling ANSI escape sequences on Windows                  
+     *                   Enabling ANSI escape sequences on Windows
      * ------------------------------------------------------------------------------ */
 #if defined _WIN32 || defined _WIN64
 #   include <windows.h>
@@ -95,10 +95,10 @@ namespace cupl {
 }
 
 /** =============================================================================
-  *                                 Declarations                                
+  *                                 Declarations
   * ============================================================================= **/
 
-#define watch(x) cupl::print_main(x,__LINE__,#x);
+#define watch(x)  cupl::print_main(x,__LINE__,#x,std::extent<decltype(x),0>::value);
 #define debug if(1)
 
 namespace cupl {
@@ -133,15 +133,19 @@ namespace cupl {
     std::string bold();          //bolds text
     std::string clr();           //remove all text effects
 
-    template <typename T> void print_main(T &x, int line, std::string name);
+    //template <typename T> void print_main(T &x, int line, std::string name);
 }
 
 /** =============================================================================
-  *                                  Definitions                                 
+  *                                  Definitions
   * ============================================================================= **/
 
 namespace cupl {
 
+
+    template<typename T>int is_table(){
+            return std::rank<T>{};
+        }
     /* ------------------------------------------------------------------------------
      *  Management of showing types of variables
      * ------------------------------------------------------------------------------ */
@@ -194,7 +198,7 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Colours!
      * ------------------------------------------------------------------------------ */
-    std::string colour(int val) { if(ANSIsupport) return "\033[38;5;"+std::to_string(val)+"m"; return ""; } 
+    std::string colour(int val) { if(ANSIsupport) return "\033[38;5;"+std::to_string(val)+"m"; return ""; }
     std::string backgr(int val) { if(ANSIsupport) return "\033[48;5;"+std::to_string(val)+"m"; return ""; }
     std::string bold  (       ) { if(ANSIsupport) return "\033[1m";                            return ""; }
     std::string crl   (       ) { if(ANSIsupport) return "\033[0m";                            return ""; }
@@ -202,9 +206,14 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  The main function doing all the magic
      * ------------------------------------------------------------------------------ */
-    template <typename T>
-    void print_main(T &x, int line, std::string name) {
+         template <typename T>
+    void print_main(T x, int line, std::string name,int array_extent) {
+
+        if(!array_extent)
+        {
+
         indentation.clear();
+
         if(SHOW_TYPE_NAME) {
             std::cout << colour(220) << line << colour(15) << ": "\
                       << colour(250) << type_name<T>() << " "\
@@ -217,7 +226,31 @@ namespace cupl {
         }
         print_process(x);
         std::cout << std::endl << crl();
+        }
+        else
+        {
+            cout<<"Ddsds";
+        }
     }
+
+    template<typename T>void print_array(T x,int line, std::string name){
+
+    indentation.clear();
+
+        if(SHOW_TYPE_NAME) {
+            std::cout << colour(220) << line << colour(15) << ": "\
+                      << colour(250) << type_name<T>() << " "\
+                      << colour( 40) << bold() << name << crl()\
+                      << colour( 15) << " === ";
+        } else {
+            std::cout << colour(220) << line << colour(15) << ": "\
+                      << colour( 40) << bold() << name << crl()\
+                      << colour( 15) << " = ";
+        }
+        print_process(x);
+        std::cout << std::endl << crl();
+    }
+
 
     /* ------------------------------------------------------------------------------
      *  Printing variables compatible with std::cout
@@ -316,8 +349,8 @@ namespace cupl {
 
     /* ------------------------------------------------------------------------------
      *  Iterating over iterable objects
-     *  std::rank returns the number of dimensions of a standard array, 
-     *  allowing us to process multi dimensional arrays 
+     *  std::rank returns the number of dimensions of a standard array,
+     *  allowing us to process multi dimensional arrays
      * ------------------------------------------------------------------------------ */
 #define array_extent_push(i) if(i<rank)sizes.push(std::extent<T,i>::value);
     template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
@@ -399,7 +432,7 @@ namespace cupl {
 }
 
 /** =============================================================================
-  *                                     Start                                    
+  *                                     Start
   * ============================================================================= **/
 
 namespace cupl {
