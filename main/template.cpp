@@ -19,6 +19,7 @@ namespace cupl{
     std::string clr(){return "";}
     std::string backgr(int x){return "";}
     std::string colour(int x){return "";}
+    void showTypes(bool val){return;}
     template <typename T> bool is_iterable(T x){return 0;}
 }
 #endif

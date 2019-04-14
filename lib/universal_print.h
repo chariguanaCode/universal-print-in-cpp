@@ -28,6 +28,9 @@
   *                         Libraries and initialization                        
   * ============================================================================= **/
 
+#ifndef _universal_print_h_
+#define _universal_print_h_
+
 #include<iostream>
 #include<queue>
 #include<stack>
@@ -419,3 +422,4 @@ namespace cupl {
         return 0;
     }();
 }
+#endif
