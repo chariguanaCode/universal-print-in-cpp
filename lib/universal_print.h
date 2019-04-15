@@ -1,7 +1,7 @@
 /* ==============================================================================
  *
  *  Contributors:
- *      Name:       Adam Jeliński
+ *      Name:       Adam Jeliñski
  *      Nickname:   charodziej
  *
  *      Name:       Kajetan Lewandowski
@@ -11,9 +11,9 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
- *  Last updated:   14.04.2019
+ *  Last updated:   15.04.2019
  *
- *  Version: 0.8
+ *  Version: 0.9
  *
  *  universal-print-in-cpp
  *  Universal print in C++
@@ -23,19 +23,43 @@
  *
  * ============================================================================== */
 
+#ifndef _universal_print_h_
+#define _universal_print_h_
+
+/** =============================================================================
+  *                               Colours' definitions
+  * ============================================================================= **/
+
+/* ------------------------------------------------------------------------------
+ *  Here you can change colors using numbers from ANSI 8bit colour table
+ *  https://i.stack.imgur.com/KTSQa.png
+ * ------------------------------------------------------------------------------ */
+
+#define COLOUR_DEBUG_MODE_BANNER 250
+#define COLOUR_LINE 220
+#define COLOUR_TYPE_NAME 250
+#define COLOUR_NAME 40
+
+#define COLOUR_NUMBER 44
+#define COLOUR_POINTER 213
+#define COLOUR_BACKGR_NULLPOINTER 196
+#define COLOUR_NULLPOINTER 15
+#define COLOUR_ARRAY 31
+#define COLOUR_STRING 28
+#define COLOUR_PAIR 31
+#define COLOUR_BITSET 48
+#define COLOUR_BINARY_TREE 214
 
 /** =============================================================================
   *                         Libraries and initialization
   * ============================================================================= **/
 
-#ifndef _universal_print_h_
-#define _universal_print_h_
-
+#define TODO /**/
 #include<iostream>
 #include<queue>
 #include<stack>
-#include<bitset>
-#include<memory>
+#include <bitset>
+#include <memory>
 
 //for visual studio users <3
 #ifndef _MSC_VER
@@ -98,8 +122,9 @@ namespace cupl {
   *                                 Declarations
   * ============================================================================= **/
 
+
 #define array_extent_push(x,i) if(i<cupl::array_rank)cupl::array_sizes.push(std::extent<decltype(x),i>::value);
-#define watch(x) \
+#define watch(x,...) \
     cupl::array_rank=std::rank<decltype(x)>::value;\
     array_extent_push(x,0);\
     array_extent_push(x,1);\
@@ -107,11 +132,14 @@ namespace cupl {
     array_extent_push(x,3);\
     array_extent_push(x,4);\
     array_extent_push(x,5);\
-    cupl::print_main(x,__LINE__,#x);
+    cupl::print_main(x,__LINE__,#x,##__VA_ARGS__);
 #define debug if(1)
 
 namespace cupl {
 
+    namespace init{
+        int _int = 0;
+    }
 
     template <typename T> using is_iterable = decltype(detail::is_iterable_impl<T>(0)); //determines if a variable is iterable
 
@@ -136,7 +164,7 @@ namespace cupl {
     template <typename T                                                                            > void print_process(std::queue<T>          &x); //queue
     template <typename T                                                                            > void print_process(std::priority_queue<T> &x); //priority_queue
 
-    std::string indentation;
+    std::string indentation="";
     void indent();
     void unindent();
 
@@ -145,9 +173,54 @@ namespace cupl {
     std::string bold();          //bolds text
     std::string clr();           //remove all text effects
 
-    template <typename T> void print_main(T x, int line, std::string name);
-    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
-    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
+    template <typename T,typename Targ1=int,typename Targ2=int,typename Targ3=int,typename Targ4=int,typename Targ5=int>
+        void print_main(T x, int line, std::string name,int mode=0,Targ1 arg1=init::_int, Targ2 &arg2=init::_int, Targ3 &arg3=init::_int, Targ4 &arg4=init::_int, Targ5 &arg5=init::_int);
+    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
+        void print_array(T &x, std::queue<int> sizes);
+    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr>
+        void print_array(T &x, std::queue<int> sizes);
+
+    namespace pbt{
+        std::string crv_r = {(char)218,(char)196};
+        std::string crv_l = {(char)192,(char)196};
+        std::string   str = {(char)179,' '      };
+        namespace pbt_default{
+            int moveLeft1 (int val){return val*2;  }
+            int moveRight1(int val){return val*2+1;}
+        }
+
+    }
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if<!(std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if<!(std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
 }
 
 /** =============================================================================
@@ -211,53 +284,68 @@ namespace cupl {
     std::string colour(int val) { if(ANSIsupport) return "\033[38;5;"+std::to_string(val)+"m"; return ""; }
     std::string backgr(int val) { if(ANSIsupport) return "\033[48;5;"+std::to_string(val)+"m"; return ""; }
     std::string bold  (       ) { if(ANSIsupport) return "\033[1m";                            return ""; }
-    std::string crl   (       ) { if(ANSIsupport) return "\033[0m";                            return ""; }
+    std::string clr   (       ) { if(ANSIsupport) return "\033[0m";                            return ""; }
 
     /* ------------------------------------------------------------------------------
      *  The main function doing all the magic
      * ------------------------------------------------------------------------------ */
-    template <typename T>
-    void print_main(T x, int line, std::string name) {
+    template <typename T,typename Targ1,typename Targ2,typename Targ3,typename Targ4,typename Targ5>
+        void print_main(T x, int line, std::string name,int mode,Targ1 arg1,Targ2 &arg2,Targ3 &arg3,Targ4 &arg4,Targ5 &arg5){
 
-        std::string name_type = type_name<T>();
-        if(!array_sizes.empty()) {
-            size_t pos = name_type.rfind(" (*) ");
-            if(pos!=std::string::npos) {
-                name_type.replace(pos, 5, " ["+std::to_string(array_sizes.front())+"] ");
-            } else {
-                pos = name_type.rfind("*");
-                if(pos!=std::string::npos) name_type.replace(pos, 2, " ["+std::to_string(array_sizes.front())+"]");
+            std::string name_type = type_name<T>();
+            if(!array_sizes.empty()) {
+                size_t pos = name_type.rfind(" (*) ");
+                if(pos!=std::string::npos) {
+                    name_type.replace(pos, 5, " ["+std::to_string(array_sizes.front())+"] ");
+                } else {
+                    pos = name_type.rfind("*");
+                    if(pos!=std::string::npos) name_type.replace(pos, 2, " ["+std::to_string(array_sizes.front())+"]");
+                }
             }
-        }
+            if(mode==1) {
+                while(!array_sizes.empty())array_sizes.pop();
+            }
 
-        indentation.clear();
 
-        if(SHOW_TYPE_NAME) {
-            std::cout << colour(220) << line << colour(15) << ": "\
-                      << colour(250) << name_type << " "\
-                      << colour( 40) << bold() << name << crl()\
-                      << colour( 15) << " = ";
-        } else {
-            std::cout << colour(220) << line << colour(15) << ": "\
-                      << colour( 40) << bold() << name << crl()\
-                      << colour( 15) << " = ";
-        }
-
-        if(array_sizes.empty()) {
-            print_process(x);
-        } else {
-            print_array(x,array_sizes);
-            while(!array_sizes.empty())array_sizes.pop();
-        }
-        std::cout << std::endl << crl();
+            if(mode == 1 || mode == 0 ) {
+                if(SHOW_TYPE_NAME) {
+                    std::cout << colour(COLOUR_LINE) << line << colour(15) << ": "\
+                              << colour(COLOUR_TYPE_NAME) << name_type << " "\
+                              << colour(COLOUR_NAME) << bold() << name << clr()\
+                              << colour( 15) << " = ";
+                } else {
+                    std::cout << colour(COLOUR_LINE) << line << colour(15) << ": "\
+                              << colour(COLOUR_NAME) << bold() << name << clr()\
+                              << colour( 15) << " = ";
+                }
+            }
+            if(mode == 0) {
+                if(array_sizes.empty()) {
+                    print_process(x);
+                } else {
+                    print_array(x,array_sizes);
+                    while(!array_sizes.empty())array_sizes.pop();
+                }
+                std::cout << std::endl << clr();
+            } else if(mode==1) {
+                std::cout << std::endl << clr();
+                binaryTree_process(arg1,arg2,arg3,arg4,arg5);
+            } else if(mode==2) {
+                if(array_sizes.empty()) {
+                    print_process(x);
+                } else {
+                    print_array(x,array_sizes);
+                    while(!array_sizes.empty())array_sizes.pop();
+                }
+            }
     }
-    
+
     template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
     void print_array(T &x, std::queue<int> sizes) {
         int n=sizes.front();
         sizes.pop();
 
-        std::cout << colour(31) << "{ " << crl();
+        std::cout << colour(COLOUR_ARRAY) << "{ " << clr();
         indent();
 
         if(sizes.size()>0)
@@ -277,7 +365,7 @@ namespace cupl {
             std::cout << "\033[4D";
 
         unindent();
-        std::cout << colour(31) << "}" << crl();
+        std::cout << colour(COLOUR_ARRAY) << "}" << clr();
     }
 
     template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr>
@@ -289,7 +377,7 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value),T>::type* =nullptr>
     void print_process(T &x) {
-        std::cout << colour(44) << bold() << x << crl();
+        std::cout << colour(COLOUR_NUMBER) << bold() << x << clr();
     }
 
     /* ------------------------------------------------------------------------------
@@ -297,7 +385,7 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <size_t T>
     void print_process(std::bitset<T> &x) {
-        std::cout << colour(48) << bold() << x << crl();
+        std::cout << colour(COLOUR_BITSET) << bold() << x << clr();
     }
 
     /* ------------------------------------------------------------------------------
@@ -305,18 +393,18 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
     void print_process(T &x) {
-        std::cout << colour(213) << bold() << '*' << crl();
+        std::cout << colour(COLOUR_POINTER) << bold() << '*' << clr();
         if(x!=nullptr)
             print_process(*x);
         else
-            std::cout << backgr(196) << colour(15) << bold() << "NULL" << crl();
+            std::cout << backgr(COLOUR_BACKGR_NULLPOINTER) << colour(COLOUR_NULLPOINTER) << bold() << "NULL" << clr();
     }
 
     /* ------------------------------------------------------------------------------
      *  Handling strings ( they are iterable, but shouldn't be shown like arrays )
      * ------------------------------------------------------------------------------ */
     void print_process(std::string &x) {
-        std::cout << colour(28) << bold() << "\"" << x << "\"" << crl();
+        std::cout << colour(COLOUR_STRING) << bold() << "\"" << x << "\"" << clr();
     }
 
     /* ------------------------------------------------------------------------------
@@ -324,11 +412,11 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <typename T, typename U>
     void print_process(std::pair<T,U> &x) {
-        std::cout << colour(31) << "( " << crl();
+        std::cout << colour(COLOUR_PAIR) << "(" << clr();
         print_process(x.first);
         std::cout << ", ";
         print_process(x.second);
-        std::cout << colour(31) << " )" << crl();
+        std::cout << colour(COLOUR_PAIR) << ")" << clr();
     }
 
     /* ------------------------------------------------------------------------------
@@ -387,7 +475,7 @@ namespace cupl {
     template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
     void print_process(T &x) {
         if(!std::rank<T>::value) {
-            std::cout << colour(31) << "{ " << crl();
+            std::cout << colour(COLOUR_ARRAY) << "{ " << clr();
             indent();
 
             if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
@@ -407,10 +495,9 @@ namespace cupl {
                 std::cout << "\033[4D";
 
             unindent();
-            std::cout << colour(31) << "}" << crl();
+            std::cout << colour(COLOUR_ARRAY) << "}" << clr();
         }
     }
-
     /* ------------------------------------------------------------------------------
      *  Recursively go through all dimensions of an array
      * ------------------------------------------------------------------------------ */
@@ -419,7 +506,7 @@ namespace cupl {
         int n=sizes.front();
         sizes.pop();
 
-        std::cout << colour(31) << "{ " << crl();
+        std::cout << colour(COLOUR_ARRAY) << "{ " << clr();
         indent();
 
         if(sizes.size()>0)
@@ -439,7 +526,7 @@ namespace cupl {
             std::cout << "\033[4D";
 
         unindent();
-        std::cout << colour(31) << "}" << crl();
+        std::cout << colour(COLOUR_ARRAY) << "}" << clr();
     }
 
     /* ------------------------------------------------------------------------------
@@ -449,6 +536,76 @@ namespace cupl {
     void array_process(T &x, std::queue<int> sizes) {
         print_process(x);
     }
+
+     /* ------------------------------------------------------------------------------
+     *  Binary trees
+     * ------------------------------------------------------------------------------ */
+    template <typename Tv,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist>::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue>::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft>::value),TmoverLeft >::type* =nullptr>
+        void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft)
+        {
+            string s;
+
+            if(doesExist(v)){
+                //Right child
+                s = middle;
+                if(upper == pbt::crv_r) s[s.size() - 2] = ' ';
+                print_BinaryTree(s + pbt::str, pbt::crv_r, moverRight(v),doesExist,getValue,moverRight,moverLeft);
+
+                //Printing
+                s = s.substr(0,middle.size()-2);
+                std::cout << colour(COLOUR_BINARY_TREE)<<s<< upper<<clr();
+                     if(upper == pbt::crv_l && doesExist(moverLeft(v)))indentation="  "+s      +pbt::str+' ';
+                else if(upper == pbt::crv_l &&!doesExist(moverLeft(v)))indentation=     s+"  ";
+                else if(upper == pbt::crv_r && doesExist(moverLeft(v)))indentation=     s      +pbt::str+pbt::str+' ';
+                else if(upper == pbt::crv_r &&!doesExist(moverLeft(v)))indentation=     s      +pbt::str+' ';
+                indentation=colour(COLOUR_BINARY_TREE)+indentation+clr();
+                auto x=getValue(v);
+                watch(x,2);
+                std::cout<< '\n';
+
+                //Left child
+                s = middle;
+                if(upper == pbt::crv_l) s[s.size() - 2] = ' ';
+                print_BinaryTree(s + pbt::str, pbt::crv_l, moverLeft(v),doesExist,getValue,moverRight,moverLeft);
+            }
+            return;
+        }
+
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){
+            print_BinaryTree("","",v,doesExist,getValue,moverRight,moverLeft);
+        }
+
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){
+            print_BinaryTree("","",v,doesExist,getValue,moverRight,pbt::pbt_default::moveLeft1);
+        }
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){
+            print_BinaryTree("","",v,doesExist,getValue,pbt::pbt_default::moveRight1,pbt::pbt_default::moveLeft1);
+        }
+    template <typename Tv,
+              typename TdoesExist, typename std::enable_if<!(std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
+              typename TgetValue,  typename std::enable_if<!(std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
+              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
+              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
+        void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){std::cout<<"TOO FEW ARGUMENTS"<<endl;}
 }
 
 /** =============================================================================
@@ -466,12 +623,12 @@ namespace cupl {
                   << "/* ------------------------------------------------------------------------------"    << '\n'\
                   << " *                          COMPILED WITH VISUAL STUDIO                          "    << '\n'\
                   << " *    THIS LIBRARY WORKS BADLY WITH THIS IDE AND YOU SHOULD SWITCH IMMEDIATELY   "    << '\n'\
-                  << " * ------------------------------------------------------------------------------ */" << '\n' << '\n' << crl();
+                  << " * ------------------------------------------------------------------------------ */" << '\n' << '\n' << clr();
 #endif
-        std::cout << colour(250)\
+        std::cout << colour(COLOUR_DEBUG_MODE_BANNER)\
                   << "/* ------------------------------------------------------------------------------"    << '\n'\
                   << " *                                 DEBUG MODE                                    "    << '\n'\
-                  << " * ------------------------------------------------------------------------------ */" << '\n' << crl();
+                  << " * ------------------------------------------------------------------------------ */" << '\n' << clr();
         return 0;
     }();
 }
