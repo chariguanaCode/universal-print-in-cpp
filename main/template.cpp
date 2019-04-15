@@ -9,7 +9,7 @@
 #if DEBUG==0
 //if DEBUG mode is off it defines all debug mode functions to "turn them off"
 //so you don't have to  delete all library functions before sending the final code
-#define watch(x)
+#define watch(...)
 #define debug if(0)
 namespace cupl{
     template <typename T> void print_main(T &x, int y, std::string z){return;}
@@ -17,7 +17,7 @@ namespace cupl{
     void indent(){return;}
     void unindent(){return;}
     std::string bold(){return "";}
-    std::string clr(){return "";}
+    std::string clr(){return "  ";}
     std::string backgr(int x){return "";}
     std::string colour(int x){return "";}
     void showTypes(bool val){return;}
