@@ -17,7 +17,7 @@ namespace cupl{
     void indent(){return;}
     void unindent(){return;}
     std::string bold(){return "";}
-    std::string clr(){return "  ";}
+    std::string clr(){return "";}
     std::string backgr(int x){return "";}
     std::string colour(int x){return "";}
     void showTypes(bool val){return;}
