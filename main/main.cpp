@@ -19,13 +19,14 @@ void unindent(){};
 typedef long long ll;
 typedef unsigned long long ull;
 
-struct xdxd {int x;};
-
+struct xdxd {
+    int x;
 #if DEBUG==1
-void print_process(xdxd t){
-    cupl::print_process(t.x);
-}
+    void print_process(){
+        cupl::print_process(x);
+    }
 #endif
+};
 
 int main(){
 #if DEBUG==0

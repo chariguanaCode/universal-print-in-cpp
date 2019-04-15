@@ -4,7 +4,7 @@
 #define DEBUG 0
 #elif DEBUG==1
 //if DEBUG mode is on it includes the universal_print library
-#include "universal_print.h"
+#include "../lib/universal_print.h"
 #endif
 #if DEBUG==0
 //if DEBUG mode is off it defines all debug mode functions to "turn them off"
@@ -26,5 +26,15 @@ namespace cupl{
 #endif
 
 int main(){
+    //defining all example variables
+    int integer        = 30;
+    float real         = 3.14159;
+    int array[10]      = {4, 1, 6, 21, 7, 2, 135, 3, 631, 2};
+    std::string hello  = "Hello World!";
 
+    //watching their values
+    watch(integer);
+    watch(real);
+    watch(array);
+    watch(hello);
 }

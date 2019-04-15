@@ -1,0 +1,79 @@
+#include<tuple>
+#include <string>
+#ifndef DEBUG
+//if there is no DEBUG defined it turns DEBUG mode off
+#define DEBUG 0
+#elif DEBUG==1
+//if DEBUG mode is on it includes the universal_print library
+#include "../lib/universal_print.h"
+#endif
+#if DEBUG==0
+//if DEBUG mode is off it defines all debug mode functions to "turn them off"
+//so you don't have to delete all library functions before submiting the final code
+#define watch(...)
+#define debug if(0)
+namespace cupl{
+    template <typename T> void print_main(T &x, int y, std::string z){return;}
+    std::string indentation = "";
+    void indent(){return;}
+    void unindent(){return;}
+    std::string bold(){return "";}
+    std::string clr(){return "";}
+    std::string backgr(int x){return "";}
+    std::string colour(int x){return "";}
+    void showTypes(bool val){return;}
+    template <typename T> bool is_iterable(T x){return 0;}
+}
+#endif
+
+//definition of my struct
+struct my_list{
+    int id;
+    std::pair<int, float> value;
+    my_list* next=NULL;
+    //definition of the custom printing function for debugging
+#if DEBUG==1
+    void print_process(){
+        //printing '{' and indenting the contents of this struct
+        cupl::indent();
+        std::cout << "{\n" << cupl::indentation;
+
+        //processing all the fields of the struct using already known methods
+        cupl::print_process(id   ); std::cout << '\n' << cupl::indentation;
+        cupl::print_process(value); std::cout << '\n' << cupl::indentation;
+        cupl::print_process(next ); std::cout << '\n' << cupl::indentation;
+
+        //printing '}' and bringing the indentation back to normal
+        cupl::unindent();
+        std::cout << "}";
+    }
+#endif
+};
+
+int main(){
+    //all the data
+    int integers[10] = {  6,   2,   1,   0,   5,   7,   9,   5,   8,   3};
+    float floats[10] = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.1};
+
+    //defining the root and helper pointer for the list
+    my_list* start   = new my_list;
+    my_list* current = new my_list;
+    //setting up all the root
+    start->id    = 0;
+    start->value = std::make_pair(integers[0], floats[0]);
+    current = start;
+
+    //building the list
+    for (int i = 1; i < 10; ++i) {
+        my_list* tmp = new my_list;
+        current->next  = tmp;
+        current = tmp;
+
+        current->id    = i;
+        current->value = std::make_pair(integers[i], floats[i]);
+    }
+    //watching the results ^.^
+    watch(integers);
+    watch(floats);
+    watch(start);
+}
