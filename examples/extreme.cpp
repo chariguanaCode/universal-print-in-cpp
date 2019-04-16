@@ -5,6 +5,7 @@
 #include <queue>
 #include <tuple>
 #include <iostream>
+#include <ctime>
 #ifndef DEBUG
 #define DEBUG 0
 #elif DEBUG==1

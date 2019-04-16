@@ -2,7 +2,6 @@
 #include <iostream>
 #include<tuple>
 #include <string>
-#define DEBUG 0
 #ifndef DEBUG
 #define DEBUG 0
 #elif DEBUG==1

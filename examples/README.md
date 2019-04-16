@@ -12,6 +12,10 @@ Then we define all our test variables and call `watch()` on them afterwards. _si
 
 ![basic.cpp on Linux](../screenshots/Linux_basic.png)
 
+### Windows
+
+![basic.cpp on Windows](../screenshots/Windows_basic.png)
+
 ## structs.cpp
 
 This is a far more complex example.
@@ -32,13 +36,35 @@ Then in the `int main()` it builds the custom list and calls `watch()` on its fi
 
 ![structs.cpp on Linux](../screenshots/Linux_structs.png)
 
+### Windows
+
+![structs.cpp on Windows](../screenshots/Windows_structs.png)
+
 ## math.cpp
 
-_WIP_
+This example show that you can debug arithmetic operations with this library.
+
+It implements the Fourier series approximation and calculates it for some random values.
+
+### Linux
+
+![math.cpp on Linux](../screenshots/Linux_math.png)
+
+### Windows
+
+![math.cpp on Windows](../screenshots/Windows_math.png)
 
 ## trees.cpp
 
 _WIP_
+
+### Linux
+
+![trees.cpp on Linux](../screenshots/Linux_trees.png)
+
+### Windows
+
+![trees.cpp on Windows](../screenshots/Windows_trees.png)
 
 ## graph.cpp
 
@@ -55,4 +81,18 @@ _enjoy at your own risk_
 ### Linux
 
 ![extreme.cpp on Linux](../screenshots/Linux_extreme.png)
+
+### Windows
+
+![extreme.cpp on Windows](../screenshots/Windows_extreme.png)
+
+## random.cpp
+
+### Linux
+
+![random.cpp on Linux](../screenshots/Linux_random.png)
+
+### Windows
+
+![random.cpp on Windows](../screenshots/Windows_random.png)
 
