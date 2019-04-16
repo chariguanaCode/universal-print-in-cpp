@@ -1,11 +1,13 @@
+#include <iostream>
 #include<tuple>
 #include <string>
+#define DEBUG 0
 #ifndef DEBUG
 //if there is no DEBUG defined it turns DEBUG mode off
 #define DEBUG 0
 #elif DEBUG==1
 //if DEBUG mode is on it includes the universal_print library
-#include "../lib/universal_print.h"
+#include "universal_print.h"
 #endif
 #if DEBUG==0
 //if DEBUG mode is off it defines all debug mode functions to "turn them off"
@@ -23,7 +25,9 @@ namespace cupl{
     std::string colour(int x){return "";}
     void showTypes(bool val){return;}
     template <typename T> bool is_iterable(T x){return 0;}
+    void print_process(...);
 }
+void print_process(...);
 #endif
 
 //definition of my struct
@@ -32,7 +36,6 @@ struct my_list{
     std::pair<int, float> value;
     my_list* next=NULL;
     //definition of the custom printing function for debugging
-#if DEBUG==1
     void print_process(){
         //printing '{' and indenting the contents of this struct
         cupl::indent();
@@ -47,7 +50,6 @@ struct my_list{
         cupl::unindent();
         std::cout << "}";
     }
-#endif
 };
 
 int main(){
