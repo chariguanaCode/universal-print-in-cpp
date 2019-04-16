@@ -145,7 +145,7 @@ namespace cupl {
 
 namespace cupl {
 
-    void checkCodingCompatibility();
+    void checkEncodingCompatibility();
 
     namespace init{ int _int = 0; }
 
@@ -196,7 +196,7 @@ namespace cupl {
         std::string   str = {(char)179,' '      };
         #elif CHARACTER_ENCODING == 2
         std::string crv_r = "\u250C\u2500";
-        std::string crv_l = "\u2514u2500";
+        std::string crv_l = "\u2514\u2500";
         std::string   str = "\u2502 ";
         #elif CHARACTER_ENCODING == 3
         std::string crv_r = {'.','-'            };
@@ -263,14 +263,14 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Checking character coding compatibility
      * ------------------------------------------------------------------------------ */
-    void checkCodingCompatibility(){
+    void checkEncodingCompatibility(){
 
         std::cout<<"\nThere will be shown characters encoded in some encoding systems. Pick the most similar to the one shown in /screenshots/characterencoding.png\n"<<std::endl;
 
         std::cout<<"EXTENDED_ASCII: "<<(char)218<<(char)196<<"    "<<\
         (char)192<<(char)196<<"    "<<(char)179<<"\n\n";
 
-        std::cout<<"UNICODE:  \u250C\u2500    \u2514u2500     \u2502\n\n";
+        std::cout<<"UNICODE:  \u250C\u2500    \u2514\u2500     \u2502\n\n";
 
         std::cout<<"LEGACY:  .-    L-     |\n";
 
