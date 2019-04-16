@@ -22,7 +22,9 @@ namespace cupl{
     std::string colour(int x){return "";}
     void showTypes(bool val){return;}
     template <typename T> bool is_iterable(T x){return 0;}
+    void print_process(...);
 }
+void print_process(...);
 #endif
 
 int main(){
