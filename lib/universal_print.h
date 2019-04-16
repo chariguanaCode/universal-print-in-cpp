@@ -44,11 +44,11 @@
 #define COLOUR_POINTER              213
 #define COLOUR_BACKGR_NULLPOINTER   196
 #define COLOUR_NULLPOINTER           15
-#define COLOUR_ARRAY                 31
 #define COLOUR_STRING                28
-#define COLOUR_PAIR                  31
 #define COLOUR_BITSET                48
 #define COLOUR_BINARY_TREE          214
+
+int array_colours[10] = { 31,208, 87, 93,160, 31, 31, 31, 31, 31};
 
 /* ------------------------------------------------------------------------------
  *  Here you can change library character encoding EXTENDED_ASCII/UNICODE/LEGACY
@@ -192,6 +192,7 @@ namespace cupl {
     template <typename T                                                                            > void print_process(std::queue<T>          &x);   //queue
     template <typename T                                                                            > void print_process(std::priority_queue<T> &x);   //priority_queue
 
+    int indentation_level=0;
     std::string indentation="";
     void indent();
     void unindent();
@@ -329,11 +330,13 @@ namespace cupl {
     void indent() {
         for (int i = 0; i < 4; ++i)
             indentation.push_back(' ');
+        ++indentation_level;
     }
 
     void unindent() {
         for (int i = 0; i < 4; ++i)
             indentation.pop_back();
+        --indentation_level;
     }
 
     /* ------------------------------------------------------------------------------
@@ -405,7 +408,7 @@ namespace cupl {
         int n=sizes.front();
         sizes.pop();
 
-        std::cout << colour(COLOUR_ARRAY) << "{ " << clr();
+        std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
         indent();
 
         if(sizes.size()>0)
@@ -425,7 +428,7 @@ namespace cupl {
             std::cout << "\033[4D";
 
         unindent();
-        std::cout << colour(COLOUR_ARRAY) << "}" << clr();
+        std::cout << colour(array_colours[indentation_level]) << "}" << clr();
     }
 
     template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr>
@@ -481,11 +484,13 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <typename T, typename U>
     void print_process(std::pair<T,U> &x) {
-        std::cout << colour(COLOUR_PAIR) << "(" << clr();
+        std::cout << colour(array_colours[indentation_level]) << "(" << clr();
+        ++indentation_level;
         print_process(x.first);
         std::cout << ", ";
         print_process(x.second);
-        std::cout << colour(COLOUR_PAIR) << ")" << clr();
+        --indentation_level;
+        std::cout << colour(array_colours[indentation_level]) << ")" << clr();
     }
 
     /* ------------------------------------------------------------------------------
@@ -544,7 +549,7 @@ namespace cupl {
     template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
     void print_process(T &x) {
         if(!std::rank<T>::value) {
-            std::cout << colour(COLOUR_ARRAY) << "{ " << clr();
+            std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
             indent();
 
             if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
@@ -564,7 +569,7 @@ namespace cupl {
                 std::cout << "\033[4D";
 
             unindent();
-            std::cout << colour(COLOUR_ARRAY) << "}" << clr();
+            std::cout << colour(array_colours[indentation_level]) << "}" << clr();
         }
     }
 
@@ -576,7 +581,7 @@ namespace cupl {
         int n=sizes.front();
         sizes.pop();
 
-        std::cout << colour(COLOUR_ARRAY) << "{ " << clr();
+        std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
         indent();
 
         if(sizes.size()>0)
@@ -596,7 +601,7 @@ namespace cupl {
             std::cout << "\033[4D";
 
         unindent();
-        std::cout << colour(COLOUR_ARRAY) << "}" << clr();
+        std::cout << colour(array_colours[indentation_level]) << "}" << clr();
     }
 
     /* ------------------------------------------------------------------------------
