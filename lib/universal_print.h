@@ -27,7 +27,7 @@
 #define _universal_print_h_
 
 /** =============================================================================
-  *                  Colours' and character encoding definitions
+  * User setup (colours' and character encoding definitions, std::cout precision)
   * ============================================================================= **/
 
 /* ------------------------------------------------------------------------------
@@ -67,6 +67,12 @@
 #       define CHARACTER_ENCODING UNICODE
 #   endif
 #endif
+
+/* ------------------------------------------------------------------------------
+ *  Here you can set std::cout precision (5 by default)
+ * ------------------------------------------------------------------------------ */
+
+#define STD_COUT_PRECISION 5
 
 /** =============================================================================
   *                         Libraries and initialization
@@ -153,6 +159,7 @@ namespace cupl {
     array_extent_push(x,5);\
     cupl::print_main(x,__LINE__,#x,##__VA_ARGS__);
 #define debug if(1)
+
 
 namespace cupl {
 
@@ -677,6 +684,8 @@ namespace cupl {
   * ============================================================================= **/
 
 namespace cupl {
+
+    bool setCoutPrecision = []{std::cout.precision(STD_COUT_PRECISION);return 0;}();
 
     /* ------------------------------------------------------------------------------
      *  Informing the user that debug mode is enabled
