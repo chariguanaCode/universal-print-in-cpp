@@ -1,7 +1,7 @@
 /* ==============================================================================
  *
  *  Contributors:
- *      Name:       Adam Jeliñski
+ *      Name:       Adam Jeliπski
  *      Nickname:   charodziej
  *
  *      Name:       Kajetan Lewandowski
@@ -11,9 +11,9 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
- *  Last updated:   16.04.2019
+ *  Last updated:   17.04.2019
  *
- *  Version: 0.9
+ *  Version: 1.0
  *
  *  universal-print-in-cpp
  *  Universal print in C++
@@ -236,34 +236,34 @@ namespace cupl {
 
     }
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
         void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
 
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
         void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
         void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
         void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if<!(std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if<!(std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if<!(std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if<!(std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
         void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
 }
@@ -490,12 +490,10 @@ namespace cupl {
     void print_process(std::pair<T,U> &x) {
         std::cout << colour(array_colours[indentation_level]) << "(" << clr();
         ++indentation_level;
-        indentation_level=(indentation_level+array_colours.size())%array_colours.size();
         print_process(x.first);
         std::cout << ", ";
         print_process(x.second);
         --indentation_level;
-        indentation_level=(indentation_level+array_colours.size())%array_colours.size();
         std::cout << colour(array_colours[indentation_level]) << ")" << clr();
     }
 
@@ -558,20 +556,20 @@ namespace cupl {
             std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
             indent();
 
-            if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x))
+            if(is_iterable<decltype(*std::begin(x))>::value&&std::begin(x)!=std::end(x))
                 std::cout << '\n' << indentation;
 
             for (auto e : x) {
                 print_process(e);
 
-                if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x)) {
+                if(is_iterable<decltype(*std::begin(x))>::value&&std::begin(x)!=std::end(x)) {
                     std::cout << '\n' << indentation;
                 } else {
                     std::cout << ' ';
                 }
             }
 
-            if(is_iterable<decltype(*begin(x))>::value&&begin(x)!=end(x)&&ANSIsupport)
+            if(is_iterable<decltype(*std::begin(x))>::value&&std::begin(x)!=std::end(x)&&ANSIsupport)
                 std::cout << "\033[4D";
 
             unindent();
@@ -658,34 +656,34 @@ namespace cupl {
     }
 
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
     void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
         print_BinaryTree("","",v,doesExist,getValue,getLeftSon,getRightSon);
     }
 
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
     void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
         print_BinaryTree("","",v,doesExist,getValue,getLeftSon,pbt::pbt_default::getRightSon1);
     }
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
     void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
         print_BinaryTree("","",v,doesExist,getValue,pbt::pbt_default::getLeftSon1,pbt::pbt_default::getRightSon1);
     }
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if<!(std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if<!(std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TdoesExist,   typename std::enable_if<!(std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if<!(std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
     void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){std::cout<<"TOO FEW ARGUMENTS"<<std::endl;}
 }
