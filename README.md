@@ -10,12 +10,14 @@ Very handy when used for competetive programming.
 * `std::bitset`
 * `std::vector`s and arrays with defined dimensions
 * `std::stack`, `std::queue`, `std::deque`, `std::priority_queue`
+* `std::list`
 * `std::pair`
+* `std::map`, `std::multimap`, `std::set`, `std::multiset`
 * all pointers of any type that is supported
 * all `const` variants of supported types
 * all arithmetic expressions of supported types
 * binary trees __disclaimer__ a bit of extra effort is needed
-* probably more are supported but we haven't tested them
+* probably more are supported but we haven't tested them (everything from STL)
 
 ## Installation
 
