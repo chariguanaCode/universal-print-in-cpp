@@ -3,6 +3,20 @@
 This is a library mainly meant to increase the efficiency of debugging C++ programs. 
 Very handy when used for competetive programming.
 
+## Supported and tested types
+
+* all numeric variables (`bool`, `char`, `short`, `int`, `long`, `long long`, `float`, `double`, `long double`) both `signed` and `unsigned`
+* `std::string`
+* `std::bitset`
+* `std::vector`s and arrays with defined dimensions
+* `std::stack`, `std::queue`, `std::deque`, `std::priority_queue`
+* `std::pair`
+* all pointers of any type that is supported
+* all `const` variants of supported types
+* all arithmetic expressions of supported types
+* binary trees __disclaimer__ a bit of extra effort is needed
+* probably more are supported but we haven't tested them
+
 ## Installation
 
  1. Clone this repository using
@@ -10,7 +24,7 @@ Very handy when used for competetive programming.
     git clone https://gitlab.com/charodziej/universal-print-in-cpp
     ```
     or by downloading it from [here](https://gitlab.com/charodziej/universal-print-in-cpp/-/archive/master/universal-print-in-cpp-master.zip)
- 2. Make sure that everything works on your platform by compiling at least one of the examples (__TODO__) in your programming environment
+ 2. Make sure that everything works on your platform by compiling at least one of the [examples](/examples/) in your programming environment
  3. If everything is working properly, include the `universal_print.h` library to your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
 
 ## Usage
@@ -20,7 +34,7 @@ Very handy when used for competetive programming.
     #define DEBUG 1
     ```
     to the beginning of a project based on `template.cpp`.
-    At this point your program should be showing a banner, informing you that you are in debug mode.
+    At this point your program should be printing a banner, informing you that you are in debug mode.
 
  2. To make use of the basic functionality you only need to call
     ```cpp
@@ -32,7 +46,7 @@ Very handy when used for competetive programming.
     ```cpp
     cupl::showTypes(false);
     ```
-    and reenable them using
+    and re-enable them using
     ```cpp
     cupl::showTypes(true);
     ```
@@ -78,11 +92,11 @@ The full documentation describing all the functions can be found [here](/documen
 
 ## TODO
 
-* [x] examples
 * [x] support for const
+* [x] examples
+* [x] screenshots
 * [x] printing binary trees nicely
 * [ ] printing other graphs _nicely_
-* [x] screenshots
 
 ## Issues
 
