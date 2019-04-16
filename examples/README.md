@@ -51,3 +51,8 @@ I don't think there is much to be said about this one. It is completely unrealis
 It may look pretty bad on some terminals but is definitely worth checking out.
 
 _enjoy at your own risk_
+
+### Linux
+
+![extreme.cpp on Linux](../screenshots/Linux_extreme.png)
+
