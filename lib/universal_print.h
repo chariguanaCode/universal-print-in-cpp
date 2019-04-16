@@ -48,7 +48,7 @@
 #define COLOUR_BITSET                48
 #define COLOUR_BINARY_TREE          214
 
-int array_colours[10] = { 31,208, 87, 93,160, 31, 31, 31, 31, 31};
+#define COLOUR_ARRAY 31,208,87,93,160,31
 
 /* ------------------------------------------------------------------------------
  *  Here you can change library character encoding EXTENDED_ASCII/UNICODE/LEGACY
@@ -162,6 +162,8 @@ namespace cupl {
 
 
 namespace cupl {
+
+    std::vector<int> array_colours = {COLOUR_ARRAY};
 
     void checkEncodingCompatibility();
 
@@ -331,12 +333,14 @@ namespace cupl {
         for (int i = 0; i < 4; ++i)
             indentation.push_back(' ');
         ++indentation_level;
+        indentation_level%=array_colours.size();
     }
 
     void unindent() {
         for (int i = 0; i < 4; ++i)
             indentation.pop_back();
         --indentation_level;
+        indentation_level%=array_colours.size();
     }
 
     /* ------------------------------------------------------------------------------
