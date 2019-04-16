@@ -53,9 +53,20 @@
 /* ------------------------------------------------------------------------------
  *  Here you can change library character encoding EXTENDED_ASCII/UNICODE/LEGACY
  *  Check your terminal encoding by calling cupl::checkCodingCompatibility()
+ *  (you need to uncomment the following #define for your changes to be considered)
  * ------------------------------------------------------------------------------ */
 
- #define CHARACTER_ENCODING EXTENDED_ASCII
+//#define CHARACTER_ENCODING LEGACY
+
+//if you don't uncomment the define above, the default one for your system will be used
+
+#ifndef CHARACTER_ENCODING
+#   if defined _WIN32 || defined _WIN64
+#       define CHARACTER_ENCODING EXTENDED_ASCII
+#   else
+#       define CHARACTER_ENCODING UNICODE
+#   endif
+#endif
 
 /** =============================================================================
   *                         Libraries and initialization
@@ -265,14 +276,14 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     void checkEncodingCompatibility(){
 
-        std::cout<<"\nThere will be shown characters encoded in some encoding systems. Pick the most similar to the one shown in /screenshots/characterencoding.png\n"<<std::endl;
+        std::cout<<"\nBelow you can see characters encoded using different systems supported by this library. Pick the most similiar to the one shown in /screenshots/characterencoding.png\n"<<std::endl;
 
         std::cout<<"EXTENDED_ASCII: "<<(char)218<<(char)196<<"    "<<\
         (char)192<<(char)196<<"    "<<(char)179<<"\n\n";
 
-        std::cout<<"UNICODE:  \u250C\u2500    \u2514\u2500     \u2502\n\n";
+        std::cout<<"UNICODE:        \u250C\u2500    \u2514\u2500    \u2502\n\n";
 
-        std::cout<<"LEGACY:  .-    L-     |\n";
+        std::cout<<"LEGACY:         .-    L-    |\n";
 
     }
 
@@ -604,12 +615,12 @@ namespace cupl {
         if(doesExist(v)){
             //Right child
             s = middle;
-            if(upper == pbt::crv_r) s[s.size() - 2] = ' ';
+            if(upper == pbt::crv_r) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
             print_BinaryTree(s + pbt::str, pbt::crv_r, moverRight(v),doesExist,getValue,moverRight,moverLeft);
 
             //Printing
-            s = s.substr(0,middle.size()-2);
-            std::cout << colour(COLOUR_BINARY_TREE)<<s<< upper<<clr();
+            s = s.substr(0,middle.size()-pbt::str.size());
+            std::cout << colour(COLOUR_BINARY_TREE) << s << upper << clr();
                  if(upper == pbt::crv_l && doesExist(moverLeft(v)))indentation="  "+s      +pbt::str+' ';
             else if(upper == pbt::crv_l &&!doesExist(moverLeft(v)))indentation=     s+"  ";
             else if(upper == pbt::crv_r && doesExist(moverLeft(v)))indentation=     s      +pbt::str+pbt::str+' ';
@@ -621,7 +632,7 @@ namespace cupl {
 
             //Left child
             s = middle;
-            if(upper == pbt::crv_l) s[s.size() - 2] = ' ';
+            if(upper == pbt::crv_l) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
             print_BinaryTree(s + pbt::str, pbt::crv_l, moverLeft(v),doesExist,getValue,moverRight,moverLeft);
         }
         return;
