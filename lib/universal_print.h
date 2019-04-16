@@ -220,42 +220,42 @@ namespace cupl {
         std::string   str = {'|',' '            };
         #endif
         namespace pbt_default{
-            int moveLeft1 (int val){return val*2;  }
-            int moveRight1(int val){return val*2+1;}
+            int getLeftSon1 (int val){return val*2;  }
+            int getRightSon1(int val){return val*2+1;}
         }
 
     }
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-        void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+        void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
 
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
               typename TdoesExist, typename std::enable_if<!(std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if<!(std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-        void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft);
+              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+        void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
 }
 
 /** =============================================================================
@@ -606,9 +606,9 @@ namespace cupl {
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-    void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft)
+              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+    void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon)
     {
         std::string s;
 
@@ -616,15 +616,15 @@ namespace cupl {
             //Right child
             s = middle;
             if(upper == pbt::crv_r) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
-            print_BinaryTree(s + pbt::str, pbt::crv_r, moverRight(v),doesExist,getValue,moverRight,moverLeft);
+            print_BinaryTree(s + pbt::str, pbt::crv_r, getLeftSon(v),doesExist,getValue,getLeftSon,getRightSon);
 
             //Printing
             s = s.substr(0,middle.size()-pbt::str.size());
             std::cout << colour(COLOUR_BINARY_TREE) << s << upper << clr();
-                 if(upper == pbt::crv_l && doesExist(moverLeft(v)))indentation="  "+s      +pbt::str+' ';
-            else if(upper == pbt::crv_l &&!doesExist(moverLeft(v)))indentation=     s+"  ";
-            else if(upper == pbt::crv_r && doesExist(moverLeft(v)))indentation=     s      +pbt::str+pbt::str+' ';
-            else if(upper == pbt::crv_r &&!doesExist(moverLeft(v)))indentation=     s      +pbt::str+' ';
+                 if(upper == pbt::crv_l && doesExist(getRightSon(v)))indentation="  "+s      +pbt::str+' ';
+            else if(upper == pbt::crv_l &&!doesExist(getRightSon(v)))indentation=     s+"  ";
+            else if(upper == pbt::crv_r && doesExist(getRightSon(v)))indentation=     s      +pbt::str+pbt::str+' ';
+            else if(upper == pbt::crv_r &&!doesExist(getRightSon(v)))indentation=     s      +pbt::str+' ';
             indentation=colour(COLOUR_BINARY_TREE)+indentation+clr();
             auto x=getValue(v);
             watch(x,2);
@@ -633,7 +633,7 @@ namespace cupl {
             //Left child
             s = middle;
             if(upper == pbt::crv_l) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
-            print_BinaryTree(s + pbt::str, pbt::crv_l, moverLeft(v),doesExist,getValue,moverRight,moverLeft);
+            print_BinaryTree(s + pbt::str, pbt::crv_l, getRightSon(v),doesExist,getValue,getLeftSon,getRightSon);
         }
         return;
     }
@@ -641,34 +641,34 @@ namespace cupl {
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if< (std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){
-        print_BinaryTree("","",v,doesExist,getValue,moverRight,moverLeft);
+              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
+        print_BinaryTree("","",v,doesExist,getValue,getLeftSon,getRightSon);
     }
 
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if< (std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){
-        print_BinaryTree("","",v,doesExist,getValue,moverRight,pbt::pbt_default::moveLeft1);
+              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
+        print_BinaryTree("","",v,doesExist,getValue,getLeftSon,pbt::pbt_default::getRightSon1);
     }
     template <typename Tv,
               typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){
-        print_BinaryTree("","",v,doesExist,getValue,pbt::pbt_default::moveRight1,pbt::pbt_default::moveLeft1);
+              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
+        print_BinaryTree("","",v,doesExist,getValue,pbt::pbt_default::getLeftSon1,pbt::pbt_default::getRightSon1);
     }
     template <typename Tv,
               typename TdoesExist, typename std::enable_if<!(std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
               typename TgetValue,  typename std::enable_if<!(std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TmoverRight,typename std::enable_if<!(std::is_function<TmoverRight>::value),TmoverRight>::type* =nullptr,
-              typename TmoverLeft, typename std::enable_if<!(std::is_function<TmoverLeft >::value),TmoverLeft >::type* =nullptr>
-    void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TmoverRight &moverRight, TmoverLeft &moverLeft){std::cout<<"TOO FEW ARGUMENTS"<<std::endl;}
+              typename TgetLeftSon,typename std::enable_if<!(std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
+    void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){std::cout<<"TOO FEW ARGUMENTS"<<std::endl;}
 }
 
 /** =============================================================================
