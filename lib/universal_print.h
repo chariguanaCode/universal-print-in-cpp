@@ -27,7 +27,7 @@
 #define _universal_print_h_
 
 /** =============================================================================
-  *                             Colours' definitions                            
+  *                  Colours' and character encoding definitions
   * ============================================================================= **/
 
 /* ------------------------------------------------------------------------------
@@ -49,6 +49,13 @@
 #define COLOUR_PAIR                  31
 #define COLOUR_BITSET                48
 #define COLOUR_BINARY_TREE          214
+
+/* ------------------------------------------------------------------------------
+ *  Here you can change library character encoding EXTENDED_ASCII/UNICODE/LEGACY
+ *  Check your terminal encoding by calling cupl::checkCodingCompatibility()
+ * ------------------------------------------------------------------------------ */
+
+ #define CHARACTER_ENCODING EXTENDED_ASCII
 
 /** =============================================================================
   *                         Libraries and initialization
@@ -121,7 +128,9 @@ namespace cupl {
 /** =============================================================================
   *                                 Declarations
   * ============================================================================= **/
-
+#define EXTENDED_ASCII 1
+#define UNICODE 2
+#define LEGACY 3
 #define array_extent_push(x,i) if(i<cupl::array_rank)cupl::array_sizes.push(std::extent<decltype(x),i>::value);
 #define watch(x,...) \
     cupl::array_rank=std::rank<decltype(x)>::value;\
@@ -135,6 +144,8 @@ namespace cupl {
 #define debug if(1)
 
 namespace cupl {
+
+    void checkCodingCompatibility();
 
     namespace init{ int _int = 0; }
 
@@ -178,9 +189,25 @@ namespace cupl {
     template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
 
     namespace pbt{
+
+        #if CHARACTER_ENCODING == 1
         std::string crv_r = {(char)218,(char)196};
         std::string crv_l = {(char)192,(char)196};
         std::string   str = {(char)179,' '      };
+        #elif CHARACTER_ENCODING == 2
+        std::string crv_r = "\u250C\u2500";
+        std::string crv_l = "\u2514u2500";
+        std::string   str = "\u2502 ";
+        #elif CHARACTER_ENCODING == 3
+        std::string crv_r = {'.','-'            };
+        std::string crv_l = {'L','-'            };
+        std::string   str = {'|',' '            };
+        #else
+        #warning Wrong character encoding
+        std::string crv_r = {'.','-'            };
+        std::string crv_l = {'L','-'            };
+        std::string   str = {'|',' '            };
+        #endif
         namespace pbt_default{
             int moveLeft1 (int val){return val*2;  }
             int moveRight1(int val){return val*2+1;}
@@ -231,6 +258,22 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     void showTypes(bool val) {
         SHOW_TYPE_NAME = val;
+    }
+
+    /* ------------------------------------------------------------------------------
+     *  Checking character coding compatibility
+     * ------------------------------------------------------------------------------ */
+    void checkCodingCompatibility(){
+
+        std::cout<<"\nThere will be shown characters encoded in some encoding systems. Pick the most similar to the one shown in /screenshots/characterencoding.png\n"<<std::endl;
+
+        std::cout<<"EXTENDED_ASCII: "<<(char)218<<(char)196<<"    "<<\
+        (char)192<<(char)196<<"    "<<(char)179<<"\n\n";
+
+        std::cout<<"UNICODE:  \u250C\u2500    \u2514u2500     \u2502\n\n";
+
+        std::cout<<"LEGACY:  .-    L-     |\n";
+
     }
 
     /* ------------------------------------------------------------------------------
