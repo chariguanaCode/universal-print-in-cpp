@@ -38,55 +38,51 @@ Very handy when used for competetive programming.
     ```
     if that's what you need to do.
 
- 4. If your data type isn't supported (for example because it's a `struct`) you will need to implement an expansion to the library in your main cpp file.
+ 4. If your data type isn't supported you will need to implement an expansion to the library in your main cpp file.
  
     You can do it as follows:
     ```cpp
-    #if DEBUG==1
-    void cupl::print_process(<data_type> name){
+    void print_process(<data_type> name){
         <custom_printing_code>
     }
-    #endif
     ```
     where `<data_type>` would be the your custom data type and `<custom_printing_code>` would be your method of printing the variable. 
     
     After each `endln` or `\n` in your `<custom_printing_code>` you have to print the variable `cupl::indentation` to make everything look properly.
     
     Please note that if your custom type contains other types that are supported by our library you can just call `cupl::print_process();` on those members of your type.
-    
-    You may want to check out this example (__TODO__) to better understand how to implement this.
 
-## Special functions and declarations
+    Due to C++11 limitations `struct`s aren't supported by default and each `struct` has to have this function defined like so:
+    ```cpp
+    struct my_struct{
+        <normal members>
+        ...
+        void print_process(){
+            <custom_printing_code>
+        }
+    }
+    ```
+    You may want to check out [this example](/examples/structs.cpp) to better understand how to implement this.
 
-To further improve your debugging capabilities this library gives you access to various internal functions it uses:
+## Customization
 
-* `debug`:                                                Equivalent to `if(DEBUG)`
+If you would like to change the colours of objects, change the precision `std::cout` uses or binary trees look weird on your system, you should take a look at the beginning of the `universal_print.h` file.
 
-* `cupl::print_main(variable, int line, string name)`:    Allows you to `watch()` your variable with a custom line number and name
- 
-* `cupl::indent();`:                                      Allows you to indent all following lines within this `watch()` 
-    
-* `cupl::unindent();`:                                    Allows you to unindent all following lines within this `watch()` 
-   
-* `cupl::colour(int val)`:                                Returns the string required to change the foreground colour to `val` (8 bit colours)
-    
-* `cupl::backgr(int val)`:                                Returns the string required to change the background colour to `val` (8 bit colours)
-    
-* `cupl::bold()`:                                         Returns the string required to make the text bold
-    
-* `cupl::clr()`:                                          Returns the string required to reset any changes to text appearence
-    
-* `cupl::is_iterable(variable)`:                          Returns `true` if your `variable` is iterable and `false` otherwise
+The "User setup" section will allow you to change all of those things easily.
+
+## Documentation
+
+The full documentation describing all the functions can be found [here](/documentation/README.md)
 
 ## Screenshots
 
 ## TODO
 
-* [ ] examples
+* [x] examples
 * [x] support for const
-* [ ] printing binary trees nicely
+* [x] printing binary trees nicely
 * [ ] printing other graphs _nicely_
-* [ ] screenshots
+* [x] screenshots
 
 ## Issues
 

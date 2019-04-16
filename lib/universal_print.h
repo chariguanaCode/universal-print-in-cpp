@@ -11,7 +11,7 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
- *  Last updated:   15.04.2019
+ *  Last updated:   16.04.2019
  *
  *  Version: 0.9
  *
@@ -283,7 +283,7 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     void checkEncodingCompatibility(){
 
-        std::cout<<"\nBelow you can see characters encoded using different systems supported by this library. Pick the most similiar to the one shown in /screenshots/characterencoding.png\n"<<std::endl;
+        std::cout<<"\nBelow you can see characters encoded using different systems supported by this library. Pick the most similar to the one shown in /screenshots/characterencoding.png\n"<<std::endl;
 
         std::cout<<"EXTENDED_ASCII: "<<(char)218<<(char)196<<"    "<<\
         (char)192<<(char)196<<"    "<<(char)179<<"\n\n";
