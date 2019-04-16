@@ -616,15 +616,15 @@ namespace cupl {
             //Right child
             s = middle;
             if(upper == pbt::crv_r) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
-            print_BinaryTree(s + pbt::str, pbt::crv_r, getLeftSon(v),doesExist,getValue,getLeftSon,getRightSon);
+            print_BinaryTree(s + pbt::str, pbt::crv_r, getRightSon(v),doesExist,getValue,getLeftSon,getRightSon);
 
             //Printing
             s = s.substr(0,middle.size()-pbt::str.size());
             std::cout << colour(COLOUR_BINARY_TREE) << s << upper << clr();
-                 if(upper == pbt::crv_l && doesExist(getRightSon(v)))indentation="  "+s      +pbt::str+' ';
-            else if(upper == pbt::crv_l &&!doesExist(getRightSon(v)))indentation=     s+"  ";
-            else if(upper == pbt::crv_r && doesExist(getRightSon(v)))indentation=     s      +pbt::str+pbt::str+' ';
-            else if(upper == pbt::crv_r &&!doesExist(getRightSon(v)))indentation=     s      +pbt::str+' ';
+                 if(upper == pbt::crv_l && doesExist(getLeftSon(v)))indentation="  "+s      +pbt::str+' ';
+            else if(upper == pbt::crv_l &&!doesExist(getLeftSon(v)))indentation=     s+"  ";
+            else if(upper == pbt::crv_r && doesExist(getLeftSon(v)))indentation=     s      +pbt::str+pbt::str+' ';
+            else if(upper == pbt::crv_r &&!doesExist(getLeftSon(v)))indentation=     s      +pbt::str+' ';
             indentation=colour(COLOUR_BINARY_TREE)+indentation+clr();
             auto x=getValue(v);
             watch(x,2);
@@ -633,7 +633,7 @@ namespace cupl {
             //Left child
             s = middle;
             if(upper == pbt::crv_l) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
-            print_BinaryTree(s + pbt::str, pbt::crv_l, getRightSon(v),doesExist,getValue,getLeftSon,getRightSon);
+            print_BinaryTree(s + pbt::str, pbt::crv_l, getLeftSon(v),doesExist,getValue,getLeftSon,getRightSon);
         }
         return;
     }
