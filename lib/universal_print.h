@@ -333,14 +333,14 @@ namespace cupl {
         for (int i = 0; i < 4; ++i)
             indentation.push_back(' ');
         ++indentation_level;
-        indentation_level%=array_colours.size();
+        indentation_level=(indentation_level+array_colours.size())%array_colours.size();
     }
 
     void unindent() {
         for (int i = 0; i < 4; ++i)
             indentation.pop_back();
         --indentation_level;
-        indentation_level%=array_colours.size();
+        indentation_level=(indentation_level+array_colours.size())%array_colours.size();
     }
 
     /* ------------------------------------------------------------------------------
@@ -490,12 +490,10 @@ namespace cupl {
     void print_process(std::pair<T,U> &x) {
         std::cout << colour(array_colours[indentation_level]) << "(" << clr();
         ++indentation_level;
-        indentation_level%=array_colours.size();
         print_process(x.first);
         std::cout << ", ";
         print_process(x.second);
         --indentation_level;
-        indentation_level%=array_colours.size();
         std::cout << colour(array_colours[indentation_level]) << ")" << clr();
     }
 
