@@ -621,10 +621,11 @@ namespace cupl {
             //Printing
             s = s.substr(0,middle.size()-pbt::str.size());
             std::cout << colour(COLOUR_BINARY_TREE) << s << upper << clr();
-                 if(upper == pbt::crv_l && doesExist(getLeftSon(v)))indentation="  "+s      +pbt::str+' ';
-            else if(upper == pbt::crv_l &&!doesExist(getLeftSon(v)))indentation=     s+"  ";
-            else if(upper == pbt::crv_r && doesExist(getLeftSon(v)))indentation=     s      +pbt::str+pbt::str+' ';
-            else if(upper == pbt::crv_r &&!doesExist(getLeftSon(v)))indentation=     s      +pbt::str+' ';
+                 if(upper == pbt::crv_l && doesExist(getLeftSon(v)))indentation=s+"  "+pbt::str+' ';
+            else if(upper == pbt::crv_l &&!doesExist(getLeftSon(v)))indentation=s+"  ";
+            else if(upper == pbt::crv_r && doesExist(getLeftSon(v)))indentation=s     +pbt::str+pbt::str+' ';
+            else if(upper == pbt::crv_r &&!doesExist(getLeftSon(v)))indentation=s     +pbt::str+' ';
+            else indentation=s;
             indentation=colour(COLOUR_BINARY_TREE)+indentation+clr();
             auto x=getValue(v);
             watch(x,2);

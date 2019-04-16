@@ -34,10 +34,20 @@ Then in the `int main()` it builds the custom list and calls `watch()` on its fi
 
 ## math.cpp
 
+_WIP_
+
 ## trees.cpp
+
+_WIP_
 
 ## graph.cpp
 
+To be seen!
+
 ## extreme.cpp
 
-^ Look forward to this one!
+I don't think there is much to be said about this one. It is completely unrealistic and only shows how much potential this library has.
+
+It may look pretty bad on some terminals but is definitely worth checking out.
+
+_enjoy at your own risk_
