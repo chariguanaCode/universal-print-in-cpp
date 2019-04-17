@@ -60,32 +60,32 @@ This example shows capabilities of printing binary trees.
 
 First 27 lines are just `template.cpp` and there is nothing special to tell about them.
 
-#####Binary tree in array (a)
+#### Binary tree in array (a)
 
 Here is the most basic binary tree and nothing fancy.
 We also `watch()` this same example starting in a different root.
 
-#####Binary tree in array (b)
+#### Binary tree in array (b)
 
 This example shows that a binary tree can be used with all types of data including multi-dimensional structures.
 
-#####Binary tree in array (c)
+#### Binary tree in array (c)
 
 Here we can see that you can print binary trees with mixed data types and structures.
 
-#####Binary tree in array (d)
+#### Binary tree in array (d)
 
 This is an exposition of the true power of this library. For example, we can mirror the tree without adding anything.
 
-#####Binary tree in array (e)
+#### Binary tree in array (e)
 
 Here we're printing a tree without the left subtree.
 
-#####Binary tree in array (f)
+#### Binary tree in array (f)
 
 Lambdas will be working, I promise.
 
-#####Binary tree in adjacency matrix (a)
+#### Binary tree in adjacency matrix (a)
 
 Here we are constructing functions for other methods of handling binary trees.
 
