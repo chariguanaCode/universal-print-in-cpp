@@ -4,7 +4,7 @@
 #define DEBUG 0
 #elif DEBUG==1
 //if DEBUG mode is on it includes the universal_print library
-#include "universal_print.h"
+#include "../lib/universal_print.h"
 #endif
 #if DEBUG==0
 //if DEBUG mode is off it defines all debug mode functions to "turn them off"
