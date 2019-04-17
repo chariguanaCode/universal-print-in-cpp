@@ -1,3 +1,5 @@
+![Banner](../screenshots/Banner.png)
+
 # Universal Print in Cpp
 
 This is a library mainly meant to increase the efficiency of debugging C++ programs. 
@@ -91,6 +93,18 @@ The "User setup" section will allow you to change all of those things easily.
 The full documentation describing all the functions can be found [here](/documentation/README.md)
 
 ## Screenshots
+
+![basic.cpp on Linux](../screenshots/Linux_basic.png)
+
+![structs.cpp on Linux](../screenshots/Linux_structs.png)
+
+![math.cpp on Linux](../screenshots/Linux_math.png)
+
+![trees.cpp on Linux](../screenshots/Linux_trees.png)
+
+![extreme.cpp on Linux](../screenshots/Linux_extreme.png)
+
+![random.cpp on Linux](../screenshots/Linux_random.png)
 
 ## TODO
 
