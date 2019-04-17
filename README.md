@@ -1,4 +1,4 @@
-![Banner](../screenshots/Banner.png)
+![Banner](../screenshots/Banner.jpg)
 
 # Universal Print in Cpp
 
@@ -20,6 +20,11 @@ Very handy when used for competetive programming.
 * all arithmetic expressions of supported types
 * binary trees
 * probably more are supported but we haven't tested them (everything from STL)
+
+## Contributors
+
+* Adam Jeliński (charodziej)
+* Kajetan Lewandowski (LegwanXDL)
 
 ## Installation
 
@@ -92,20 +97,6 @@ The "User setup" section will allow you to change all of those things easily.
 
 The full documentation describing all the functions can be found [here](/documentation/README.md)
 
-## Screenshots
-
-![basic.cpp on Linux](../screenshots/Linux_basic.png)
-
-![structs.cpp on Linux](../screenshots/Linux_structs.png)
-
-![math.cpp on Linux](../screenshots/Linux_math.png)
-
-![trees.cpp on Linux](../screenshots/Linux_trees.png)
-
-![extreme.cpp on Linux](../screenshots/Linux_extreme.png)
-
-![random.cpp on Linux](../screenshots/Linux_random.png)
-
 ## TODO
 
 * [x] support for const
@@ -120,7 +111,17 @@ If you encounter any issues or come up with nice improvements please report them
 
 Merge requests are welcome too :).
 
-## Contributors
+## Screenshots
 
-* Adam Jeliński (charodziej)
-* Kajetan Lewandowski (LegwanXDL)
+![basic.cpp on Linux](../screenshots/Linux_basic.png)
+
+![structs.cpp on Linux](../screenshots/Linux_structs.png)
+
+![math.cpp on Linux](../screenshots/Linux_math.png)
+
+![trees.cpp on Linux](../screenshots/Linux_trees.png)
+
+![extreme.cpp on Linux](../screenshots/Linux_extreme.png)
+
+![random.cpp on Linux](../screenshots/Linux_random.png)
+
