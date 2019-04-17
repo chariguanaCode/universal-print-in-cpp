@@ -2,6 +2,44 @@
 
 To further expand your debugging capabilities this library gives you access to various internal functions it uses.
 
+By variable we mean variables, data structures and expressions.
+
+## `watch(variable)` 
+This is the main function of the library. By calling this your `variable` will be printed nicely with line in code, `variable` type and `variable` name.  
+
+## 'watch(variable, int mode)
+You can call `watch` with second parameter which is determining `watch` mode. There are three modes available at this time (release 1.0). 
+
+* Mode 0 is default mode and is calling when there is given one parameter
+* Mode 1 is binary trees mode
+* Mode 2 is printing `variable` value without line in code, `variable` type and `variable` name.
+
+
+## `watch(variable, 1, root, doesExist, getValue, getLeftSon, getRightSon)
+This is binary trees mode. Last 2 arguments aren't necessary for standart binary trees in array.
+
+`root` is just root of the tree
+`doesExist` is a function which is determining if vertex exist. For standart binary tree in array this function can look like that:
+```
+bool doesExist(int val){return val<tree_size;}
+```
+`getValue` is a function which is giving value of vertex. For standart binary tree in array this function can look like that:
+```
+int getValue(int val){return my_tree[val];};
+```
+`getLeftSon` is a function which is giving left son of vertex. For standart binary tree in array this function can look like that:
+```
+int getValue(int val){return val*2;}
+```
+`getRightSon` is a function which is giving right son of vertex. For standart binary tree in array this function can look like that:
+```
+int getValue(int val){return val*2+1;}
+```
+
+
+## `cupl::showTypes(bool val)`
+This function able or disable showing types' names after calling `watch()`.
+
 
 ## `debug` 
 Equivalent to `if(DEBUG)`.
