@@ -16,7 +16,7 @@ Very handy when used for competetive programming.
 * all pointers of any type that is supported
 * all `const` variants of supported types
 * all arithmetic expressions of supported types
-* binary trees __disclaimer__ a bit of extra effort is needed
+* binary trees
 * probably more are supported but we haven't tested them (everything from STL)
 
 ## Installation
