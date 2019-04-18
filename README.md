@@ -1,6 +1,7 @@
-![Banner](../screenshots/Banner.jpg)
+![Banner](/screenshots/Banner.jpg)
 
-# Universal Print in Cpp
+# Universal Print in Cpp 
+#### also known as the Competetive Universal Print Library (cupl)
 
 This is a library mainly meant to increase the efficiency of debugging C++ programs. 
 Very handy when used for competetive programming.
@@ -30,11 +31,11 @@ Very handy when used for competetive programming.
 
  1. Clone this repository using
     ```
-    git clone https://gitlab.com/charodziej/universal-print-in-cpp
+    git clone https://github.com/charodziejskiLegwan/universal-print-in-cpp
     ```
-    or by downloading it from [here](https://gitlab.com/charodziej/universal-print-in-cpp/-/archive/master/universal-print-in-cpp-master.zip)
+    or by downloading it from [here](https://github.com/charodziejskiLegwan/universal-print-in-cpp/archive/master.zip)
  2. Make sure that everything works on your platform by compiling at least one of the [examples](/examples/) in your programming environment
- 3. If everything is working properly, include the `universal_print.h` library to your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
+ 3. If everything is working properly, include the `universal_print.h` library in your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
 
 ## Usage
 
@@ -113,15 +114,15 @@ Merge requests are welcome too :).
 
 ## Screenshots
 
-![basic.cpp on Linux](../screenshots/Linux_basic.png)
+![basic.cpp on Linux](/screenshots/Linux_basic.png)
 
-![structs.cpp on Linux](../screenshots/Linux_structs.png)
+![structs.cpp on Linux](/screenshots/Linux_structs.png)
 
-![math.cpp on Linux](../screenshots/Linux_math.png)
+![math.cpp on Linux](/screenshots/Linux_math.png)
 
-![trees.cpp on Linux](../screenshots/Linux_trees.png)
+![trees.cpp on Linux](/screenshots/Linux_trees.png)
 
-![extreme.cpp on Linux](../screenshots/Linux_extreme.png)
+![extreme.cpp on Linux](/screenshots/Linux_extreme.png)
 
-![random.cpp on Linux](../screenshots/Linux_random.png)
+![random.cpp on Linux](/screenshots/Linux_random.png)
 
