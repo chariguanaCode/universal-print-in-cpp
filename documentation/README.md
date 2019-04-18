@@ -4,45 +4,45 @@ To further expand your debugging capabilities this library gives you access to v
 
 By variable we mean variables, data structures and expressions.
 
-## `watch(variable)` 
-This is the main function of the library. By calling this your `variable` will be printed nicely with line in code, `variable` type and `variable` name.  
+## `watch(variable)`
+This is the main function of the library. By calling this your `variable` will be printed nicely with line number, `variable` type and `variable` name.  
 
-## 'watch(variable, int mode)`
-You can call `watch` with second parameter which is determining `watch` mode. There are three modes available at this time (release 1.0). 
+## `watch(variable, int mode)`
+You can call `watch` with a second parameter which dermines `watch` mode. There are three modes available at the moment of writing this (release 1.0). 
 
-* Mode 0 is default mode and is calling when there is given one parameter
+* Mode 0 is the default mode and is called when there is given one parameter
 * Mode 1 is binary trees mode
-* Mode 2 is printing `variable` value without line in code, `variable` type and `variable` name.
+* Mode 2 prints the `variable` value without line number, `variable` type nor `variable` name.
 
 
 ## `watch(variable, 1, root, doesExist, getValue, getLeftSon, getRightSon)`
-This is binary trees mode. Last 2 arguments aren't necessary for standart binary trees in array.
+This is THE binary trees mode. The last 2 arguments aren't necessary for the standard binary trees in an array.
 
-* `root` is just root of the tree
+* `root` is just the root of the tree
 
-* `doesExist` is a function which is determining if vertex exist. For standart binary tree in array this function can look like that:
+* `doesExist` has to be a function returning vertex exist. For standard binary tree in an array this function can look like that:
 ```
 bool doesExist(int val){return val<tree_size;}
 ```
 
-* `getValue` needs to be a function returning value of vertex. For standart binary tree in array this function can look like that:
+* `getValue` has to be a function returning value of a vertex. For a standard binary tree in an array this function can look like that:
 ```
 int getValue(int val){return my_tree[val];};
 ```
 
-* `getLeftSon` needs to be a function returning left son of vertex. For standart binary tree in array this function can look like that:
+* `getLeftSon` has to be a function returning the left son of a vertex. For a standard binary tree in an array this function can look like that:
 ```
 int getValue(int val){return val*2;}
 ```
 
-* `getRightSon` is a function which is returning right son of vertex. For standart binary tree in array this function can look like that:
+* `getRightSon` has to be a function returning the right son of a vertex. For a standard binary tree in an array this function can look like that:
 ```
 int getValue(int val){return val*2+1;}
 ```
 
 
 ## `cupl::showTypes(bool val)`
-This function able or disable showing types' names after calling `watch()`.
+This function is used to enable or disable showing types' names while calling `watch()`.
 
 
 ## `debug` 
