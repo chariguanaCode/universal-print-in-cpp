@@ -44,7 +44,7 @@ Very handy when used for competetive programming.
     #define DEBUG 1
     ```
     to the beginning of a project based on `template.cpp`.
-    At this point your program should be printing a banner, informing you that you are in debug mode.
+    At this point your program should print a banner, informing you that you are in debug mode.
 
  2. To make use of the basic functionality you only need to call
     ```cpp
@@ -72,14 +72,14 @@ Very handy when used for competetive programming.
     ```
     where `<data_type>` would be the your custom data type and `<custom_printing_code>` would be your method of printing the variable. 
     
-    After each `endln` or `\n` in your `<custom_printing_code>` you have to print the variable `cupl::indentation` to make everything look properly.
+    Each `endln` or `\n` printed by your `<custom_printing_code>` has to be followed by the variable `cupl::indentation` to make everything look properly.
     
-    Please note that if your custom type contains other types that are supported by our library you can just call `cupl::print_process();` on those members of your type.
+    Please notice that if your custom type contains other types that are supported by our library you can just call `cupl::print_process();` on those members of your type.
 
-    Due to C++11 limitations `struct`s aren't supported by default and each `struct` has to have this function defined like so:
+    Due to C++11 limitations `struct`s aren't supported by default and each `struct` has to implement a function defined like so:
     ```cpp
     struct my_struct{
-        <normal members>
+        <normal_members>
         ...
         void print_process(){
             <custom_printing_code>

@@ -6,7 +6,7 @@ This is the most basic of all the examples.
 
 Like all the other projects using this library, it is based on the `template.cpp`. The first 26 lines are just that and don't have anything special about them.
 
-Then we define all our test variables and call `watch()` on them afterwards. _simple_
+Then we define all of our test variables and call `watch()` on them afterwards. _simple_
 
 ### Linux
 
@@ -56,18 +56,18 @@ It implements the Fourier series approximation and calculates it for some random
 
 ## trees.cpp
 
-This example shows capabilities of printing binary trees. 
+This example shows the possibilities of printing binary trees. 
 
-First 27 lines are just `template.cpp` and there is nothing special to tell about them.
+The first 27 lines are just `template.cpp` and there is nothing special to tell about them.
 
 #### Binary tree in array (a)
 
-Here is the most basic binary tree and nothing fancy.
-We also `watch()` this same example starting in a different root.
+Here is the most basic binary tree without anything fancy.
+We `watch()` this example starting in two different roots.
 
 #### Binary tree in array (b)
 
-This example shows that a binary tree can be used with all types of data including multi-dimensional structures.
+This example shows that a binary tree can be used with all types of data, including multi-dimensional structures.
 
 #### Binary tree in array (c)
 
@@ -79,15 +79,15 @@ This is an exposition of the true power of this library. For example, we can mir
 
 #### Binary tree in array (e)
 
-Here we're printing a tree without the left subtree.
+Here we print a tree without the left subtree.
 
 #### Binary tree in array (f)
 
-Lambdas will be working, I promise.
+Lambdas will work at some point, I promise.
 
 #### Binary tree in adjacency matrix (a)
 
-Here we are constructing functions for other methods of handling binary trees.
+Here we construct functions for other methods of representing binary trees.
 
 ### Linux
 
@@ -119,7 +119,7 @@ _enjoy at your own risk_
 
 ## random.cpp
 
-There is some random stuff we didn't want to delete because it has sentimental value for us.
+This is some random stuff we didn't want to delete because it has sentimental value for us.
 
 ### Linux
 

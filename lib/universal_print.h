@@ -11,12 +11,13 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging
  *
  *  Created:        08.04.2019
- *  Last updated:   17.04.2019
+ *  Last updated:   18.04.2019
  *
- *  Version: 1e0+1e-10
+ *  Version: 1.0
  *
  *  universal-print-in-cpp
  *  Universal print in C++
+ *  the Competetive Universal Print Library
  *
  *  g++ -std=c++11 -o template.o template.cpp
  *  ./template.o
@@ -51,8 +52,8 @@
 #define COLOUR_ARRAY 31,208,87,93,160,31
 
 /* ------------------------------------------------------------------------------
- *  Here you can change library character encoding EXTENDED_ASCII/UNICODE/LEGACY
- *  Check your terminal encoding by calling cupl::checkCodingCompatibility()
+ *  Here you can change the library character encoding: EXTENDED_ASCII/UNICODE/LEGACY
+ *  Check your terminal encoding by calling cupl::checkEncodingCompatibility()
  *  (you need to uncomment the following #define for your changes to be considered)
  * ------------------------------------------------------------------------------ */
 
@@ -69,7 +70,7 @@
 #endif
 
 /* ------------------------------------------------------------------------------
- *  Here you can set std::cout precision (5 by default)
+ *  Here you can set the std::cout precision (5 by default)
  * ------------------------------------------------------------------------------ */
 
 #define STD_COUT_PRECISION 5
@@ -286,7 +287,7 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     void checkEncodingCompatibility(){
 
-        std::cout<<"\nBelow you can see characters encoded using different systems supported by this library. Pick the most similar to the one shown in /screenshots/characterencoding.png\n"<<std::endl;
+        std::cout<<"\nBelow you can see characters encoded using different systems supported by this library. Pick the most similar to the one shown in /screenshots/character_encoding.png\n"<<std::endl;
 
         std::cout<<"EXTENDED_ASCII: "<<(char)218<<(char)196<<"    "<<\
         (char)192<<(char)196<<"    "<<(char)179<<"\n\n";
@@ -685,7 +686,7 @@ namespace cupl {
               typename TgetValue,    typename std::enable_if<!(std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
               typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
               typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-    void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){std::cout<<"TOO FEW ARGUMENTS"<<std::endl;}
+    void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){std::cout<<"TOO FEW ARGUMENTS :'("<<std::endl;}
 }
 
 /** =============================================================================
