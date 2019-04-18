@@ -1,6 +1,6 @@
 ![Banner](/screenshots/Banner.jpg)
 
-# Universal Print in Cpp 
+# Universal Print in C++ 
 #### also known as the Competetive Universal Print Library (cupl)
 
 This is a library mainly meant to increase the efficiency of debugging C++ programs. 
