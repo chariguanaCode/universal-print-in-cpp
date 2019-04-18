@@ -1,14 +1,14 @@
 /* ==============================================================================
  *
  *  Contributors:
- *      Name:       Adam Jeliπski
+ *      Name:       Adam Jeliński
  *      Nickname:   charodziej
  *
  *      Name:       Kajetan Lewandowski
  *      Nickname:   LegwanXDL
  *
- *  Description:    A library implementing a uniform method of printing variables in C++
- *                  Mainly intended for competetive programming, to greatly speedup debugging
+ *  Description:    A library implementing a uniform method of printing variables in C++.
+ *                  Mainly intended for competetive programming, to greatly speedup debugging.
  *
  *  Created:        08.04.2019
  *  Last updated:   18.04.2019
@@ -52,7 +52,7 @@
 #define COLOUR_ARRAY 31,208,87,93,160,31
 
 /* ------------------------------------------------------------------------------
- *  Here you can change the library character encoding: EXTENDED_ASCII/UNICODE/LEGACY
+ *  Here you can change the character encoding: EXTENDED_ASCII/UNICODE/LEGACY
  *  Check your terminal encoding by calling cupl::checkEncodingCompatibility()
  *  (you need to uncomment the following #define for your changes to be considered)
  * ------------------------------------------------------------------------------ */
@@ -172,7 +172,7 @@ namespace cupl {
 
     template <typename T> using is_iterable = decltype(detail::is_iterable_impl<T>(0)); //determines if a variable is iterable
 
-    bool SHOW_TYPE_NAME = 1;    //to hide or show types names next to variable name
+    bool SHOW_TYPE_NAME = 1;    //to hide or show type names next to the variable name
     void showTypes(bool val);   //false - hide, true - show
 
     template <class T> std::string type_name(); //determines variable type name
@@ -200,10 +200,10 @@ namespace cupl {
     void indent();
     void unindent();
 
-    std::string colour(int val); //sets ANSI colour
+    std::string colour(int val); //sets foreground ANSI colour
     std::string backgr(int val); //sets background ANSI colour
-    std::string bold();          //bolds text
-    std::string clr();           //remove all text effects
+    std::string bold();          //makes text bold
+    std::string clr();           //removes all text effects
 
     template <typename T,typename Targ1=int,typename Targ2=int,typename Targ3=int,typename Targ4=int,typename Targ5=int>
         void print_main(T x, int line, std::string name,int mode=0,Targ1 arg1=init::_int, Targ2 &arg2=init::_int, Targ3 &arg3=init::_int, Targ4 &arg4=init::_int, Targ5 &arg5=init::_int);
@@ -225,7 +225,7 @@ namespace cupl {
         std::string crv_l = {'L','-'            };
         std::string   str = {'|',' '            };
         #else
-        #warning Wrong character encoding
+        #warning Incorrect character encoding
         std::string crv_r = {'.','-'            };
         std::string crv_l = {'L','-'            };
         std::string   str = {'|',' '            };
