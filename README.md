@@ -31,9 +31,9 @@ Very handy when used for competetive programming.
 
  1. Clone this repository using
     ```
-    git clone https://github.com/charodziejskiLegwan/universal-print-in-cpp
+    git clone https://github.com/chariguanaCode/universal-print-in-cpp
     ```
-    or by downloading it from [here](https://github.com/charodziejskiLegwan/universal-print-in-cpp/archive/master.zip)
+    or by downloading it from [here](https://github.com/chariguanaCode/universal-print-in-cpp/archive/master.zip)
  2. Make sure that everything works on your platform by compiling at least one of the [examples](/examples/) in your programming environment
  3. If everything is working properly, include the `universal_print.h` library in your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
 
