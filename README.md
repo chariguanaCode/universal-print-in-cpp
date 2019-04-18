@@ -37,6 +37,10 @@ Very handy when used for competetive programming.
  2. Make sure that everything works on your platform by compiling at least one of the [examples](/examples/) in your programming environment
  3. If everything is working properly, include the `universal_print.h` library in your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
 
+## Documentation
+
+The full documentation describing all the functions can be found [here](/documentation/README.md)
+
 ## Usage
 
  1. To enable the library, you only need to add 
@@ -93,10 +97,6 @@ Very handy when used for competetive programming.
 If you would like to change the colours of objects, change the precision `std::cout` uses or binary trees look weird on your system, you should take a look at the beginning of the `universal_print.h` file.
 
 The "User setup" section will allow you to change all of those things easily.
-
-## Documentation
-
-The full documentation describing all the functions can be found [here](/documentation/README.md)
 
 ## TODO
 
