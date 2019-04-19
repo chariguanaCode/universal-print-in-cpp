@@ -6,6 +6,9 @@
 This is a library mainly meant to increase the efficiency of debugging C++ programs. 
 Very handy when used for competetive programming.
 
+The efficiency increase is possible thanks to the `watch()` function introduced by this library.
+It can print out the value of _almost_ every variable,  structure or expression, along with the context that it appears in (line number, variables name and type name).
+
 ## Supported and tested types
 
 * all numeric variables (`bool`, `char`, `short`, `int`, `long`, `long long`, `float`, `double`, `long double`) both `signed` and `unsigned`
