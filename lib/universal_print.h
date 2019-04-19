@@ -94,6 +94,17 @@
 #   pragma message("We have detected that you are using Visual Studio. Please make the world a better place and stop this activity.")
 #endif
 
+    /* ------------------------------------------------------------------------------
+     *                             Fixing std::to_string
+     * ------------------------------------------------------------------------------ */
+ namespace std {
+        std::string to_string(size_t n) {
+            std::ostringstream s;
+            s << n;
+            return s.str();
+        }
+}
+
 namespace cupl {
 
     /* ------------------------------------------------------------------------------
