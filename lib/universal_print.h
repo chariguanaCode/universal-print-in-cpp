@@ -13,7 +13,7 @@
  *  Created:        08.04.2019
  *  Last updated:   19.04.2019
  *
- *  Version: 1.1
+ *  Version: 1.12
  *
  *  universal-print-in-cpp
  *  Universal print in C++
@@ -85,6 +85,7 @@
 #include<stack>
 #include <bitset>
 #include <memory>
+#include <sstream>
 
 //for visual studio users <3
 #ifndef _MSC_VER
