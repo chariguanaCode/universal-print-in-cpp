@@ -11,9 +11,9 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging.
  *
  *  Created:        08.04.2019
- *  Last updated:   18.04.2019
+ *  Last updated:   19.04.2019
  *
- *  Version: 1.0
+ *  Version: 1.1
  *
  *  universal-print-in-cpp
  *  Universal print in C++
