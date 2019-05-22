@@ -14,7 +14,7 @@ It can print out the value of _almost_ every variable,  structure or expression,
 * all numeric variables (`bool`, `char`, `short`, `int`, `long`, `long long`, `float`, `double`, `long double`) both `signed` and `unsigned`
 * `std::string`
 * `std::bitset`
-* `std::vector`s and arrays with defined dimensions
+* `std::vector`, `std::array` and arrays with defined dimensions
 * `std::stack`, `std::queue`, `std::deque`, `std::priority_queue`
 * `std::list`
 * `std::pair`
@@ -38,7 +38,7 @@ It can print out the value of _almost_ every variable,  structure or expression,
     ```
     or by downloading it from [here](https://github.com/chariguanaCode/universal-print-in-cpp/archive/master.zip)
  2. Make sure that everything works on your platform by compiling at least one of the [examples](/examples/) in your programming environment
- 3. If everything is working properly, include the `universal_print.h` library in your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
+ 3. If everything is working properly, include the `universal_print.h` library from the `lib` folder in your project and copy the contents of `template.cpp` to the main file of that project (not necessary but recommended)
 
 ## Documentation
 
