@@ -95,7 +95,7 @@ Returns the string required to reset any changes to the text appearence.
 Returns a string that contains the type name of your `variable` that the compiler creates.
 
 
-## `cupl::is_iterable(variable)` 
+## `cupl::is_iterable<decltype(variable)>::value` 
 Returns `true` if your `variable` is iterable and `false` otherwise.
 
 (iterable means that `for(auto e: variable)` works properly on it).

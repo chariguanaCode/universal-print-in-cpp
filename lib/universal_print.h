@@ -11,9 +11,9 @@
  *                  Mainly intended for competetive programming, to greatly speedup debugging.
  *
  *  Created:        08.04.2019
- *  Last updated:   19.04.2019
+ *  Last updated:   23.09.2019
  *
- *  Version: 1.12
+ *  Version: 1.1.3
  *
  *  universal-print-in-cpp
  *  Universal print in C++
@@ -80,9 +80,9 @@
   * ============================================================================= **/
 
 #define TODO /**/
-#include<iostream>
-#include<queue>
-#include<stack>
+#include <iostream>
+#include <queue>
+#include <stack>
 #include <bitset>
 #include <memory>
 #include <sstream>
@@ -115,7 +115,7 @@ namespace cupl {
 #   include <windows.h>
     bool ANSIsupport = [] {
         HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        if ( hOut == INVALID_HANDLE_VALUE ) {
+        if (hOut == INVALID_HANDLE_VALUE) {
             return 0;
         }
         DWORD dwMode = 0;
@@ -123,7 +123,7 @@ namespace cupl {
             return 0;
         }
         dwMode |= 0x0004;
-        if (!SetConsoleMode(hOut,  dwMode)) {
+        if (!SetConsoleMode(hOut, dwMode)) {
             return 0;
         }
         return 1;
@@ -161,17 +161,17 @@ namespace cupl {
 #define EXTENDED_ASCII 1
 #define UNICODE 2
 #define LEGACY 3
-#define array_extent_push(x,i) if(i<cupl::array_rank)cupl::array_sizes.push(std::extent<decltype(x),i>::value);
-#define watch(x,...) \
-    cupl::array_rank=std::rank<decltype(x)>::value;\
-    array_extent_push(x,0);\
-    array_extent_push(x,1);\
-    array_extent_push(x,2);\
-    array_extent_push(x,3);\
-    array_extent_push(x,4);\
-    array_extent_push(x,5);\
-    cupl::print_main(x,__LINE__,#x,##__VA_ARGS__);
-#define debug if(1)
+#define array_extent_push(x, i) if (i<cupl::array_rank) cupl::array_sizes.push(std::extent<decltype(x), i>::value);
+#define watch(x, ...) \
+    cupl::array_rank = std::rank<decltype(x)>::value;\
+    array_extent_push(x, 0);\
+    array_extent_push(x, 1);\
+    array_extent_push(x, 2);\
+    array_extent_push(x, 3);\
+    array_extent_push(x, 4);\
+    array_extent_push(x, 5);\
+    cupl::print_main(x, __LINE__, #x, ##__VA_ARGS__);
+#define debug if (1)
 
 
 namespace cupl {
@@ -180,7 +180,7 @@ namespace cupl {
 
     void checkEncodingCompatibility();
 
-    namespace init{ int _int = 0; }
+    namespace init { int _int = 0; }
 
     template <typename T> using is_iterable = decltype(detail::is_iterable_impl<T>(0)); //determines if a variable is iterable
 
@@ -189,26 +189,26 @@ namespace cupl {
 
     template <class T> std::string type_name(); //determines variable type name
 
-    template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value),T>::type* =nullptr> void print_process(T &x); //for arithmetic variables
-    template <typename T, typename std::enable_if< (std::is_class     <T>::value)&&\
-                                                  !(     is_iterable  <T>::value),T>::type* =nullptr> void print_process(T &x); //for structs and classes
-    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr> void print_process(T &x); //for pointers
-    template <typename T, typename std::enable_if< (     is_iterable  <T>::value),T>::type* =nullptr> void print_process(T &x); //for iterable structures
+    template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value), T>::type* =nullptr> void print_process(T &x); //for arithmetic variables
+    template <typename T, typename std::enable_if< (std::is_class     <T>::value) && \
+                                                  !(     is_iterable  <T>::value), T>::type* =nullptr> void print_process(T &x); //for structs and classes
+    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value), T>::type* =nullptr> void print_process(T &x); //for pointers
+    template <typename T, typename std::enable_if< (     is_iterable  <T>::value), T>::type* =nullptr> void print_process(T &x); //for iterable structures
 
     std::queue<int> array_sizes;
     unsigned   int  array_rank;
-    template <typename T, typename std::enable_if<!(     is_iterable  <T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for going thru dimensions
-    template <typename T, typename std::enable_if< (     is_iterable  <T>::value),T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for the last dimension
+    template <typename T, typename std::enable_if<!(     is_iterable  <T>::value), T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for going thru dimensions
+    template <typename T, typename std::enable_if< (     is_iterable  <T>::value), T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for the last dimension
 
                                                                                                       void print_process(std::string            &x);   //string
     template <size_t   T                                                                            > void print_process(std::bitset<T>         &x);   //bitset
-    template <typename T, typename U                                                                > void print_process(std::pair<T,U>         &x);   //pair
+    template <typename T, typename U                                                                > void print_process(std::pair<T, U>        &x);   //pair
     template <typename T                                                                            > void print_process(std::stack<T>          &x);   //stack
     template <typename T                                                                            > void print_process(std::queue<T>          &x);   //queue
     template <typename T                                                                            > void print_process(std::priority_queue<T> &x);   //priority_queue
 
-    int indentation_level=0;
-    std::string indentation="";
+    int indentation_level = 0;
+    std::string indentation = "";
     void indent();
     void unindent();
 
@@ -217,68 +217,68 @@ namespace cupl {
     std::string bold();          //makes text bold
     std::string clr();           //removes all text effects
 
-    template <typename T,typename Targ1=int,typename Targ2=int,typename Targ3=int,typename Targ4=int,typename Targ5=int>
-        void print_main(T x, int line, std::string name,int mode=0,Targ1 arg1=init::_int, Targ2 &arg2=init::_int, Targ3 &arg3=init::_int, Targ4 &arg4=init::_int, Targ5 &arg5=init::_int);
-    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
-    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
+    template <typename T, typename Targ1 = int, typename Targ2 = int, typename Targ3 = int, typename Targ4 = int, typename Targ5 = int>
+        void print_main(T x, int line, std::string name, int mode = 0, Targ1 arg1 = init::_int, Targ2 &arg2 = init::_int, Targ3 &arg3 = init::_int, Targ4 &arg4 = init::_int, Targ5 &arg5 = init::_int);
+    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value), T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
+    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value), T>::type* =nullptr> void print_array(T &x, std::queue<int> sizes);
 
-    namespace pbt{
+    namespace pbt {
 
         #if CHARACTER_ENCODING == 1
-        std::string crv_r = {(char)218,(char)196};
-        std::string crv_l = {(char)192,(char)196};
-        std::string   str = {(char)179,' '      };
+        std::string crv_r = {(char)218, (char)196};
+        std::string crv_l = {(char)192, (char)196};
+        std::string   str = {(char)179, ' '      };
         #elif CHARACTER_ENCODING == 2
         std::string crv_r = "\u250C\u2500";
         std::string crv_l = "\u2514\u2500";
         std::string   str = "\u2502 ";
         #elif CHARACTER_ENCODING == 3
-        std::string crv_r = {'.','-'            };
-        std::string crv_l = {'L','-'            };
-        std::string   str = {'|',' '            };
+        std::string crv_r = {'.', '-'            };
+        std::string crv_l = {'L', '-'            };
+        std::string   str = {'|', ' '            };
         #else
         #warning Incorrect character encoding
-        std::string crv_r = {'.','-'            };
-        std::string crv_l = {'L','-'            };
-        std::string   str = {'|',' '            };
+        std::string crv_r = {'.', '-'            };
+        std::string crv_l = {'L', '-'            };
+        std::string   str = {'|', ' '            };
         #endif
-        namespace pbt_default{
-            int getLeftSon1 (int val){return val*2;  }
-            int getRightSon1(int val){return val*2+1;}
+        namespace pbt_default {
+            int getLeftSon1 (int val) {return val * 2;    }
+            int getRightSon1(int val) {return val * 2 + 1;}
         }
 
     }
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-        void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+        void print_BinaryTree (std::string middle, std::string upper, Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
 
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+        void binaryTree_process (Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+        void binaryTree_process (Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-        void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+        void binaryTree_process (Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if<!(std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if<!(std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-        void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
+              typename TdoesExist,   typename std::enable_if<!(std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if<!(std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+        void binaryTree_process(Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon);
 }
 
 /** =============================================================================
@@ -297,17 +297,15 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Checking character coding compatibility
      * ------------------------------------------------------------------------------ */
-    void checkEncodingCompatibility(){
+    void checkEncodingCompatibility() {
+        std::cout << "\nBelow you can see characters encoded using different systems supported by this library. Pick the most similar to the one shown in /screenshots/character_encoding.png\n" << std::endl;
 
-        std::cout<<"\nBelow you can see characters encoded using different systems supported by this library. Pick the most similar to the one shown in /screenshots/character_encoding.png\n"<<std::endl;
+        std::cout << "EXTENDED_ASCII: " << (char)218 << (char)196 << "    " << \
+        (char)192 << (char)196 << "    " << (char)179 << "\n\n";
 
-        std::cout<<"EXTENDED_ASCII: "<<(char)218<<(char)196<<"    "<<\
-        (char)192<<(char)196<<"    "<<(char)179<<"\n\n";
+        std::cout << "UNICODE:        \u250C\u2500    \u2514\u2500    \u2502\n\n";
 
-        std::cout<<"UNICODE:        \u250C\u2500    \u2514\u2500    \u2502\n\n";
-
-        std::cout<<"LEGACY:         .-    L-    |\n";
-
+        std::cout << "LEGACY:         .-    L-    |\n";
     }
 
     /* ------------------------------------------------------------------------------
@@ -346,46 +344,46 @@ namespace cupl {
         for (int i = 0; i < 4; ++i)
             indentation.push_back(' ');
         ++indentation_level;
-        indentation_level=(indentation_level+array_colours.size())%array_colours.size();
+        indentation_level = (indentation_level + array_colours.size()) % array_colours.size();
     }
 
     void unindent() {
         for (int i = 0; i < 4; ++i)
             indentation.pop_back();
         --indentation_level;
-        indentation_level=(indentation_level+array_colours.size())%array_colours.size();
+        indentation_level = (indentation_level + array_colours.size()) % array_colours.size();
     }
 
     /* ------------------------------------------------------------------------------
      *  Colours!
      * ------------------------------------------------------------------------------ */
-    std::string colour(int val) { if(ANSIsupport) return "\033[38;5;"+std::to_string(val)+"m"; return ""; }
-    std::string backgr(int val) { if(ANSIsupport) return "\033[48;5;"+std::to_string(val)+"m"; return ""; }
-    std::string bold  (       ) { if(ANSIsupport) return "\033[1m";                            return ""; }
-    std::string clr   (       ) { if(ANSIsupport) return "\033[0m";                            return ""; }
+    std::string colour(int val) { if (ANSIsupport) return "\033[38;5;" + std::to_string(val) + "m"; return ""; }
+    std::string backgr(int val) { if (ANSIsupport) return "\033[48;5;" + std::to_string(val) + "m"; return ""; }
+    std::string bold  (       ) { if (ANSIsupport) return "\033[1m";                                return ""; }
+    std::string clr   (       ) { if (ANSIsupport) return "\033[0m";                                return ""; }
 
     /* ------------------------------------------------------------------------------
      *  The main function doing all the magic
      * ------------------------------------------------------------------------------ */
-    template <typename T,typename Targ1,typename Targ2,typename Targ3,typename Targ4,typename Targ5>
-    void print_main(T x, int line, std::string name,int mode,Targ1 arg1,Targ2 &arg2,Targ3 &arg3,Targ4 &arg4,Targ5 &arg5){
+    template <typename T, typename Targ1, typename Targ2, typename Targ3, typename Targ4, typename Targ5>
+    void print_main(T x, int line, std::string name, int mode, Targ1 arg1, Targ2 &arg2, Targ3 &arg3, Targ4 &arg4, Targ5 &arg5) {
         std::string name_type = type_name<T>();
-        if(!array_sizes.empty()) {
+        if (!array_sizes.empty()) {
             size_t pos = name_type.rfind(" (*) ");
-            if(pos!=std::string::npos) {
-                name_type.replace(pos, 5, " ["+std::to_string(array_sizes.front())+"] ");
+            if (pos != std::string::npos) {
+                name_type.replace(pos, 5, " [" + std::to_string(array_sizes.front()) + "] ");
             } else {
                 pos = name_type.rfind("*");
-                if(pos!=std::string::npos) name_type.replace(pos, 2, " ["+std::to_string(array_sizes.front())+"]");
+                if (pos != std::string::npos) name_type.replace(pos, 2, " [" + std::to_string(array_sizes.front()) + "]");
             }
         }
-        if(mode==1) {
-            while(!array_sizes.empty())array_sizes.pop();
+        if (mode == 1) {
+            while (!array_sizes.empty()) array_sizes.pop();
         }
 
 
-        if(mode == 1 || mode == 0 ) {
-            if(SHOW_TYPE_NAME) {
+        if (mode == 1 || mode == 0 ) {
+            if (SHOW_TYPE_NAME) {
                 std::cout << colour(COLOUR_LINE) << line << colour(15) << ": "\
                           << colour(COLOUR_TYPE_NAME) << name_type << " "\
                           << colour(COLOUR_NAME) << bold() << name << clr()\
@@ -396,23 +394,23 @@ namespace cupl {
                           << colour( 15) << " = ";
             }
         }
-        if(mode == 0) {
-            if(array_sizes.empty()) {
+        if (mode == 0) {
+            if (array_sizes.empty()) {
                 print_process(x);
             } else {
-                print_array(x,array_sizes);
-                while(!array_sizes.empty())array_sizes.pop();
+                print_array(x, array_sizes);
+                while (!array_sizes.empty()) array_sizes.pop();
             }
             std::cout << std::endl << clr();
-        } else if(mode==1) {
+        } else if (mode == 1) {
             std::cout << std::endl << clr();
-            binaryTree_process(arg1,arg2,arg3,arg4,arg5);
-        } else if(mode==2) {
-            if(array_sizes.empty()) {
+            binaryTree_process(arg1, arg2, arg3, arg4, arg5);
+        } else if (mode == 2) {
+            if (array_sizes.empty()) {
                 print_process(x);
             } else {
-                print_array(x,array_sizes);
-                while(!array_sizes.empty())array_sizes.pop();
+                print_array(x, array_sizes);
+                while (!array_sizes.empty()) array_sizes.pop();
             }
         }
     }
@@ -420,35 +418,36 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Helper function required to fix the arrays
      * ------------------------------------------------------------------------------ */
-    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
+    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value), T>::type* =nullptr>
     void print_array(T &x, std::queue<int> sizes) {
-        int n=sizes.front();
+        if (sizes.empty()) { print_process(x); return; }
+        int n = sizes.front();
         sizes.pop();
 
         std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
         indent();
 
-        if(sizes.size()>0)
+        if (sizes.size() > 0 || (is_iterable<decltype(x[0])>::value && n > 0))
             std::cout << '\n' << indentation;
 
         for (int i = 0; i < n; ++i) {
-            array_process(x[i],sizes);
+            array_process(x[i], sizes);
 
-            if(sizes.size()>0) {
+            if (sizes.size() > 0 || (is_iterable<decltype(x[0])>::value && n > 0)) {
                 std::cout << '\n' << indentation;
             } else {
                 std::cout << ' ';
             }
         }
 
-        if(sizes.size()>0&&ANSIsupport)
+        if ((sizes.size() > 0 || (is_iterable<decltype(x[0])>::value && n > 0)) && ANSIsupport)
             std::cout << "\033[4D";
 
         unindent();
         std::cout << colour(array_colours[indentation_level]) << "}" << clr();
     }
 
-    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value),T>::type* =nullptr>
+    template <typename T, typename std::enable_if<!(std::is_pointer   <T>::value), T>::type* =nullptr>
     void print_array(T &x, std::queue<int> sizes) {
         ;
     }
@@ -456,7 +455,7 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Printing numeric variables
      * ------------------------------------------------------------------------------ */
-    template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value),T>::type* =nullptr>
+    template <typename T, typename std::enable_if< (std::is_arithmetic<T>::value), T>::type* =nullptr>
     void print_process(T &x) {
         std::cout << colour(COLOUR_NUMBER) << bold() << x << clr();
     }
@@ -472,18 +471,18 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Handling structs and classes
      * ------------------------------------------------------------------------------ */
-    template <typename T, typename std::enable_if< (std::is_class<T>::value)&&!(is_iterable<T>::value),T>::type* =nullptr>
-    void print_process(T &x){
+    template <typename T, typename std::enable_if< (std::is_class<T>::value) && !(is_iterable<T>::value), T>::type* =nullptr>
+    void print_process(T &x) {
         x.print_process();
     }
 
     /* ------------------------------------------------------------------------------
      *  Handling pointers
      * ------------------------------------------------------------------------------ */
-    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value),T>::type* =nullptr>
+    template <typename T, typename std::enable_if< (std::is_pointer   <T>::value), T>::type* =nullptr>
     void print_process(T &x) {
         std::cout << colour(COLOUR_POINTER) << bold() << '*' << clr();
-        if(x!=nullptr)
+        if (x != nullptr)
             print_process(*x);
         else
             std::cout << backgr(COLOUR_BACKGR_NULLPOINTER) << colour(COLOUR_NULLPOINTER) << bold() << "NULL" << clr();
@@ -500,7 +499,7 @@ namespace cupl {
      *  Handling pairs
      * ------------------------------------------------------------------------------ */
     template <typename T, typename U>
-    void print_process(std::pair<T,U> &x) {
+    void print_process(std::pair<T, U> &x) {
         std::cout << colour(array_colours[indentation_level]) << "(" << clr();
         ++indentation_level;
         print_process(x.first);
@@ -515,10 +514,10 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <typename T>
     void print_process(std::stack<T> &x) {
-        std::stack<T>  tmp=x;
+        std::stack<T>  tmp = x;
         std::vector<T> result;
 
-        while(!tmp.empty()) {
+        while (!tmp.empty()) {
             result.push_back(tmp.top());
             tmp.pop();
         }
@@ -531,10 +530,10 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <typename T>
     void print_process(std::queue<T> &x) {
-        std::queue<T>  tmp=x;
+        std::queue<T>  tmp = x;
         std::vector<T> result;
 
-        while(!tmp.empty()) {
+        while (!tmp.empty()) {
             result.push_back(tmp.front());
             tmp.pop();
         }
@@ -547,10 +546,10 @@ namespace cupl {
      * ------------------------------------------------------------------------------ */
     template <typename T>
     void print_process(std::priority_queue<T> &x) {
-        std::priority_queue<T>  tmp=x;
+        std::priority_queue<T> tmp = x;
         std::vector<T> result;
 
-        while(!tmp.empty()) {
+        while (!tmp.empty()) {
             result.push_back(tmp.top());
             tmp.pop();
         }
@@ -563,26 +562,26 @@ namespace cupl {
      *  std::rank returns the number of dimensions of a standard array,
      *  allowing us to process multi dimensional arrays
      * ------------------------------------------------------------------------------ */
-    template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
+    template <typename T, typename std::enable_if< (       is_iterable<T>::value), T>::type* =nullptr>
     void print_process(T &x) {
-        if(!std::rank<T>::value) {
+        if (!std::rank<T>::value) {
             std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
             indent();
 
-            if(is_iterable<decltype(*std::begin(x))>::value&&std::begin(x)!=std::end(x))
+            if (is_iterable<decltype(*std::begin(x))>::value && std::begin(x) != std::end(x))
                 std::cout << '\n' << indentation;
 
             for (auto e : x) {
                 print_process(e);
 
-                if(is_iterable<decltype(*std::begin(x))>::value&&std::begin(x)!=std::end(x)) {
+                if (is_iterable<decltype(*std::begin(x))>::value && std::begin(x) != std::end(x)) {
                     std::cout << '\n' << indentation;
                 } else {
                     std::cout << ' ';
                 }
             }
 
-            if(is_iterable<decltype(*std::begin(x))>::value&&std::begin(x)!=std::end(x)&&ANSIsupport)
+            if (is_iterable<decltype(*std::begin(x))>::value && std::begin(x) != std::end(x) && ANSIsupport)
                 std::cout << "\033[4D";
 
             unindent();
@@ -593,28 +592,29 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Recursively go through all dimensions of an array
      * ------------------------------------------------------------------------------ */
-    template <typename T, typename std::enable_if< (       is_iterable<T>::value),T>::type* =nullptr>
+    template <typename T, typename std::enable_if< (       is_iterable<T>::value), T>::type* =nullptr>
     void array_process(T &x, std::queue<int> sizes) {
-        int n=sizes.front();
+        if (sizes.empty()) { print_process(x); return; }
+        int n = sizes.front();
         sizes.pop();
 
         std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
         indent();
 
-        if(sizes.size()>0)
+        if (sizes.size() > 0 || (is_iterable<decltype(x[0])>::value && n > 0))
             std::cout << '\n' << indentation;
 
         for (int i = 0; i < n; ++i) {
-            array_process(x[i],sizes);
+            array_process(x[i], sizes);
 
-            if(sizes.size()>0) {
+            if (sizes.size() > 0 || (is_iterable<decltype(x[0])>::value && n > 0)) {
                 std::cout << '\n' << indentation;
             } else {
                 std::cout << ' ';
             }
         }
 
-        if(sizes.size()>0&&ANSIsupport)
+        if ((sizes.size() > 0 || (is_iterable<decltype(x[0])>::value && n > 0)) && ANSIsupport)
             std::cout << "\033[4D";
 
         unindent();
@@ -624,7 +624,7 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  When reached the last dimension of an array, print its contents using previously defined methods
      * ------------------------------------------------------------------------------ */
-    template <typename T, typename std::enable_if<!(       is_iterable<T>::value),T>::type* =nullptr>
+    template <typename T, typename std::enable_if<!(       is_iterable<T>::value), T>::type* =nullptr>
     void array_process(T &x, std::queue<int> sizes) {
         print_process(x);
     }
@@ -633,72 +633,72 @@ namespace cupl {
      *  Binary trees <3
      * ------------------------------------------------------------------------------ */
     template <typename Tv,
-              typename TdoesExist, typename std::enable_if< (std::is_function<TdoesExist >::value),TdoesExist >::type* =nullptr,
-              typename TgetValue,  typename std::enable_if< (std::is_function<TgetValue  >::value),TgetValue  >::type* =nullptr,
-              typename TgetLeftSon,typename std::enable_if< (std::is_function<TgetLeftSon>::value),TgetLeftSon>::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-    void print_BinaryTree (std::string middle, std::string upper,Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon)
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+    void print_BinaryTree (std::string middle, std::string upper, Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon)
     {
         std::string s;
 
-        if(doesExist(v)){
+        if (doesExist(v)) {
             //Right child
             s = middle;
-            if(upper == pbt::crv_r) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
-            print_BinaryTree(s + pbt::str, pbt::crv_r, getRightSon(v),doesExist,getValue,getLeftSon,getRightSon);
+            if (upper == pbt::crv_r) s = s.replace(s.size() - pbt::str.size(), pbt::str.size(), "  ");
+            print_BinaryTree(s + pbt::str, pbt::crv_r, getRightSon(v), doesExist, getValue, getLeftSon, getRightSon);
 
             //Printing
-            s = s.substr(0,middle.size()-pbt::str.size());
+            s = s.substr(0, middle.size() - pbt::str.size());
             std::cout << colour(COLOUR_BINARY_TREE) << s << upper << clr();
-                 if(upper == pbt::crv_l && doesExist(getLeftSon(v)))indentation=s+"  "+pbt::str+' ';
-            else if(upper == pbt::crv_l &&!doesExist(getLeftSon(v)))indentation=s+"  ";
-            else if(upper == pbt::crv_r && doesExist(getLeftSon(v)))indentation=s     +pbt::str+pbt::str+' ';
-            else if(upper == pbt::crv_r &&!doesExist(getLeftSon(v)))indentation=s     +pbt::str+' ';
-            else indentation=s;
-            indentation=colour(COLOUR_BINARY_TREE)+indentation+clr();
-            auto x=getValue(v);
-            watch(x,2);
+                 if (upper == pbt::crv_l &&  doesExist(getLeftSon(v))) indentation = s + "  " + pbt::str + ' ';
+            else if (upper == pbt::crv_l && !doesExist(getLeftSon(v))) indentation = s + "  ";
+            else if (upper == pbt::crv_r &&  doesExist(getLeftSon(v))) indentation = s + pbt::str + pbt::str + ' ';
+            else if (upper == pbt::crv_r && !doesExist(getLeftSon(v))) indentation = s + pbt::str + ' ';
+            else indentation = s;
+            indentation = colour(COLOUR_BINARY_TREE) + indentation + clr();
+            auto x = getValue(v);
+            watch(x, 2);
             std::cout<< '\n';
 
             //Left child
             s = middle;
-            if(upper == pbt::crv_l) s=s.replace(s.size()-pbt::str.size(),pbt::str.size(),"  ");
-            print_BinaryTree(s + pbt::str, pbt::crv_l, getLeftSon(v),doesExist,getValue,getLeftSon,getRightSon);
+            if (upper == pbt::crv_l) s = s.replace(s.size() - pbt::str.size(), pbt::str.size(), "  ");
+            print_BinaryTree(s + pbt::str, pbt::crv_l, getLeftSon(v), doesExist, getValue, getLeftSon, getRightSon);
         }
         return;
     }
 
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
-        print_BinaryTree("","",v,doesExist,getValue,getLeftSon,getRightSon);
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if< (std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+    void binaryTree_process (Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon) {
+        print_BinaryTree("", "", v, doesExist, getValue, getLeftSon, getRightSon);
     }
 
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
-        print_BinaryTree("","",v,doesExist,getValue,getLeftSon,pbt::pbt_default::getRightSon1);
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if< (std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+    void binaryTree_process (Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon) {
+        print_BinaryTree("", "", v, doesExist, getValue, getLeftSon, pbt::pbt_default::getRightSon1);
     }
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-    void binaryTree_process (Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){
-        print_BinaryTree("","",v,doesExist,getValue,pbt::pbt_default::getLeftSon1,pbt::pbt_default::getRightSon1);
+              typename TdoesExist,   typename std::enable_if< (std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if< (std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+    void binaryTree_process (Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon) {
+        print_BinaryTree("", "", v, doesExist, getValue, pbt::pbt_default::getLeftSon1, pbt::pbt_default::getRightSon1);
     }
     template <typename Tv,
-              typename TdoesExist,   typename std::enable_if<!(std::is_function<TdoesExist   >::value),TdoesExist   >::type* =nullptr,
-              typename TgetValue,    typename std::enable_if<!(std::is_function<TgetValue    >::value),TgetValue    >::type* =nullptr,
-              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon  >::value),TgetLeftSon  >::type* =nullptr,
-              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon >::value),TgetRightSon >::type* =nullptr>
-    void binaryTree_process(Tv v,TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon){std::cout<<"TOO FEW ARGUMENTS :'("<<std::endl;}
+              typename TdoesExist,   typename std::enable_if<!(std::is_function<TdoesExist  >::value), TdoesExist  >::type* =nullptr,
+              typename TgetValue,    typename std::enable_if<!(std::is_function<TgetValue   >::value), TgetValue   >::type* =nullptr,
+              typename TgetLeftSon,  typename std::enable_if<!(std::is_function<TgetLeftSon >::value), TgetLeftSon >::type* =nullptr,
+              typename TgetRightSon, typename std::enable_if<!(std::is_function<TgetRightSon>::value), TgetRightSon>::type* =nullptr>
+    void binaryTree_process(Tv v, TdoesExist &doesExist, TgetValue &getValue, TgetLeftSon &getLeftSon, TgetRightSon &getRightSon) {std::cout << "TOO FEW ARGUMENTS :'(" << std::endl;}
 }
 
 /** =============================================================================
@@ -707,7 +707,7 @@ namespace cupl {
 
 namespace cupl {
 
-    bool setCoutPrecision = []{std::cout.precision(STD_COUT_PRECISION);return 0;}();
+    bool setCoutPrecision = [] {std::cout.precision(STD_COUT_PRECISION); return 0;}();
 
     /* ------------------------------------------------------------------------------
      *  Informing the user that debug mode is enabled
