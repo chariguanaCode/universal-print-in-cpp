@@ -200,12 +200,12 @@ namespace cupl {
     template <typename T, typename std::enable_if<!(     is_iterable  <T>::value), T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for going thru dimensions
     template <typename T, typename std::enable_if< (     is_iterable  <T>::value), T>::type* =nullptr> void array_process(T &x, std::queue<int> sizes); //for the last dimension
 
-                                                                                                      void print_process(std::string            &x);   //string
-    template <size_t   T                                                                            > void print_process(std::bitset<T>         &x);   //bitset
-    template <typename T, typename U                                                                > void print_process(std::pair<T, U>        &x);   //pair
-    template <typename T                                                                            > void print_process(std::stack<T>          &x);   //stack
-    template <typename T                                                                            > void print_process(std::queue<T>          &x);   //queue
-    template <typename T                                                                            > void print_process(std::priority_queue<T> &x);   //priority_queue
+                                                                                                      void print_process(std::string                  &x);   //string
+    template <size_t   T                                                                            > void print_process(std::bitset<T>               &x);   //bitset
+    template <typename T, typename U                                                                > void print_process(std::pair<T, U>              &x);   //pair
+    template <typename T, typename C                                                                > void print_process(std::stack<T, C>             &x);   //stack
+    template <typename T, typename C                                                                > void print_process(std::queue<T, C>             &x);   //queue
+    template <typename T, typename C, typename D                                                    > void print_process(std::priority_queue<T, C, D> &x);   //priority_queue
 
     int indentation_level = 0;
     std::string indentation = "";
@@ -512,10 +512,10 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Handling stacks
      * ------------------------------------------------------------------------------ */
-    template <typename T>
-    void print_process(std::stack<T> &x) {
-        std::stack<T>  tmp = x;
-        std::vector<T> result;
+    template <typename T, typename C>
+    void print_process(std::stack<T, C> &x) {
+        std::stack<T, C> tmp = x;
+        std::vector<T>   result;
 
         while (!tmp.empty()) {
             result.push_back(tmp.top());
@@ -528,10 +528,10 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Handling queues
      * ------------------------------------------------------------------------------ */
-    template <typename T>
-    void print_process(std::queue<T> &x) {
-        std::queue<T>  tmp = x;
-        std::vector<T> result;
+    template <typename T, typename C>
+    void print_process(std::queue<T, C> &x) {
+        std::queue<T, C> tmp = x;
+        std::vector<T>   result;
 
         while (!tmp.empty()) {
             result.push_back(tmp.front());
@@ -544,9 +544,9 @@ namespace cupl {
     /* ------------------------------------------------------------------------------
      *  Handling priority queues
      * ------------------------------------------------------------------------------ */
-    template <typename T>
-    void print_process(std::priority_queue<T> &x) {
-        std::priority_queue<T> tmp = x;
+    template <typename T, typename C, typename D>
+    void print_process(std::priority_queue<T, C, D> &x) {
+        std::priority_queue<T, C, D> tmp = x;
         std::vector<T> result;
 
         while (!tmp.empty()) {
