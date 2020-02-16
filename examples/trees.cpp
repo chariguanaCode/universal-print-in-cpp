@@ -84,46 +84,45 @@ aa[1][1]=1; aa[2][2]=1; aa[3][3]=2; aa[4][4]=3; aa[5][5]=5; aa[6][6]=8; aa[7][7]
 
 bool aa_doesExist(int val){return val<9;}
 int aa_getValue(int val){return aa[val][val];}
-int aa_getLeftSon(int val){
-    for(int i=1; i<9; ++i){
+int aa_getLeftSon(int val) {
+    for(int i=1; i<9; ++i) {
             if(i!=val && aa[val][i]==1) return i;
     }
     return 9;
 }
-int aa_getRightSon(int val){
-    for(int i=1; i<9; ++i){
+int aa_getRightSon(int val) {
+    for(int i=1; i<9; ++i) {
             if(i!=val && aa[val][i]==2) return i;
     }
     return 9;
 }
 
 
-int main(){
+int main() {
     ///binary tree in array (a)
-    //we can also call watch(a,1,1,a_doesExist,a_getValue,a_getLeftSon, a_getRightSon)
+    //we can also call watchb(1,a_doesExist,a_getValue,a_getLeftSon, a_getRightSon)
     //but it isn't necessary because there are default functions to binary tree in array
-    watch(a,1,1,a_doesExist,a_getValue);
+    watchb(1,a_doesExist,a_getValue);
 
     //we can also set root in other vertex
-    watch(a,1,2,a_doesExist,a_getValue);
+    watchb(2,a_doesExist,a_getValue);
 
     ///binary tree in array (b)
-    watch(b,1,1,b_doesExist,b_getValue);
+    watchb(1,b_doesExist,b_getValue);
 
     ///binary tree in array (c)
-    watch(c,1,1,c_doesExist,c_getValue);
+    watchb(1,c_doesExist,c_getValue);
 
     ///binary tree in array (d)
-    watch(d,1,1,d_doesExist,d_getValue,d_getLeftSon,d_getRightSon);
+    watchb(1,d_doesExist,d_getValue,d_getLeftSon,d_getRightSon);
 
     ///binary tree in array (e)
-    watch(e,1,1,e_doesExist,e_getValue);
+    watchb(1,e_doesExist,e_getValue);
 
     ///binary tree in array (f)
-    //watch(f,1,1,[](int val){return val<14;},[](int val){return f[val];}) //it doesn't work yet
+    //watchb(1,[](int val){return val<14;},[](int val){return f[val];}) //it doesn't work yet
 
     ///binary tree in adjacency matrix (a)
-    watch(aa,1,1,aa_doesExist,aa_getValue,aa_getLeftSon,aa_getRightSon);
+    watchb(1,aa_doesExist,aa_getValue,aa_getLeftSon,aa_getRightSon);
 
 }
-

@@ -4,18 +4,10 @@ To further expand your debugging capabilities this library gives you access to v
 
 Here by variables we mean variables, data structures and expressions.
 
-## `watch(variable)`
-This is the main function of the library. By calling this your `variable` will be printed nicely with the line number, `variable` type and `variable` name.  
+## `watch(variables)`
+This is the main function of the library. By calling this your `variables` will be printed nicely with the line numbers, `variables` types and `variables` names.  
 
-## `watch(variable, int mode)`
-You can call `watch` with a second parameter which determines the `watch` mode. There are three modes available at the moment of writing (release 1.0). 
-
-* Mode 0 is the default mode which is selected, when only a single parameter is given
-* Mode 1 is binary trees mode <3
-* Mode 2 prints the `variable` value without the line number, `variable` type nor `variable` name.
-
-
-## `watch(variable, 1, root, doesExist, getValue, getLeftSon, getRightSon)`
+## `watchb(root, doesExist, getValue, getLeftSon, getRightSon)`
 This is THE binary trees mode. The last 2 arguments aren't necessary for standard binary trees in an array.
 
 * `root` is just the root of the tree

@@ -71,7 +71,5 @@ int main(){
         current->value = std::make_pair(integers[i], floats[i]);
     }
     //watching the results ^.^
-    watch(integers);
-    watch(floats);
-    watch(start);
+    watch(integers, floats, start);
 }

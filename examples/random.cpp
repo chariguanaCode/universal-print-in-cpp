@@ -7,7 +7,7 @@ using namespace std;
 #endif
 
 #if DEBUG==1
-#include"../lib/universal_print.h"
+#include "../lib/universal_print.h"
 #else
 #define watch(x)
 #define debug if(0)

@@ -97,5 +97,5 @@ int main(){
     build(root,5);
 
     //and watching (details in the tree example)
-    watch(root,1,root,doesExist,value,rightChild,leftChild);
+    watchb(root,doesExist,value,rightChild,leftChild);
 }
