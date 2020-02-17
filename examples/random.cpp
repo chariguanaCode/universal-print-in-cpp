@@ -9,7 +9,7 @@ using namespace std;
 #if DEBUG==1
 #include "../lib/universal_print.h"
 #else
-#define watch(x)
+#define watch(...)
 #define debug if(0)
 string indentation="";
 void indent(){};

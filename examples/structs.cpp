@@ -9,6 +9,8 @@
 #endif
 #if DEBUG==0
 #define watch(...)
+#define watchb(...)
+#define declare_struct(...)
 #define debug if(0)
 namespace cupl{
     template <typename T> void print_main(T &x, int y, std::string z){return;}
@@ -31,21 +33,9 @@ struct my_list{
     int id;
     std::pair<int, float> value;
     my_list* next=NULL;
-    //definition of the custom printing function for debugging
-    void print_process(){
-        //printing '{' and indenting the contents of this struct
-        cupl::indent();
-        std::cout << "{\n" << cupl::indentation;
 
-        //processing all the fields of the struct using already known methods
-        cupl::print_process(id   ); std::cout << '\n' << cupl::indentation;
-        cupl::print_process(value); std::cout << '\n' << cupl::indentation;
-        cupl::print_process(next ); std::cout << '\n' << cupl::indentation;
-
-        //printing '}' and bringing the indentation back to normal
-        cupl::unindent();
-        std::cout << "}";
-    }
+    //declaring that all of the members should be printed
+    declare_struct(id, value, next);
 };
 
 int main(){

@@ -14,28 +14,17 @@ using namespace std;
 
 #ifndef DEBUG
 #define DEBUG 0
-#elif DEBUG==1
-#include "universal_print.h"
 #endif
+
 #if DEBUG==0
+#include "universal_print.h"
+#else
 #define watch(...)
 #define watchb(...)
 #define declare_struct(...)
-#define debug if(0)
 namespace cupl{
-    template <typename T> void print_main(T &x, int y, std::string z){return;}
-    std::string indentation = "";
-    void indent(){return;}
-    void unindent(){return;}
-    std::string bold(){return "";}
-    std::string clr(){return "";}
-    std::string backgr(int x){return "";}
-    std::string colour(int x){return "";}
     void showTypes(bool val){return;}
-    template <typename T> bool is_iterable(T x){return 0;}
-    void print_process(...){return;}
 }
-void print_process(...){return;}
 #endif
 
 /* ============================================================================== *

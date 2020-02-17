@@ -7,7 +7,9 @@ This is a library mainly meant to increase the efficiency of debugging C++ progr
 Very handy when used for competetive programming.
 
 The efficiency increase is possible thanks to the `watch()` function introduced by this library.
-It can print out the value of _almost_ every variable,  structure or expression, along with the context that it appears in (line number, variables name and type name).
+It can print out the value of _almost_ every variable, structure or expression, along with the context that it appears in (line number, variables name and type name).
+
+The current version compiles __only__ with the c++17 standard! (and probably higher standards when they come out)
 
 ## Supported and tested types
 
@@ -83,14 +85,14 @@ The full documentation describing all the functions can be found [here](/documen
     
     Please notice that if your custom type contains other types that are supported by our library you can just call `cupl::print_process();` on those members of your type.
 
-    Due to C++11 limitations `struct`s aren't supported by default and each `struct` has to implement a function defined like so:
+    Due to C++ limitations `struct`s aren't supported by default and each `struct` has to have their members provided to cupl like so:
     ```cpp
     struct my_struct{
-        <normal_members>
+        type1 member1;
+        type2 member2;
+        <more_members>
         ...
-        void print_process(){
-            <custom_printing_code>
-        }
+        declare_struct(member1, member2, <more_members>...);
     }
     ```
     You may want to check out [this example](/examples/structs.cpp) to better understand how to implement this.
@@ -107,6 +109,7 @@ The "User setup" section will allow you to change all of those things easily.
 * [x] examples
 * [x] screenshots
 * [x] printing binary trees nicely
+* [x] embracing new features of c++17
 * [ ] printing other graphs _nicely_
 
 ## Issues

@@ -18,19 +18,11 @@ Then we define all of our test variables and call `watch()` on them afterwards. 
 
 ## structs.cpp
 
-This is a far more complex example.
-
 Similarly to `basic.cpp` it's based on `template.cpp` and has the fancy things in its beginning.
 
-This time though we have a struct with a special `print_process` method to allow our library to process it correctly.
+In order for cupl to properly handle your struct, you have to provide it with information about your struct members.
 
-This function first prints a '{' sign, then tells the library that the content should be indented from this point.
-
-After that it prints all the members of the structure (using `cupl::print_process` to support all the types), followed by endlines and `cupl::indentation` to make the indentation look correctly.
-
-Finally it informs the library that the content should no longer be indented and prints the closing '}'.
-
-Then in the `int main()` it builds the custom list and calls `watch()` on its first element. _profit_
+To do this, you can use the `declare_struct(...)` function and put all the member names you want to print instead of the three dots. 
 
 ### Linux
 

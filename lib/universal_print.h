@@ -13,13 +13,13 @@
  *  Created:        08.04.2019
  *  Last updated:   16.02.2020
  *
- *  Version: 2.0.0
+ *  Version: 2.0.1
  *
  *  universal-print-in-cpp
  *  Universal print in C++
  *  the Competetive Universal Print Library
  *
- *  g++ -std=c++11 -o template.o template.cpp
+ *  g++ -std=c++17 -o template.o template.cpp
  *  ./template.o
  *
  * ============================================================================== */
@@ -93,6 +93,10 @@
 #endif
 #ifdef _MSC_VER
 #   pragma message("We have detected that you are using Visual Studio. Please make the world a better place and stop this activity.")
+#endif
+
+#if __cplusplus <= 201402L
+    #error This library only works with C++17!
 #endif
 
     /* ------------------------------------------------------------------------------
@@ -188,17 +192,29 @@ namespace cupl {
   *                              Support for structs
   * ============================================================================= **/
 
-#define _GET_NTH_ARG(_1, _2, _3, _4, _5, N, ...) N
+#define _GET_NTH_ARG(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, N, ...) N
 
 #define _fe_0(_call, ...)
 #define _fe_1(_call, member)      _call(member)
 #define _fe_2(_call, member, ...) _call(member) _fe_1(_call, __VA_ARGS__)
 #define _fe_3(_call, member, ...) _call(member) _fe_2(_call, __VA_ARGS__)
 #define _fe_4(_call, member, ...) _call(member) _fe_3(_call, __VA_ARGS__)
+#define _fe_5(_call, member, ...) _call(member) _fe_4(_call, __VA_ARGS__)
+#define _fe_6(_call, member, ...) _call(member) _fe_5(_call, __VA_ARGS__)
+#define _fe_7(_call, member, ...) _call(member) _fe_6(_call, __VA_ARGS__)
+#define _fe_8(_call, member, ...) _call(member) _fe_7(_call, __VA_ARGS__)
+#define _fe_9(_call, member, ...) _call(member) _fe_8(_call, __VA_ARGS__)
+#define _fe_10(_call, member, ...) _call(member) _fe_9(_call, __VA_ARGS__)
+#define _fe_11(_call, member, ...) _call(member) _fe_10(_call, __VA_ARGS__)
+#define _fe_12(_call, member, ...) _call(member) _fe_11(_call, __VA_ARGS__)
+#define _fe_13(_call, member, ...) _call(member) _fe_12(_call, __VA_ARGS__)
+#define _fe_14(_call, member, ...) _call(member) _fe_13(_call, __VA_ARGS__)
+#define _fe_15(_call, member, ...) _call(member) _fe_14(_call, __VA_ARGS__)
+#define _fe_16(_call, member, ...) _call(member) _fe_15(_call, __VA_ARGS__)
 
 #define _CALL_MACRO_FOR_EACH(func, ...) \
     _GET_NTH_ARG("ignored", ##__VA_ARGS__, \
-    _fe_4, _fe_3, _fe_2, _fe_1, _fe_0)(func, ##__VA_ARGS__)
+    _fe_16, _fe_15, _fe_14, _fe_13, _fe_12, _fe_11, _fe_10, _fe_9, _fe_8, _fe_7, _fe_6, _fe_5, _fe_4, _fe_3, _fe_2, _fe_1, _fe_0)(func, ##__VA_ARGS__)
 
 #define _PRINT_STRUCT_MEMBER(_member) \
     cupl::print_struct_member(this->_member, #_member);
@@ -217,34 +233,37 @@ namespace cupl {
 
 #define _CUPL_GET_NUMBER_OF_WATCH_ARGS_(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, N, ...) N
 
-#define _CUPL_watch_1(line, var, ...) cupl::print_main(var, line, #var);
-#define _CUPL_watch_2(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_1(line,__VA_ARGS__)
-#define _CUPL_watch_3(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_2(line,__VA_ARGS__)
-#define _CUPL_watch_4(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_3(line,__VA_ARGS__)
-#define _CUPL_watch_5(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_4(line,__VA_ARGS__)
-#define _CUPL_watch_6(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_5(line,__VA_ARGS__)
-#define _CUPL_watch_7(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_6(line,__VA_ARGS__)
-#define _CUPL_watch_8(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_7(line,__VA_ARGS__)
-#define _CUPL_watch_9(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_8(line,__VA_ARGS__)
-#define _CUPL_watch_10(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_9(line,__VA_ARGS__)
-#define _CUPL_watch_11(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_10(line,__VA_ARGS__)
-#define _CUPL_watch_12(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_11(line,__VA_ARGS__)
-#define _CUPL_watch_13(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_12(line,__VA_ARGS__)
-#define _CUPL_watch_14(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_13(line,__VA_ARGS__)
-#define _CUPL_watch_15(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_14(line,__VA_ARGS__)
-#define _CUPL_watch_16(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_15(line,__VA_ARGS__)
+#define  _CUPL_watch_0(line, ...) 
+#define  _CUPL_watch_1(line, var, ...) cupl::print_main(var, line, #var);
+#define  _CUPL_watch_2(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_1(line, __VA_ARGS__)
+#define  _CUPL_watch_3(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_2(line, __VA_ARGS__)
+#define  _CUPL_watch_4(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_3(line, __VA_ARGS__)
+#define  _CUPL_watch_5(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_4(line, __VA_ARGS__)
+#define  _CUPL_watch_6(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_5(line, __VA_ARGS__)
+#define  _CUPL_watch_7(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_6(line, __VA_ARGS__)
+#define  _CUPL_watch_8(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_7(line, __VA_ARGS__)
+#define  _CUPL_watch_9(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_8(line, __VA_ARGS__)
+#define _CUPL_watch_10(line, var, ...) cupl::print_main(var, line, #var);  _CUPL_watch_9(line, __VA_ARGS__)
+#define _CUPL_watch_11(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_10(line, __VA_ARGS__)
+#define _CUPL_watch_12(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_11(line, __VA_ARGS__)
+#define _CUPL_watch_13(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_12(line, __VA_ARGS__)
+#define _CUPL_watch_14(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_13(line, __VA_ARGS__)
+#define _CUPL_watch_15(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_14(line, __VA_ARGS__)
+#define _CUPL_watch_16(line, var, ...) cupl::print_main(var, line, #var); _CUPL_watch_15(line, __VA_ARGS__)
 
 #define watch(...) \
     _CUPL_GET_NUMBER_OF_WATCH_ARGS_(ignore, ##__VA_ARGS__, \
-    _CUPL_watch_16, _CUPL_watch_15,_CUPL_watch_14,_CUPL_watch_13,_CUPL_watch_12,_CUPL_watch_11, \
-    _CUPL_watch_10,_CUPL_watch_9 ,_CUPL_watch_8 ,_CUPL_watch_7 ,_CUPL_watch_6 ,_CUPL_watch_5,  \
-    _CUPL_watch_4 ,_CUPL_watch_3 ,_CUPL_watch_2 ,_CUPL_watch_1, _CUPL_watch_0)(__LINE__,__VA_ARGS__);
+    _CUPL_watch_16, _CUPL_watch_15, _CUPL_watch_14, _CUPL_watch_13, _CUPL_watch_12, _CUPL_watch_11, \
+    _CUPL_watch_10, _CUPL_watch_9 , _CUPL_watch_8 , _CUPL_watch_7 , _CUPL_watch_6 , _CUPL_watch_5,  \
+    _CUPL_watch_4 , _CUPL_watch_3 , _CUPL_watch_2 , _CUPL_watch_1 , _CUPL_watch_0)(__LINE__, __VA_ARGS__);
 
 #define watchb(var, ...) \
     cupl::print_main_B(var, __LINE__, #var, __VA_ARGS__, cupl::watchb_placeholder, cupl::watchb_placeholder);
 
 #define watchc(var) \
     cupl::print_main(var, __LINE__, #var, false);
+
+#define debug if(1)
 
 namespace cupl {
 
@@ -254,42 +273,40 @@ namespace cupl {
 
     void checkEncodingCompatibility();
 
-    namespace init { int _int = 0; }
-
-    template <typename T> using is_iterable = decltype(detail::is_iterable_impl<T>(0)); //determines if a variable is iterable
-
-    bool SHOW_TYPE_NAME = 0;    //to hide or show type names next to the variable name
+    bool SHOW_TYPE_NAME = 1;    //to hide or show type names next to the variable name
     void showTypes(bool val);   //false - hide, true - show
 
     template <class T> std::string type_name(); //determines variable type name
 
-    template <typename T> using is_iterable = decltype(cupl::detail::is_iterable_impl<T>(0));
+    template <typename T> using is_iterable = decltype(cupl::detail::is_iterable_impl<T>(0)); //determines if a variable is iterable
 
-    template <typename T           >  void print_main       (T x      , int line, std::string name, bool print_data = true);
+    template <typename T           >  void print_main       (T   x,     int line, std::string name, bool print_data = true);
     template <typename T, size_t N >  void print_main       (T (&x)[N], int line, std::string name, bool print_data = true);
-    template <typename T           >  void print_main_handle(T &x, std::string name, int line, bool print_data);
+    template <typename T           >  void print_main_handle(T  &x,     int line, std::string name, bool print_data);
     //template <typename T1, typename T2, typename T3, typename T4 = bool, typename T5 = bool>
       //  void print_main_B(T1 x, int line, std::string name, T2 &x2, T3 &x3, T4 &x4, T5 &x5);
 
-    template <typename T> void print_process(T &x);
-    template <size_t   S> void print_process(std::bitset<S> &x);
-    template <typename U, typename H> void print_process(std::pair<U, H> &x);
-    template <typename T> void print_process(std::stack<T> &x);
-    template <typename T> void print_process(std::queue<T> &x);
-    template <typename T> void print_process(std::priority_queue<T> &x);
+    template <typename T                        > void print_process(T                            &x);
+    template <size_t   S                        > void print_process(std::bitset<S>               &x);
+    template <typename U, typename H            > void print_process(std::pair<U, H>              &x);
+    template <typename T, typename C            > void print_process(std::stack<T, C>             &x);
+    template <typename T, typename C            > void print_process(std::queue<T, C>             &x);
+    template <typename T, typename C, typename D> void print_process(std::priority_queue<T, C, D> &x);
 
-
-    template <typename T, size_t   N > void print_array         (T                    (&x)[N]);
-    template <typename T             > void print_iterable      (T                         &x);
-    template <typename T             > void print_arithmetic    (T                         &x);
-    template <typename T             > void print_class_struct  (T                         &x);
-    template <typename T             > void print_pointer       (T                         &x);
-    template <typename U, typename H > void print_pair          (std::pair          <U, H> &x);
-    template <typename T             > void print_stack         (std::stack         <T   > &x);
-    template <typename T             > void print_queue         (std::queue         <T   > &x);
+    template <typename T                        > void print_arithmetic(T                                &x);
+                                                  void print_bit_reference(bool                           x);
+                                                  void print_string(std::string                          &x);
+    template <typename T                        > void print_pointer(T                                   &x);
+    template <typename T                        > void print_iterable(T                                  &x);
+    template <typename T, size_t   N            > void print_array(T                                    (&a)[N]);
+    template <typename T                        > void print_struct(T                                    &x);
+    template <typename T                        > void print_struct_member(T &x, std::string member_name);
+    template <size_t   T                        > void print_bitset(std::bitset<T>                       &x);
+    template <typename U, typename H            > void print_pair(std::pair<U, H>                        &x);
+    template <typename T, typename C            > void print_stack(std::stack<T, C>                      &x);
+    template <typename T, typename C            > void print_queue(std::queue<T, C>                      &x);
     template <typename T, typename C, typename D> void print_priority_queue(std::priority_queue<T, C, D> &x);
-    template <size_t   T             > void print_bitset        (std::bitset        <T   > &x);
-                                       void print_string        (std::string               &x);
+
 
     int indentation_level = 0;
     std::string indentation = "";
@@ -419,7 +436,36 @@ namespace cupl {
      *  The main function
      * ------------------------------------------------------------------------------ */
 
-     template <typename T1, typename T2, typename T3, typename T4, typename T5>
+    template <typename T>
+    void print_main(T x, int line, std::string name, bool print_data) {
+        print_main_handle(x, line, name, print_data);
+    }
+
+    template <typename T, size_t N>
+    void print_main(T (&x)[N], int line, std::string name, bool print_data) {
+        print_main_handle(x, line, name, print_data);
+    }
+
+    template <typename T>
+    void print_main_handle(T &x, int line, std::string name, bool print_data) {
+        std::string name_type = type_name<T>();
+        if(print_data) {
+            if (SHOW_TYPE_NAME) {
+                std::cout << colour(COLOUR_LINE) << line << colour(15) << ": "\
+                          << colour(COLOUR_TYPE_NAME) << name_type << " "\
+                          << colour(COLOUR_NAME) << bold() << name << clr()\
+                          << colour( 15) << " = ";
+            } else {
+                std::cout << colour(COLOUR_LINE) << line << colour(15) << ": "\
+                          << colour(COLOUR_NAME) << bold() << name << clr()\
+                          << colour( 15) << " = ";
+            }
+        }
+        print_process(x);
+        std::cout << std::endl << clr();
+    }
+
+    template <typename T1, typename T2, typename T3, typename T4, typename T5>
     void print_main_B(T1 x, int line, std::string name, T2 &x2, T3 &x3, T4 &x4, T5 &x5, ...) {
         std::string name_type = type_name<T1>();
         if (SHOW_TYPE_NAME) {
@@ -433,55 +479,36 @@ namespace cupl {
                       << colour( 15) << " = ";
         }
         std::cout << endl;
-        binaryTree_process(x,x2,x3,x4,x5);
+        binaryTree_process(x, x2, x3, x4, x5);
         std::cout << std::endl << clr();
     }
 
-     template <typename T>
-    void print_main(T x, int line, std::string name, bool print_data) {
-        print_main_handle(x,name,line,print_data);
-    }
+    /* ------------------------------------------------------------------------------
+     *  All variants of the print_process function
+     * ------------------------------------------------------------------------------ */
 
-    template <typename T, size_t N>
-    void print_main(T (&x)[N], int line, std::string name, bool print_data) {
-        print_main_handle(x,name,line,print_data);
-    }
-
+    template <class...> constexpr std::false_type always_false{};
     template <typename T>
-    void print_main_handle(T &x, std::string name, int line, bool print_data) {
-        std::string name_type = type_name<T>();
-        if (SHOW_TYPE_NAME) {
-            std::cout << colour(COLOUR_LINE) << line << colour(15) << ": "\
-                      << colour(COLOUR_TYPE_NAME) << name_type << " "\
-                      << colour(COLOUR_NAME) << bold() << name << clr()\
-                      << colour( 15) << " = ";
-        } else if(print_data) {
-            std::cout << colour(COLOUR_LINE) << line << colour(15) << ": "\
-                      << colour(COLOUR_NAME) << bold() << name << clr()\
-                      << colour( 15) << " = ";
-        }
-        print_process(x);
-        std::cout << std::endl << clr();
-    }
-
-
-    template <typename T>
-    void print_process(T &x){
+    void print_process(T &x) {
              if constexpr(is_arithmetic_v <T                     >       ) print_arithmetic    (x);
-        else if constexpr(is_array_v      <T                     >       ) print_array         (x);
+        else if constexpr(is_same     <T, vector<bool>::reference>::value) print_bit_reference (x);
+        else if constexpr(is_same         <T, string             >::value) print_string        (x);
         else if constexpr(is_pointer_v    <T                     >       ) print_pointer       (x);
-        else if constexpr(is_same         <T,string              >::value) print_string        (x);
-       /* else if constexpr(is_same         <T,bitset        <S  > >::value) print_bitset        (x);
+        else if constexpr(is_iterable     <T                     >::value) print_iterable      (x);
+        else if constexpr(is_array_v      <T                     >       ) print_array         (x);
+    /* 
+        else if constexpr(is_same         <T,bitset        <S  > >::value) print_bitset        (x);
         else if constexpr(is_same         <T,pair          <U,H> >::value) print_pair          (x);
         else if constexpr(is_same         <T,stack         <U  > >::value) print_stack         (x);
         else if constexpr(is_same         <T,queue         <U  > >::value) print_queue         (x);
-        else if constexpr(is_same         <T,priority_queue<U> >::value) print_priority_queue(x);*/
-        else if constexpr(is_iterable     <T                     >::value) print_iterable      (x);
-        else if constexpr(is_class_v      <T> && !(is_iterable<T>::value)) print_class_struct  (x);
+        else if constexpr(is_same         <T,priority_queue<U  > >::value) print_priority_queue(x);
+    */
+        else if constexpr(is_class_v      <T> && !(is_iterable<T>::value)) print_struct        (x);
+        else static_assert(always_false<T>, "This type is not suported!");
     }
 
     //temporary solution
-     template <size_t S>
+    template <size_t S>
     void print_process(bitset<S> &x) {
         print_bitset(x);
     }
@@ -491,47 +518,45 @@ namespace cupl {
         print_pair(x);
     }
 
-    template <typename T>
-    void print_process(stack<T> &x) {
+    template <typename T, typename C>
+    void print_process(stack<T, C> &x) {
         print_stack(x);
     }
 
-    template <typename T>
-    void print_process(queue<T> &x) {
+    template <typename T, typename C>
+    void print_process(queue<T, C> &x) {
         print_queue(x);
     }
 
-    template <typename T>
-    void print_process(priority_queue<T> &x) {
+    template <typename T, typename C, typename D>
+    void print_process(priority_queue<T, C, D> &x) {
        print_priority_queue(x);
     }
 
+    /* ------------------------------------------------------------------------------
+     *  Funtions to handle all the types
+     * ------------------------------------------------------------------------------ */
 
-    template <typename T, size_t N>
-    void print_array(T (&a)[N]){
+    template <typename T>
+    void print_arithmetic(T &x) {
+        std::cout << colour(COLOUR_NUMBER) << bold() << x << clr();
+    }
 
-        bool is_not_last_dimention = is_iterable<decltype(a[0])>::value && int(N) > 0;
+    void print_bit_reference(bool x) {
+        print_arithmetic(x);
+    }
 
-        std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
-        indent();
+    void print_string(std::string &x) {
+        std::cout << colour(COLOUR_STRING) << bold() << "\"" << x << "\"" << clr();
+    }
 
-         if (is_not_last_dimention)
-            std::cout << '\n' << indentation;
-
-        for (int i = 0; i < int(N); ++i) {
-            print_process(a[i]);
-            if (is_not_last_dimention) {
-                std::cout << '\n' << indentation;
-            } else {
-                std::cout << ' ';
-            }
-        }
-
-        if (ANSIsupport && is_not_last_dimention)
-            std::cout << "\033[4D";
-
-        unindent();
-        std::cout << colour(array_colours[indentation_level]) << "}" << clr();
+    template <typename T>
+    void print_pointer(T &x) {
+        std::cout << colour(COLOUR_POINTER) << bold() << '*' << clr();
+        if (x != nullptr)
+            print_process(*x);
+        else
+            std::cout << backgr(COLOUR_BACKGR_NULLPOINTER) << colour(COLOUR_NULLPOINTER) << bold() << "NULL" << clr();
     }
 
     template <typename T>
@@ -559,37 +584,58 @@ namespace cupl {
         std::cout << colour(array_colours[indentation_level]) << "}" << clr();
     }
 
+    template <typename T, size_t N>
+    void print_array(T (&a)[N]) {
+        bool is_not_last_dimention = is_iterable<decltype(a[0])>::value && int(N) > 0;
+
+        std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
+        indent();
+
+         if (is_not_last_dimention)
+            std::cout << '\n' << indentation;
+
+        for (int i = 0; i < int(N); ++i) {
+            print_process(a[i]);
+            if (is_not_last_dimention) {
+                std::cout << '\n' << indentation;
+            } else {
+                std::cout << ' ';
+            }
+        }
+
+        if (ANSIsupport && is_not_last_dimention)
+            std::cout << "\033[4D";
+
+        unindent();
+        std::cout << colour(array_colours[indentation_level]) << "}" << clr();
+    }
+
     template <typename T>
-    void print_arithmetic(T &x) {
-        std::cout << colour(COLOUR_NUMBER) << bold() << x << clr();
+    void print_struct(T &x) {
+        std::cout << colour(array_colours[indentation_level]) << "{ " << clr();
+        indent();
+
+        std::cout << '\n' << indentation;
+
+        x.print_process();
+
+        if (ANSIsupport)
+            std::cout << "\033[4D";
+
+        unindent();
+        std::cout << colour(array_colours[indentation_level]) << "}" << clr();
+    }
+
+    template <typename T>
+    void print_struct_member(T &x, std::string member_name) {
+        std::cout << colour(COLOUR_NAME) << member_name << clr() << ": ";
+        print_process(x);
+        std::cout << '\n' << indentation;
     }
 
     template <size_t T>
     void print_bitset(std::bitset<T> &x) {
         std::cout << colour(COLOUR_BITSET) << bold() << x << clr();
-    }
-
-    template <typename T>
-    void print_class_struct(T &x) {
-        x.print_process();
-    }
-
-    template <typename T>
-    void print_struct_member(T &x, std::string member_name) {
-        print_string(member_name);
-        print_process(x);
-    }
-
-    template <typename T>
-    void print_pointer(T &x) {
-        if (x != nullptr)
-            print_process(*x);
-        else
-            std::cout << backgr(COLOUR_BACKGR_NULLPOINTER) << colour(COLOUR_NULLPOINTER) << bold() << "NULL" << clr();
-    }
-
-    void print_string(std::string &x) {
-        std::cout << colour(COLOUR_STRING) << bold() << "\"" << x << "\"" << clr();
     }
 
     template <typename U, typename H>
@@ -603,9 +649,9 @@ namespace cupl {
         std::cout << colour(array_colours[indentation_level]) << ")" << clr();
     }
 
-    template <typename T>
-    void print_stack(std::stack<T> &x) {
-        std::stack<T> tmp = x;
+    template <typename T, typename C>
+    void print_stack(std::stack<T, C> &x) {
+        std::stack<T, C> tmp = x;
         std::vector<T>   result;
 
         while (!tmp.empty()) {
@@ -616,9 +662,9 @@ namespace cupl {
         print_process(result);
     }
 
-    template <typename T>
-    void print_queue(std::queue<T> &x) {
-        std::queue<T> tmp = x;
+    template <typename T, typename C>
+    void print_queue(std::queue<T, C> &x) {
+        std::queue<T, C> tmp = x;
         std::vector<T>   result;
         while (!tmp.empty()) {
             result.push_back(tmp.front());

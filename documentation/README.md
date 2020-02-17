@@ -32,6 +32,8 @@ int getValue(int val){return val*2;}
 int getValue(int val){return val*2+1;}
 ```
 
+## `declare_struct(members)`
+This macro makes cupl display all the `members` you provided.
 
 ## `cupl::showTypes(bool val)`
 This function is used to enable or disable showing types' names when calling `watch()`.

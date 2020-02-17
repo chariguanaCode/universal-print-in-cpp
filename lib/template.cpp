@@ -10,6 +10,8 @@
 //if DEBUG mode is off it defines all debug mode functions to "turn them off"
 //so you don't have to delete all library functions before submiting the final code
 #define watch(...)
+#define watchb(...)
+#define declare_struct(...)
 #define debug if(0)
 namespace cupl{
     template <typename T> void print_main(T &x, int y, std::string z){return;}

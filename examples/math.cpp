@@ -8,6 +8,8 @@
 #endif
 #if DEBUG==0
 #define watch(...)
+#define watchb(...)
+#define declare_struct(...)
 #define debug if(0)
 namespace cupl{
     template <typename T> void print_main(T &x, int y, std::string z){return;}
