@@ -116,7 +116,7 @@ The "User setup" section will allow you to change all of those things easily.
 
 If you encounter any issues or come up with nice improvements please report them on the Issue Tracker.
 
-Merge requests are welcome too :).
+Merge requests are welcome too :D
 
 ## Screenshots
 
